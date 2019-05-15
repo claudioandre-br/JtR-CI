@@ -50,11 +50,11 @@ git rev-parse --short HEAD 2>/dev/null > ../../../../My_VERSION.TXT
 export CFLAGS="-O2 $CFLAGS"
 
 # Show environmen information
-wget https://raw.githubusercontent.com/claudioandre-br/packages/master/john-the-ripper/tests/show_info.sh
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/show_info.sh
 source show_info.sh
 
 # Build helper
-wget https://raw.githubusercontent.com/claudioandre-br/packages/master/john-the-ripper/tests/run_build.sh
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_build.sh
 source run_build.sh
 
 echo ""
@@ -94,16 +94,16 @@ mkdir --parents /snap/john-the-ripper/current/
 ln -s $(realpath ../run) /snap/john-the-ripper/current/run
 
 # Adjust the testing environment, import and run some testing
-wget https://raw.githubusercontent.com/claudioandre-br/packages/master/john-the-ripper/tests/disable_formats.sh
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/disable_formats.sh
 source disable_formats.sh
 
-wget https://raw.githubusercontent.com/claudioandre-br/packages/master/john-the-ripper/tests/run_tests.sh
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
 source run_tests.sh
 
-wget https://raw.githubusercontent.com/claudioandre-br/packages/master/john-the-ripper/tests/clean_package.sh
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/clean_package.sh
 source clean_package.sh
 
 # Get the script that computes the package version
-wget https://raw.githubusercontent.com/claudioandre-br/packages/master/john-the-ripper/tests/package_version.sh
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/package_version.sh
 chmod +x package_version.sh
 cp package_version.sh ../../../../package_version.sh

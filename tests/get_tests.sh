@@ -24,18 +24,18 @@ rm -rf .travis.yml buggy.sh circle.yml appveyor.yml .travis/ .circle/ .circleci/
 mkdir -p .circleci/
 mkdir -p .travis/
 
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/john-the-ripper/tests/buggy.sh
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/buggy.sh
 
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/john-the-ripper/tests/appveyor.yml
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/appveyor.yml
 
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/john-the-ripper/tests/.travis.yml
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/john-the-ripper/tests/CI-tests.sh   -P .travis/
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/john-the-ripper/tests/travis-ci.sh  -P .travis/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/.travis.yml
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/CI-tests.sh   -P .travis/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/travis-ci.sh  -P .travis/
 
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/john-the-ripper/tests/config.yml    -P .circleci/
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/john-the-ripper/tests/circle-ci.sh  -P .circleci/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/config.yml    -P .circleci/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/circle-ci.sh  -P .circleci/
 
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/john-the-ripper/tests/.cirrus.yml
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/.cirrus.yml
 
 chmod +x buggy.sh
 chmod +x .travis/CI-tests.sh
@@ -53,7 +53,7 @@ git add .circleci/
 ./buggy.sh disable
 
 # Save the resulting state
-git commit -a -m "CI: run tests and make a Windows package $(date)"
+git commit -a -m "CI: test and make a Windows package $(date)"
 
 # Clean up
 rm -f buggy.sh

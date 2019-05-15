@@ -46,7 +46,7 @@ function do_Build(){
 
     BASE="Ubuntu"
     TASK_RUNNING="$TEST"
-    wget https://raw.githubusercontent.com/claudioandre-br/packages/master/john-the-ripper/tests/show_info.sh
+    wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/show_info.sh
     source show_info.sh
 
     echo

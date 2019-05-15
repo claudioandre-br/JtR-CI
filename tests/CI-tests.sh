@@ -117,8 +117,8 @@ if [[ -z "${TEST##*EXTRAS*}" ]]; then
 
     # UTF-8 tests
     echo --------------------------------------------
-    wget https://raw.githubusercontent.com/claudioandre-br/packages/master/john-the-ripper/tests/answers
-    wget https://raw.githubusercontent.com/claudioandre-br/packages/master/john-the-ripper/tests/specials
+    wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/answers
+    wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/specials
 
     # Prepare for tests
     echo --------------------------------------------
@@ -200,7 +200,7 @@ elif test "$FUZZ" = "zzuf" ; then
     JTR_BIN="$JtR"
     JTR_CL=""
 
-    wget https://raw.githubusercontent.com/claudioandre-br/packages/master/john-the-ripper/tests/run_tests.sh
+    wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
     source run_tests.sh
 
 elif test "$FUZZ" = "afl" ; then
@@ -210,7 +210,7 @@ elif test "$FUZZ" = "afl" ; then
     JTR_BIN="$JtR"
     JTR_CL=""
 
-    wget https://raw.githubusercontent.com/claudioandre-br/packages/master/john-the-ripper/tests/run_tests.sh
+    wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
     source run_tests.sh
 
 elif test "$FUZZ" = "full" ; then
@@ -220,7 +220,7 @@ elif test "$FUZZ" = "full" ; then
     JTR_BIN="$JtR"
     JTR_CL=""
 
-    wget https://raw.githubusercontent.com/claudioandre-br/packages/master/john-the-ripper/tests/run_tests.sh
+    wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
     source run_tests.sh
 
 elif test "$FUZZ" = "internal" ; then
@@ -230,7 +230,7 @@ elif test "$FUZZ" = "internal" ; then
     JTR_BIN="$JtR"
     JTR_CL=""
 
-    wget https://raw.githubusercontent.com/claudioandre-br/packages/master/john-the-ripper/tests/run_tests.sh
+    wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
     source run_tests.sh
 
 elif test "$FUZZ" = "snap" ; then
@@ -240,7 +240,7 @@ elif test "$FUZZ" = "snap" ; then
     JTR_BIN="$JtR"
     JTR_CL=""
 
-    wget https://raw.githubusercontent.com/claudioandre-br/packages/master/john-the-ripper/tests/run_tests.sh
+    wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
     source run_tests.sh
 
 elif test "$FUZZ" = "check" ; then
@@ -250,7 +250,7 @@ elif test "$FUZZ" = "check" ; then
     JTR_BIN="$JtR"
     JTR_CL=""
 
-    wget https://raw.githubusercontent.com/claudioandre-br/packages/master/john-the-ripper/tests/run_tests.sh
+    wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
     source run_tests.sh
 
 elif test "$FUZZ" = "ztex" ; then

@@ -1,4 +1,4 @@
-rm -f get_tests.sh; wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/john-the-ripper/tests/get_tests.sh; chmod +x get_tests.sh ; ./get_tests.sh
+rm -f get_tests.sh; wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/get_tests.sh; chmod +x get_tests.sh ; ./get_tests.sh
 
 
 john --list=build-info

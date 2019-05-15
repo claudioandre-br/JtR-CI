@@ -39,7 +39,7 @@ if [[ $2 == "TEST" ]]; then
     MUTE_SYS_INFO="Yes"
 fi
 TASK_RUNNING="$2"
-wget https://raw.githubusercontent.com/claudioandre-br/packages/master/john-the-ripper/tests/show_info.sh
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/show_info.sh
 source show_info.sh
 
 # Build and testing
@@ -77,7 +77,7 @@ elif [[ $2 == "TEST" ]]; then
     JTR_BIN="$WINE $JTR"
     JTR_CL=""
 
-    wget https://raw.githubusercontent.com/claudioandre-br/packages/master/john-the-ripper/tests/run_tests.sh
+    wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
     source run_tests.sh
 fi
 
