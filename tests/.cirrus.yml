@@ -7,6 +7,7 @@ freebsd11_task:
                 - ./configure
                 - gmake -sj4
                 - ../run/john --list=build-info
+
         check_script:
                 - cd run
                 - ./john --test=0
@@ -19,6 +20,15 @@ freebsd12_task:
                 - ./configure
                 - gmake -sj4
                 - ../run/john --list=build-info
+
         check_script:
+                # Do some testing
+                - export TEST=';full;extra;' # Controls how the test will happen
+                - export arch=$(uname -m)
+                - export JTR_BIN='./john'
                 - cd run
-                - ./john --test=0
+
+                # Adjust the testing environment, import and run some testing
+                - wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
+                - chmod a+x run_tests.sh
+                - ./run_tests.sh
