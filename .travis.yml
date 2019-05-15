@@ -1,0 +1,114 @@
+dist: xenial
+services:
+- docker
+
+branches:
+  only:
+  - images
+
+env:
+  global:
+    - COMMIT=${TRAVIS_COMMIT::8}
+
+matrix:
+  include:
+  - env: REPO=claudioandre/john   NAME=fedora.30           DOCKERFILE=Dockerfile.F30
+  - env: REPO=claudioandre/john   NAME=fedora.30.flatpak   DOCKERFILE=Dockerfile.flatpak.package
+  - env: REPO=claudioandre/john   NAME=ubuntu.opencl       DOCKERFILE=Dockerfile.OpenCL
+  - env: REPO=claudioandre/john   NAME=ubuntu.devel        DOCKERFILE=Dockerfile.UbuntuDevel
+  - env: REPO=claudioandre/john   NAME=ubuntu.rolling      DOCKERFILE=Dockerfile.UbuntuRolling
+  - env: REPO=claudioandre/john   NAME=centos.6            DOCKERFILE=Dockerfile.CentOS6
+  - env: REPO=claudioandre/john   NAME=v1.9.0J2            DOCKERFILE=Dockerfile   BIN_VERSION=yes
+
+script:
+  - export log_message=$(git log -n 1)
+
+  - 'if [[ "$BIN_VERSION" == "yes" ]]; then
+       git clone --depth 10 https://github.com/magnumripper/JohnTheRipper.git john;
+       # git checkout a16c8a76259ab870c07e5123c237b1900402d9a6; # Make it a reproducible build
+     else
+       cd tests/Dockerfiles;
+     fi'
+  - docker build -t "$REPO:$NAME" --file "$DOCKERFILE" .
+
+  # Test if JtR builds inside the CI Docker Image
+  - 'if [[ "$log_message" == *"[run test]"* && "$log_message" == *"[$NAME]"* ]]; then
+       git clone  https://github.com/magnumripper/JohnTheRipper.git john && cd john/src;
+       docker run -v $(pwd):/cwd $REPO:$NAME bash -e -c "cd /cwd && ./configure && make -sj2";
+     fi
+    '
+
+  # Test the JtR Docker Image
+  - 'if [[ "$log_message" == *"[test image]"* && "$log_message" == *"[$NAME]"* ]]; then
+       docker run claudioandre/john:v1.9.0J2 sse2    --test=10 --format=SHA512crypt;
+       docker run claudioandre/john:v1.9.0J2 ssse3   --test=10 --format=SHA512crypt;
+       docker run claudioandre/john:v1.9.0J2 sse4.1  --test=10 --format=SHA512crypt;
+       docker run claudioandre/john:v1.9.0J2 avx     --test=10 --format=SHA512crypt;
+       docker run claudioandre/john:v1.9.0J2 sse4.2-no-omp  --test=10 --format=SHA512crypt;
+       docker run claudioandre/john:v1.9.0J2 avx-no-omp     --test=10 --format=SHA512crypt;
+     fi
+    '
+
+after_success:
+  - docker tag "$REPO:$NAME" "$REPO:"$NAME"_J$TRAVIS_JOB_NUMBER"
+  - docker images
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+  # Do not push, if requested
+  - 'if [[ "$log_message" != *"[dont push]"* ]]; then
+       docker push $REPO;
+     fi
+    '
+
+#################################################
+#  include:
+#  - env: IMAGE=fedora:rawhide BASE=fedora NAME=meu-SM52-gcc.fedora-dev REPO=claudioandre/spidermonkey DEV=devel STATIC=moz52 CC=gcc
+#  - env: IMAGE=ubuntu:devel   BASE=debian NAME=meu-SM52-gcc.ubuntu-dev REPO=claudioandre/spidermonkey DEV=devel STATIC=moz52 CC=gcc
+#script:
+#  - cd docker
+#  - export log_message=$(git log -n 1)
+#
+#  - 'if [[ "$TRAVIS_EVENT_TYPE" != "cron" && "$log_message" == *"[filter images]"* && "$log_message" != *"[$NAME]"* ]]; then
+#       echo -e "\n*** NOTHING TO DO ***\n";
+#       exit 0;
+#     else
+#       echo -e "\n*** BUILDING ***\n";
+#     fi'
+#
+#  # Register QEMU
+#  - 'if [[ $EMU_EXTRA == "yes" ]]; then
+#       docker run --rm --privileged multiarch/qemu-user-static:register --reset;
+#     fi'
+#
+#  # For a heavy build, add -m 500M --oom-kill-disable
+#  # -------------------------------------------------
+#  - 'docker run --name $NAME -v $(pwd):/on-host -v $(pwd)/ci-images.sh:/ci-images.sh
+#        -e BASE=$BASE -e OS=$IMAGE -e BUILD_OPTS=$BUILD_OPTS -e DEV=$DEV -e CC=$CC -e STATIC=$STATIC $IMAGE
+#      bash -e -c "/ci-images.sh BUILD_MOZ"
+#    '
+#  - docker commit $NAME $REPO:$NAME
+#
+#  # Test the build
+#
+#  - 'if [[ "$log_message" == *"[run test]"* && "$log_message" == *"[$NAME]"* ]]; then
+#       rm -rf gjs && git clone https://github.com/GNOME/gjs.git && cd gjs;
+#       docker run -v $(pwd):/cwd -e DEV=$DEV -e TEST=check -e CC=gcc $REPO:$NAME bash -e -c "cd /cwd && test/test-ci.sh GJS";
+#     fi
+#    '
+#
+#after_success:
+#  - docker tag "$REPO:$NAME" "$REPO:job-"$TRAVIS_JOB_NUMBER"_$NAME"
+#  - docker images
+#  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+#
+#  # Do not push, if requested
+#  - 'if [[ "$TRAVIS_EVENT_TYPE" == "cron" || "$log_message" != *"[dont push]"* ]]; then
+#       docker push $REPO;
+#     fi
+#    '
+#
+#################################################
+# export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+# 'if [[ $NAME == "fedora.26.gcc" ]]; then
+#     docker tag $REPO:$NAME $REPO:$TAG;
+#   fi'
