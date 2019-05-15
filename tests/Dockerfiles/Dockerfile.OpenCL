@@ -10,7 +10,8 @@
 ######################################################################
 
 FROM ubuntu:17.10
-MAINTAINER Claudio André (c) 2017-2019 1.0.OpenCL
+LABEL maintainer Claudio André (c) 2017-2019 1.0.OpenCL
+LABEL software CI for John the Ripper
 
 RUN apt-get update -qq && \
     apt-get install -y \

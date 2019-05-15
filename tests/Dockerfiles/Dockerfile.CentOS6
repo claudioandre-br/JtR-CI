@@ -10,7 +10,8 @@
 ######################################################################
 
 FROM centos:centos6
-MAINTAINER Claudio André (c) 2017-2019 1.0.CentOS6
+LABEL maintainer Claudio André (c) 2017-2019 1.0.CentOS6
+LABEL software CI for John the Ripper
 
 RUN yum -y -q update && \
     yum -y    groupinstall 'Development Tools' && \

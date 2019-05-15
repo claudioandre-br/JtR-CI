@@ -10,7 +10,8 @@
 ######################################################################
 
 FROM ubuntu:devel
-MAINTAINER Claudio André (c) 2017-2019 1.0.UbuntuDevel
+LABEL maintainer Claudio André (c) 2017-2019 1.0.UbuntuDevel
+LABEL software CI for John the Ripper
 
 RUN apt-get update -qq && \
     apt-get install -y \

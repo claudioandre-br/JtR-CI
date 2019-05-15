@@ -11,7 +11,7 @@
 
 FROM ubuntu:18.04
 LABEL maintainer Claudio André (c) 2017-2019 1.9.0J1
-LABEL software John the Ripper 1.9.0 Jumbo 1
+LABEL software John the Ripper 1.9.0 Jumbo 1+
 
 COPY john/ /john
 COPY docker-entrypoint.sh /usr/local/bin/

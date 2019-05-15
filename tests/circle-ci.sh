@@ -22,8 +22,8 @@ function do_Copy_Dlls(){
     cp "$basepath/libbz2-1.dll" ../run
     cp "$basepath/libwinpthread-1.dll" ../run
     cp "$basepath/zlib1.dll" ../run
-    cp "$basepath/libcrypto-10.dll" ../run
-    cp "$basepath/libssl-10.dll" ../run
+    cp "$basepath/libcrypto-1*.dll" ../run
+    cp "$basepath/libssl-1*.dll" ../run
     cp "$basepath/libgcc_s_seh-1.dll" ../run
     echo '-- Done --'
 }
@@ -55,7 +55,7 @@ if [[ $2 == "BUILD" ]]; then
     fi
 
     if [[ $TARGET_ARCH == *"NIX"* || $TARGET_ARCH == *"ARM"* ]]; then
-        ./configure --enable-werror $ASAN $BUILD_OPTS
+        ./configure $ASAN $BUILD_OPTS #TODO re-enable wError ./configure --enable-werror $ASAN $BUILD_OPTS
     fi
 
     # Build

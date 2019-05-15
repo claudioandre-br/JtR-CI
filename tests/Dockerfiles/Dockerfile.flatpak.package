@@ -9,8 +9,9 @@
 # http://www.gnu.org/licenses/gpl-2.0.html
 ######################################################################
 
-FROM fedora:29
-MAINTAINER Claudio André (c) 2017-2019 1.0.F29
+FROM fedora:30
+LABEL maintainer Claudio André (c) 2017-2019 1.0.Flatpak
+LABEL software Flatpak related CI for John the Ripper
 
 RUN dnf -y -q update && \
     dnf -y    install \

@@ -148,8 +148,9 @@ after_build:
       Write-Host "==  Enable ASLR and DEP for the Windows binary of JtR  ==" -ForegroundColor White
       Write-Host "---------------------------------------------------------"
 
+  - peflags --dynamicbase=true --nxcompat=true *.exe
   - ps: |
-      shell "make peflags"
+      shell "make -s windows-package"
 
   # Compute checksums
   - ps: |
@@ -206,13 +207,15 @@ after_test:
 
   # Remove unused stuff
   - ps: |
-      shell "rm -f ../run/john-local.conf"
-      shell "rm -rf ../run/ztex"
+      cd ..
+      shell "rm -f run/john-local.conf"
+      shell "rm -rf run/ztex"
+      shell "rm -rf src"
 
 on_failure:
-  - dir ..\ /s > dir.txt
+  - dir "%PROJ_FOLDER%\JohnTheRipper" /s > dir.txt
   - if exist "dir.txt" 7z a -tzip debug_logs.zip "dir.txt" > nul
-  - if exist "..\src\config.log" 7z a -tzip debug_logs.zip "..\src\config.log" > nul
+  - if exist "%PROJ_FOLDER%\JohnTheRipper\src\config.log" 7z a -tzip debug_logs.zip "%PROJ_FOLDER%\JohnTheRipper\src\config.log" > nul
   - if exist "debug_logs.zip" appveyor PushArtifact "debug_logs.zip"
 
 on_finish:
@@ -220,11 +223,7 @@ on_finish:
   - if exist "optional.zip" if "%doing%" == "deploy" appveyor PushArtifact "optional.zip"
   - move optional.zip c:\
 
-  - if exist "%PROJ_FOLDER%\JohnTheRipper\run\john.exe" 7z a -tzip "win_x%bits%.zip" "%PROJ_FOLDER%\JohnTheRipper\run"
-  - if exist "%PROJ_FOLDER%\JohnTheRipper\run\john.exe" if "%doing%" == "deploy" 7z a -tzip "win_x%bits%.zip" "%PROJ_FOLDER%\JohnTheRipper\doc"
-  - if exist "%PROJ_FOLDER%\JohnTheRipper\run\john.exe" if "%doing%" == "deploy" 7z a -tzip "win_x%bits%.zip" "%PROJ_FOLDER%\JohnTheRipper\READ*"
-  - if exist "%PROJ_FOLDER%\JohnTheRipper\run\john.exe" if "%doing%" == "deploy" 7z a -tzip "win_x%bits%.zip" "%PROJ_FOLDER%\JohnTheRipper\checksums.txt"
-  - if exist "%PROJ_FOLDER%\JohnTheRipper\run\john.exe" if "%doing%" == "deploy" 7z a -tzip "win_x%bits%.zip" "%PROJ_FOLDER%\JohnTheRipper\etc"
+  - if exist "%PROJ_FOLDER%\JohnTheRipper\run\john.exe" 7z a -tzip "win_x%bits%.zip" "%PROJ_FOLDER%\JohnTheRipper"
   - if exist "win_x%bits%.zip" if "%doing%" == "deploy" appveyor PushArtifact "win_x%bits%.zip"
   - move "win_x%bits%.zip" c:\
 
@@ -238,4 +237,3 @@ on_finish:
         Write-Host "            =====  No Files to Upload  =====            " -ForegroundColor Red
         Write-Host "--------------------------------------------------------"
       }
-

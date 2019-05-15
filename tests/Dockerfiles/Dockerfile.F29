@@ -10,7 +10,8 @@
 ######################################################################
 
 FROM fedora:29
-MAINTAINER Claudio André (c) 2017-2019 1.0.F29
+LABEL maintainer Claudio André (c) 2017-2019 1.0.F29
+LABEL software CI for John the Ripper
 
 RUN dnf -y -q update && \
     dnf -y    install \
