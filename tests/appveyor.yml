@@ -159,9 +159,9 @@ after_build:
       Write-Host "--------------------------------------------------------"
 
   - ps: |
-      echo "File verification is the process of using an algorithm for verifying the integrity of a computer file. A popular approach is to store checksums (hashes) of files, also known as message digests, for later comparison." | Tee-Object -FilePath ..\checksums.txt -Append
+      Write-Host "File verification is the process of using an algorithm for verifying the integrity of a computer file. A popular approach is to store checksums (hashes) of files, also known as message digests, for later comparison." | Tee-Object -FilePath ..\checksums.txt
   - ps: |
-      echo "**************************************************************************" | Tee-Object -FilePath ..\checksums.txt -Append
+      Write-Host "**************************************************************************" | Tee-Object -FilePath ..\checksums.txt -Append
 
   - ps: |
       Get-FileHash -Path .\*.exe | Tee-Object -FilePath ..\checksums.txt -Append
@@ -225,25 +225,26 @@ on_failure:
   - dir "%PROJ_FOLDER%\JohnTheRipper" /s > dir.txt
   - if exist "dir.txt" 7z a -tzip debug_logs.zip "dir.txt" > nul
   - if exist "%PROJ_FOLDER%\JohnTheRipper\src\config.log" 7z a -tzip debug_logs.zip "%PROJ_FOLDER%\JohnTheRipper\src\config.log" > nul
+  - if exist "%PROJ_FOLDER%\JohnTheRipper\src\Makefile" 7z a -tzip debug_logs.zip "%PROJ_FOLDER%\JohnTheRipper\src\Makefile" > nul
   - if exist "debug_logs.zip" appveyor PushArtifact "debug_logs.zip"
 
 on_finish:
-  - if exist "%PROJ_FOLDER%\JohnTheRipper\lib" 7z a -tzip "optional.zip" "%PROJ_FOLDER%\JohnTheRipper\lib"
-  - if exist "optional.zip" if "%doing%" == "deploy" appveyor PushArtifact "optional.zip"
-  - move optional.zip c:\
+  - if exist "%PROJ_FOLDER%\JohnTheRipper\lib" 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on "optional.7z" "%PROJ_FOLDER%\JohnTheRipper\lib"
+  - if exist "optional.7z" if "%doing%" == "deploy" appveyor PushArtifact "optional.7z"
+  - move optional.7z c:\
 
   - rmdir "%PROJ_FOLDER%\JohnTheRipper\lib" /s /Q
   - rmdir "%PROJ_FOLDER%\JohnTheRipper\.git" /s /Q
   - rmdir "%PROJ_FOLDER%\JohnTheRipper\src" /s /Q
 
-  - if exist "%PROJ_FOLDER%\JohnTheRipper\run\john.exe" 7z a -tzip "win_x%bits%.zip" "%PROJ_FOLDER%\JohnTheRipper"
-  - if exist "win_x%bits%.zip" if "%doing%" == "deploy" appveyor PushArtifact "win_x%bits%.zip"
-  - move "win_x%bits%.zip" c:\
+  - if exist "%PROJ_FOLDER%\JohnTheRipper\run\john.exe" 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on "win_x%bits%.7z" "%PROJ_FOLDER%\JohnTheRipper"
+  - if exist "win_x%bits%.7z" if "%doing%" == "deploy" appveyor PushArtifact "win_x%bits%.7z"
+  - move "win_x%bits%.7z" c:\
 
   - ps: |
-      if ($Zipfile = Get-ChildItem "c:\win_x$bits.zip") {
-        Get-FileHash "c:\win_x$bits.zip"
-        Get-FileHash "c:\optional.zip"
+      if ($Zipfile = Get-ChildItem "c:\win_x$bits.7z") {
+        Get-FileHash "c:\win_x$bits.7z"
+        Get-FileHash "c:\optional.7z"
 
       } else {
         Write-Host "--------------------------------------------------------"
