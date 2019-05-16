@@ -205,12 +205,21 @@ after_test:
   - del john.log
   - del john.pot
 
-  # Remove unused stuff
-  - ps: |
-      cd ..
-      shell "rm -f run/john-local.conf"
-      shell "rm -rf run/ztex"
-      shell "rm -rf src"
+  # Remove unused/unneeded stuff
+  - rmdir "%PROJ_FOLDER%\JohnTheRipper\run\ztex" /s /Q
+
+  # Remove hidden .name files and folders
+  - del "%PROJ_FOLDER%\JohnTheRipper\.editorconfig"
+  - del "%PROJ_FOLDER%\JohnTheRipper\.gitattributes"
+  - del "%PROJ_FOLDER%\JohnTheRipper\.gitignore"
+  - del "%PROJ_FOLDER%\JohnTheRipper\.mailmap"
+  - del "%PROJ_FOLDER%\JohnTheRipper\.pre-commit.sh"
+  - del "%PROJ_FOLDER%\JohnTheRipper\.travis.yml"
+
+  - rmdir "%PROJ_FOLDER%\JohnTheRipper\.ci"       /s /Q
+  - rmdir "%PROJ_FOLDER%\JohnTheRipper\.circleci" /s /Q
+  - rmdir "%PROJ_FOLDER%\JohnTheRipper\.github"   /s /Q
+  - rmdir "%PROJ_FOLDER%\JohnTheRipper\.travis"   /s /Q
 
 on_failure:
   - dir "%PROJ_FOLDER%\JohnTheRipper" /s > dir.txt
@@ -222,6 +231,10 @@ on_finish:
   - if exist "%PROJ_FOLDER%\JohnTheRipper\lib" 7z a -tzip "optional.zip" "%PROJ_FOLDER%\JohnTheRipper\lib"
   - if exist "optional.zip" if "%doing%" == "deploy" appveyor PushArtifact "optional.zip"
   - move optional.zip c:\
+
+  - rmdir "%PROJ_FOLDER%\JohnTheRipper\lib" /s /Q
+  - rmdir "%PROJ_FOLDER%\JohnTheRipper\.git" /s /Q
+  - rmdir "%PROJ_FOLDER%\JohnTheRipper\src" /s /Q
 
   - if exist "%PROJ_FOLDER%\JohnTheRipper\run\john.exe" 7z a -tzip "win_x%bits%.zip" "%PROJ_FOLDER%\JohnTheRipper"
   - if exist "win_x%bits%.zip" if "%doing%" == "deploy" appveyor PushArtifact "win_x%bits%.zip"
