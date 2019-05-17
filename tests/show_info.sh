@@ -52,10 +52,12 @@ if [[ -z "$MUTE_SYS_INFO" ]]; then
     echo 'Compiler information'
     echo '--------------------------------'
 
-    "$TMP_CC" --version
-    echo '--------------------------------'
-    "$TMP_CC" -dM -E -x c /dev/null
-    echo '--------------------------------'
+    if [[ -x "$(command -v $TMP_CC)" ]]; then
+        "$TMP_CC" --version
+        echo '--------------------------------'
+        "$TMP_CC" -dM -E -x c /dev/null
+        echo '--------------------------------'
+    fi
 
     if [[ -n "$TRAVIS_COMPILER" ]]; then
         echo -en 'travis_fold:end:compiler_info\r'

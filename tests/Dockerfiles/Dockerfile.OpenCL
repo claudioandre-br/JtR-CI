@@ -9,7 +9,7 @@
 # http://www.gnu.org/licenses/gpl-2.0.html
 ######################################################################
 
-FROM ubuntu:17.10
+FROM ubuntu:18.04
 LABEL maintainer Claudio André (c) 2017-2019 1.0.OpenCL
 LABEL software CI for John the Ripper
 
@@ -18,7 +18,8 @@ RUN apt-get update -qq && \
         build-essential libssl-dev yasm libgmp-dev libpcap-dev pkg-config debhelper libnet1-dev \
         libbz2-dev wget llvm libomp-dev zlib1g-dev git clang afl zzuf \
         libpocl-dev ocl-icd-libopencl1 pocl-opencl-icd opencl-headers && \
-    useradd -U -m JtR
+    useradd -U -m JtR && \
+    ln -s /usr/lib/x86_64-linux-gnu/libOpenCL.so.1 /usr/lib/x86_64-linux-gnu/libOpenCL.so
 
 # USER JtR => it is much better to use root on Travis
 ENV BASE ubuntu

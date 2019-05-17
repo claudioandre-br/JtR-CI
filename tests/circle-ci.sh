@@ -22,7 +22,10 @@ function do_Copy_Dlls(){
     cp "$basepath/libbz2-1.dll" ../run
     cp "$basepath/libwinpthread-1.dll" ../run
     cp "$basepath/zlib1.dll" ../run
-    cp "$basepath/libcrypto-1*.dll" ../run
+
+    if [[ -f "$basepath/libcrypto-1*.dll" ]]; then
+        cp "$basepath/libcrypto-1*.dll" ../run # fails on Fedora 30
+    fi
     cp "$basepath/libssl-1*.dll" ../run
     cp "$basepath/libgcc_s_seh-1.dll" ../run
     echo '-- Done --'

@@ -78,6 +78,7 @@ parts:
       - libgmp-dev
       - libpcap-dev
       - libbz2-dev
+      - zlib1g-dev
       - opencl-headers
       - git
       - wget

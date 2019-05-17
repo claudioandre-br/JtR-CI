@@ -116,11 +116,16 @@ build_script:
         shell "./configure $EXE_NO_OMP CPPFLAGS='-mavx2   -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-xop\\\`"\`" '   && make -s clean && make -sj2  && make -s strip && mv ../run/john ../run/john-avx2-non-omp"
         shell "./configure $EXE_NORMAL CPPFLAGS='-mavx2   -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx2-non-omp\\\`"\`"  -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-xop\\\`"\`" '   && make -s clean && make -sj2 && make -s strip && mv ../run/john ../run/john-avx2"
 
-        shell "./configure $EXE_NO_OMP CPPFLAGS='-mavx512bw -fno-asynchronous-unwind-tables -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`" ' && make -s clean && make -sj2  && make -s strip && mv ../run/john ../run/john-avx512bw-non-omp"
-        shell "./configure $EXE_NORMAL CPPFLAGS='-mavx512bw -fno-asynchronous-unwind-tables -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx512bw-non-omp\\\`"\`" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`" ' && make -s clean && make -sj2 && make -s strip && mv ../run/john ../run/john-avx512bw"
+        if ($arch -eq "x86_64") {
+          shell "./configure $EXE_NO_OMP CPPFLAGS='-mavx512bw -fno-asynchronous-unwind-tables -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`" ' && make -s clean && make -sj2  && make -s strip && mv ../run/john ../run/john-avx512bw-non-omp"
+          shell "./configure $EXE_NORMAL CPPFLAGS='-mavx512bw -fno-asynchronous-unwind-tables -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx512bw-non-omp\\\`"\`" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`" ' && make -s clean && make -sj2 && make -s strip && mv ../run/john ../run/john-avx512bw"
 
-        # Use symlink.c to produce a tiny john.exe that executes the best SIMD
-        shell "make windows-tiny-link-to-john _BEST_SIMD=\`"\\\`"john-avx512bw.exe\\\`"\`" "
+          # Use symlink.c to produce a tiny john.exe that executes the best SIMD
+          shell "make windows-tiny-link-to-john _BEST_SIMD=\`"\\\`"john-avx512bw.exe\\\`"\`" "
+        } else {
+          # Use symlink.c to produce a tiny john.exe that executes the best SIMD
+          shell "make windows-tiny-link-to-john _BEST_SIMD=\`"\\\`"john-avx2.exe\\\`"\`" "
+        }
 
         # Configure OpenCL ICD
         shell "mkdir -p ../etc/OpenCL/vendors"
@@ -153,7 +158,7 @@ build_script:
       xcopy C:\$location\bin\*.dll ..\lib\
 
 after_build:
-  - cd %JTR_FOLDER\run
+  - cd "%JTR_FOLDER%\run"
 
   # Enable ASLR and DEP
   - ps: |
@@ -220,38 +225,38 @@ after_test:
   - del john.pot
 
   # Remove unused/unneeded stuff
-  - rmdir "%JTR_FOLDER\run\ztex" /s /Q
+  - rmdir "%JTR_FOLDER%\run\ztex" /s /Q
 
   # Remove hidden .name files and folders
-  - del "%JTR_FOLDER\.editorconfig"
-  - del "%JTR_FOLDER\.gitattributes"
-  - del "%JTR_FOLDER\.gitignore"
-  - del "%JTR_FOLDER\.mailmap"
-  - del "%JTR_FOLDER\.pre-commit.sh"
-  - del "%JTR_FOLDER\.travis.yml"
+  - del "%JTR_FOLDER%\.editorconfig"
+  - del "%JTR_FOLDER%\.gitattributes"
+  - del "%JTR_FOLDER%\.gitignore"
+  - del "%JTR_FOLDER%\.mailmap"
+  - del "%JTR_FOLDER%\.pre-commit.sh"
+  - del "%JTR_FOLDER%\.travis.yml"
 
-  - rmdir "%JTR_FOLDER\.ci"       /s /Q
-  - rmdir "%JTR_FOLDER\.circleci" /s /Q
-  - rmdir "%JTR_FOLDER\.github"   /s /Q
-  - rmdir "%JTR_FOLDER\.travis"   /s /Q
+  - rmdir "%JTR_FOLDER%\.ci"       /s /Q
+  - rmdir "%JTR_FOLDER%\.circleci" /s /Q
+  - rmdir "%JTR_FOLDER%\.github"   /s /Q
+  - rmdir "%JTR_FOLDER%\.travis"   /s /Q
 
 on_failure:
-  - dir "%JTR_FOLDER" /s > dir.txt
+  - dir "%JTR_FOLDER%" /s > dir.txt
   - if exist "dir.txt" 7z a -tzip debug_logs.zip "dir.txt" > nul
-  - if exist "%JTR_FOLDER\src\config.log" 7z a -tzip debug_logs.zip "%JTR_FOLDER\src\config.log" > nul
-  - if exist "%JTR_FOLDER\src\Makefile" 7z a -tzip debug_logs.zip "%JTR_FOLDER\src\Makefile" > nul
+  - if exist "%JTR_FOLDER%\src\config.log" 7z a -tzip debug_logs.zip "%JTR_FOLDER%\src\config.log" > nul
+  - if exist "%JTR_FOLDER%\src\Makefile" 7z a -tzip debug_logs.zip "%JTR_FOLDER%\src\Makefile" > nul
   - if exist "debug_logs.zip" appveyor PushArtifact "debug_logs.zip"
 
 on_finish:
-  - if exist "%JTR_FOLDER\lib" 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on "optional.7z" "%JTR_FOLDER\lib"
+  - if exist "%JTR_FOLDER%\lib" 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on "optional.7z" "%JTR_FOLDER%\lib"
   - if exist "optional.7z" if "%doing%" == "deploy" appveyor PushArtifact "optional.7z"
   - move optional.7z c:\
 
-  - rmdir "%JTR_FOLDER\lib" /s /Q
-  - rmdir "%JTR_FOLDER\.git" /s /Q
-  - rmdir "%JTR_FOLDER\src" /s /Q
+  - rmdir "%JTR_FOLDER%\lib" /s /Q
+  - rmdir "%JTR_FOLDER%\.git" /s /Q
+  - rmdir "%JTR_FOLDER%\src" /s /Q
 
-  - if exist "%JTR_FOLDER\run\john.exe" 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on "win_x%bits%.7z" "%JTR_FOLDER"
+  - if exist "%JTR_FOLDER%\run\john.exe" 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on "win_x%bits%.7z" "%JTR_FOLDER%"
   - if exist "win_x%bits%.7z" if "%doing%" == "deploy" appveyor PushArtifact "win_x%bits%.7z"
   - move "win_x%bits%.7z" c:\
 

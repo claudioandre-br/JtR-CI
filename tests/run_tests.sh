@@ -234,6 +234,29 @@ if [[ -z "${TEST##*MY_FULL*}" ]]; then
     total=$((total + 15))
 fi
 
+if [[ -z "${TEST##*SIMD*}" ]]; then
+    /john/run/john-sse2            --test=10 --format=SHA512crypt
+    /john/run/john-sse2-no-omp     --test=10 --format=SHA512crypt
+    /john/run/john-ssse3           --test=10 --format=SHA512crypt
+    /john/run/john-ssse3-no-omp    --test=10 --format=SHA512crypt
+    /john/run/john-sse4.1          --test=10 --format=SHA512crypt
+    /john/run/john-sse4.1-no-omp   --test=10 --format=SHA512crypt
+    /john/run/john-sse4.2          --test=10 --format=SHA512crypt
+    /john/run/john-sse4.2-no-omp   --test=10 --format=SHA512crypt
+    /john/run/john-avx             --test=10 --format=SHA512crypt
+    /john/run/john-avx-no-omp      --test=10 --format=SHA512crypt
+    /john/run/john-xop             --test=10 --format=SHA512crypt
+    /john/run/john-xop-no-omp      --test=10 --format=SHA512crypt
+    /john/run/john-avx2            --test=10 --format=SHA512crypt
+    /john/run/john-avx2-no-omp     --test=10 --format=SHA512crypt
+    /john/run/john-avx512f         --test=10 --format=SHA512crypt
+    /john/run/john-avx512f-no-omp  --test=10 --format=SHA512crypt
+    /john/run/john-avx512bw        --test=10 --format=SHA512crypt
+    /john/run/john-avx512bw-no-omp --test=10 --format=SHA512crypt
+    /john/run/john-ztex            --test=10 --format=SHA512crypt
+    /john/run/john-ztex-no-omp     --test=10 --format=SHA512crypt
+fi
+
 echo '-------------------------------------------'
 echo "###  Performed $total tests in $SECONDS seconds  ###"
 echo '-------------------------------------------'
