@@ -153,7 +153,7 @@ build_script:
       xcopy C:\$location\bin\*.dll ..\lib\
 
 after_build:
-  - cd %PROJ_FOLDER%\JohnTheRipper\run
+  - cd %JTR_FOLDER\run
 
   # Enable ASLR and DEP
   - ps: |
@@ -220,38 +220,38 @@ after_test:
   - del john.pot
 
   # Remove unused/unneeded stuff
-  - rmdir "%PROJ_FOLDER%\JohnTheRipper\run\ztex" /s /Q
+  - rmdir "%JTR_FOLDER\run\ztex" /s /Q
 
   # Remove hidden .name files and folders
-  - del "%PROJ_FOLDER%\JohnTheRipper\.editorconfig"
-  - del "%PROJ_FOLDER%\JohnTheRipper\.gitattributes"
-  - del "%PROJ_FOLDER%\JohnTheRipper\.gitignore"
-  - del "%PROJ_FOLDER%\JohnTheRipper\.mailmap"
-  - del "%PROJ_FOLDER%\JohnTheRipper\.pre-commit.sh"
-  - del "%PROJ_FOLDER%\JohnTheRipper\.travis.yml"
+  - del "%JTR_FOLDER\.editorconfig"
+  - del "%JTR_FOLDER\.gitattributes"
+  - del "%JTR_FOLDER\.gitignore"
+  - del "%JTR_FOLDER\.mailmap"
+  - del "%JTR_FOLDER\.pre-commit.sh"
+  - del "%JTR_FOLDER\.travis.yml"
 
-  - rmdir "%PROJ_FOLDER%\JohnTheRipper\.ci"       /s /Q
-  - rmdir "%PROJ_FOLDER%\JohnTheRipper\.circleci" /s /Q
-  - rmdir "%PROJ_FOLDER%\JohnTheRipper\.github"   /s /Q
-  - rmdir "%PROJ_FOLDER%\JohnTheRipper\.travis"   /s /Q
+  - rmdir "%JTR_FOLDER\.ci"       /s /Q
+  - rmdir "%JTR_FOLDER\.circleci" /s /Q
+  - rmdir "%JTR_FOLDER\.github"   /s /Q
+  - rmdir "%JTR_FOLDER\.travis"   /s /Q
 
 on_failure:
-  - dir "%PROJ_FOLDER%\JohnTheRipper" /s > dir.txt
+  - dir "%JTR_FOLDER" /s > dir.txt
   - if exist "dir.txt" 7z a -tzip debug_logs.zip "dir.txt" > nul
-  - if exist "%PROJ_FOLDER%\JohnTheRipper\src\config.log" 7z a -tzip debug_logs.zip "%PROJ_FOLDER%\JohnTheRipper\src\config.log" > nul
-  - if exist "%PROJ_FOLDER%\JohnTheRipper\src\Makefile" 7z a -tzip debug_logs.zip "%PROJ_FOLDER%\JohnTheRipper\src\Makefile" > nul
+  - if exist "%JTR_FOLDER\src\config.log" 7z a -tzip debug_logs.zip "%JTR_FOLDER\src\config.log" > nul
+  - if exist "%JTR_FOLDER\src\Makefile" 7z a -tzip debug_logs.zip "%JTR_FOLDER\src\Makefile" > nul
   - if exist "debug_logs.zip" appveyor PushArtifact "debug_logs.zip"
 
 on_finish:
-  - if exist "%PROJ_FOLDER%\JohnTheRipper\lib" 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on "optional.7z" "%PROJ_FOLDER%\JohnTheRipper\lib"
+  - if exist "%JTR_FOLDER\lib" 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on "optional.7z" "%JTR_FOLDER\lib"
   - if exist "optional.7z" if "%doing%" == "deploy" appveyor PushArtifact "optional.7z"
   - move optional.7z c:\
 
-  - rmdir "%PROJ_FOLDER%\JohnTheRipper\lib" /s /Q
-  - rmdir "%PROJ_FOLDER%\JohnTheRipper\.git" /s /Q
-  - rmdir "%PROJ_FOLDER%\JohnTheRipper\src" /s /Q
+  - rmdir "%JTR_FOLDER\lib" /s /Q
+  - rmdir "%JTR_FOLDER\.git" /s /Q
+  - rmdir "%JTR_FOLDER\src" /s /Q
 
-  - if exist "%PROJ_FOLDER%\JohnTheRipper\run\john.exe" 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on "win_x%bits%.7z" "%PROJ_FOLDER%\JohnTheRipper"
+  - if exist "%JTR_FOLDER\run\john.exe" 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on "win_x%bits%.7z" "%JTR_FOLDER"
   - if exist "win_x%bits%.7z" if "%doing%" == "deploy" appveyor PushArtifact "win_x%bits%.7z"
   - move "win_x%bits%.7z" c:\
 
