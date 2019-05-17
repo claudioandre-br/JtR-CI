@@ -38,7 +38,7 @@ install:
   - cd %BUILD_FOLDER%
   - git describe --dirty=+ --always 2>nul > __git.tmp
   - set /p gitDescribe=<__git.tmp
-  - appveyor UpdateBuild -Version "1.9J1-%gitDescribe%"
+  - appveyor UpdateBuild -Version "1.9J2-%gitDescribe%"
 
   - ps: |
       if ($env:Test -eq "package") {
@@ -50,7 +50,7 @@ install:
       }
   - git describe --dirty=+ --always 2>nul > __git.tmp
   - set /p gitDescribe=<__git.tmp
-  - echo "JtR 1.9J1-%gitDescribe%"
+  - echo "JtR 1.9J2-%gitDescribe%"
   - echo '--------------------------------'
 
   # Apply patch(es)
