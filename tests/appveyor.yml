@@ -116,11 +116,11 @@ build_script:
         shell "./configure $EXE_NO_OMP CPPFLAGS='-mavx2   -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-xop\\\`"\`" '   && make -s clean && make -sj2  && make -s strip && mv ../run/john ../run/john-avx2-non-omp"
         shell "./configure $EXE_NORMAL CPPFLAGS='-mavx2   -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx2-non-omp\\\`"\`"  -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-xop\\\`"\`" '   && make -s clean && make -sj2 && make -s strip && mv ../run/john ../run/john-avx2"
 
-        #shell "./configure $EXE_NO_OMP CPPFLAGS='-mavx512bw  -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"fallback\\\john-avx2\\\`"\`" ' && make -s clean && make -sj2  && make -s strip && mv ../run/john ../run/john-avx512bw-non-omp"
-        #shell "./configure $EXE_NORMAL CPPFLAGS='-mavx512bw  -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"fallback\\\john-avx512bw-non-omp\\\`"\`" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"fallback\\\john-avx2\\\`"\`" ' && make -s clean && make -sj2  && make -s strip"
+        shell "./configure $EXE_NO_OMP CPPFLAGS='-mavx512bw -fno-asynchronous-unwind-tables -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`" ' && make -s clean && make -sj2  && make -s strip && mv ../run/john ../run/john-avx512bw-non-omp"
+        shell "./configure $EXE_NORMAL CPPFLAGS='-mavx512bw -fno-asynchronous-unwind-tables -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx512bw-non-omp\\\`"\`" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`" ' && make -s clean && make -sj2 && make -s strip && mv ../run/john ../run/john-avx512bw"
 
         # Use symlink.c to produce a tiny john.exe that executes the best SIMD
-        shell "make -s windows-tiny-link-to-john _BEST_SIMD=\`"\\\`"john-avx2.exe\\\`"\`" "
+        shell "make windows-tiny-link-to-john _BEST_SIMD=\`"\\\`"john-avx512bw.exe\\\`"\`" "
 
         # Configure OpenCL ICD
         shell "mkdir -p ../etc/OpenCL/vendors"
