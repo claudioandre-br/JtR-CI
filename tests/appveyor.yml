@@ -152,6 +152,12 @@ build_script:
         }
       } else {
         shell "./configure --disable-opencl && make -s clean && make -sj2"
+
+        # Add some temporary test of the tiny john
+        shell "make -s strip && mv ../run/john ../run/john-best"
+
+        # Use symlink.c to produce a tiny john.exe that executes the best SIMD
+        shell "make windows-tiny-link-to-john _BEST_SIMD=\`"\\\`"john-best.exe\\\`"\`" "
       }
       # Save CygWin Dlls
       mkdir ..\lib
