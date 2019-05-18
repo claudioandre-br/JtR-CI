@@ -17,17 +17,14 @@ function do_Copy_Dlls(){
 
     basepath="/usr/$TARGET_ARCH-w64-mingw32/sys-root/mingw/bin"
 
-    cp "$basepath/libgomp-1.dll" ../run
-    cp "$basepath/libgmp-10.dll" ../run
-    cp "$basepath/libbz2-1.dll" ../run
-    cp "$basepath/libwinpthread-1.dll" ../run
-    cp "$basepath/zlib1.dll" ../run
-
-    if [[ -f "$basepath/libcrypto-1*.dll" ]]; then
-        cp "$basepath/libcrypto-1*.dll" ../run # fails on Fedora 30
-    fi
-    cp "$basepath/libssl-1*.dll" ../run
-    cp "$basepath/libgcc_s_seh-1.dll" ../run
+    cp "$basepath"/libgomp-1.dll ../run
+    cp "$basepath"/libgmp-10.dll ../run
+    cp "$basepath"/libbz2-1.dll ../run
+    cp "$basepath"/libwinpthread-1.dll ../run
+    cp "$basepath"/zlib1.dll ../run
+    cp "$basepath"/libcrypto-1*.dll ../run
+    cp "$basepath"/libssl-1*.dll ../run
+    cp "$basepath"/libgcc_s_seh-1.dll ../run
     echo '-- Done --'
 }
 
@@ -61,12 +58,14 @@ if [[ $2 == "BUILD" ]]; then
         ./configure $ASAN $BUILD_OPTS #TODO re-enable wError ./configure --enable-werror $ASAN $BUILD_OPTS
     fi
 
-    # Build
-    make -sj4
+    if [[ $TARGET_ARCH == "x86_64" || $TARGET_ARCH == *"NIX"* ]]; then
+        # Build
+        make -sj4
 
-    echo
-    echo '-- Build Info --'
-    $WINE $JTR --list=build-info
+        echo
+        echo '-- Build Info --'
+        $WINE $JTR --list=build-info
+    fi
 
 elif [[ $2 == "TEST" ]]; then
 
@@ -79,6 +78,10 @@ elif [[ $2 == "TEST" ]]; then
     arch=$(uname -m)
     JTR_BIN="$WINE $JTR"
     JTR_CL=""
+
+    if [[ $TARGET_ARCH == "DOCKER" ]]; then
+        JTR_BIN="/john/run/john-sse2"
+    fi
 
     wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
     source run_tests.sh

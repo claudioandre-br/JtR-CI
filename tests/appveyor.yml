@@ -121,10 +121,10 @@ build_script:
           shell "./configure $EXE_NORMAL CPPFLAGS='-mavx512bw -fno-asynchronous-unwind-tables -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx512bw-non-omp\\\`"\`" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`" ' && make -s clean && make -sj2 && make -s strip && mv ../run/john ../run/john-avx512bw"
 
           # Use symlink.c to produce a tiny john.exe that executes the best SIMD
-          shell "make windows-tiny-link-to-john _BEST_SIMD=\`"\\\`"john-avx512bw.exe\\\`"\`" "
+          shell "make windows-tiny-link-to-john _BEST_SIMD=john-avx512bw.exe "
         } else {
           # Use symlink.c to produce a tiny john.exe that executes the best SIMD
-          shell "make windows-tiny-link-to-john _BEST_SIMD=\`"\\\`"john-avx2.exe\\\`"\`" "
+          shell "make windows-tiny-link-to-john _BEST_SIMD=john-avx2.exe "
         }
 
         # Configure OpenCL ICD
@@ -157,7 +157,7 @@ build_script:
         shell "make -s strip && mv ../run/john ../run/john-best"
 
         # Use symlink.c to produce a tiny john.exe that executes the best SIMD
-        shell "make windows-tiny-link-to-john _BEST_SIMD=\`"\\\`"john-best.exe\\\`"\`" "
+        shell "make windows-tiny-link-to-john _BEST_SIMD=john-best.exe "
       }
       # Save CygWin Dlls
       mkdir ..\lib
