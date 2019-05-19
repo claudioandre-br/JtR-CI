@@ -115,16 +115,12 @@ build_script:
         shell "./configure $EXE_NORMAL CPPFLAGS='-mxop    -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-xop-non-omp\\\`"\`"   -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx\\\`"\`" '   && make -s clean && make -sj2 && make -s strip && mv ../run/john ../run/john-xop"
         shell "./configure $EXE_NO_OMP CPPFLAGS='-mavx2   -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-xop\\\`"\`" '   && make -s clean && make -sj2  && make -s strip && mv ../run/john ../run/john-avx2-non-omp"
         shell "./configure $EXE_NORMAL CPPFLAGS='-mavx2   -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx2-non-omp\\\`"\`"  -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-xop\\\`"\`" '   && make -s clean && make -sj2 && make -s strip && mv ../run/john ../run/john-avx2"
+        $EXE_NAME = "john-avx2.exe"
 
         if ($arch -eq "x86_64") {
           shell "./configure $EXE_NO_OMP CPPFLAGS='-mavx512bw -fno-asynchronous-unwind-tables -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`" ' && make -s clean && make -sj2  && make -s strip && mv ../run/john ../run/john-avx512bw-non-omp"
           shell "./configure $EXE_NORMAL CPPFLAGS='-mavx512bw -fno-asynchronous-unwind-tables -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx512bw-non-omp\\\`"\`" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`" ' && make -s clean && make -sj2 && make -s strip && mv ../run/john ../run/john-avx512bw"
-
-          # Use symlink.c to produce a tiny john.exe that executes the best SIMD
-          shell "make windows-tiny-link-to-john _BEST_SIMD=john-avx512bw.exe "
-        } else {
-          # Use symlink.c to produce a tiny john.exe that executes the best SIMD
-          shell "make windows-tiny-link-to-john _BEST_SIMD=john-avx2.exe "
+          $EXE_NAME = "john-avx512bw.exe"
         }
 
         # Configure OpenCL ICD
@@ -151,14 +147,25 @@ build_script:
           xcopy C:\$location\bin\cyggcc_s-1.dll     ..\run\
         }
       } else {
-        shell "./configure --disable-opencl && make -s clean && make -sj2"
-
-        # Add some temporary test of the tiny john
-        shell "make -s strip && mv ../run/john ../run/john-best"
-
-        # Use symlink.c to produce a tiny john.exe that executes the best SIMD
-        shell "make windows-tiny-link-to-john _BEST_SIMD=john-best.exe "
+        shell "./configure --disable-opencl && make -s clean && make -sj2 && make -s strip && mv ../run/john ../run/john-best"
+        $EXE_NAME = "john-best.exe"
       }
+      # The "windows-package" make target depends on default,
+      # - So it needs the john.exe I built above
+      shell "cp ../run/$EXE_NAME ../run/john.exe"
+
+      # Make this a Windows package
+      shell "make -s windows-package"
+
+      # Use symlink.c to produce a tiny john.exe that executes the best SIMD
+      shell "make windows-tiny-link-to-john MAIN_NAME=$EXE_NAME "
+      ##########################################################################
+      # I should strip the tiny john.exe at some time in the future
+      # - But I can't call a make target that depends on default
+      # - So, I can't run a make strip here
+      ##########################################################################
+
+  - ps: |
       # Save CygWin Dlls
       mkdir ..\lib
       xcopy C:\$location\bin\*.dll ..\lib\
@@ -173,9 +180,6 @@ after_build:
       Write-Host "---------------------------------------------------------"
 
   - peflags --dynamicbase=true --nxcompat=true *.exe
-
-  - ps: |
-      shell "make -s windows-package"
 
   # Compute checksums
   - ps: |
