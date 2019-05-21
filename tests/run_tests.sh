@@ -245,8 +245,8 @@ if [[ -z "${TEST##*SIMD*}" ]]; then
     /john/run/john-sse4.2-no-omp   --test=10 --format=SHA512crypt
     /john/run/john-avx             --test=10 --format=SHA512crypt
     /john/run/john-avx-no-omp      --test=10 --format=SHA512crypt
-    /john/run/john-xop             --test=10 --format=SHA512crypt
-    /john/run/john-xop-no-omp      --test=10 --format=SHA512crypt
+    # /john/run/john-xop             --test=10 --format=SHA512crypt
+    # /john/run/john-xop-no-omp      --test=10 --format=SHA512crypt
     /john/run/john-avx2            --test=10 --format=SHA512crypt
     /john/run/john-avx2-no-omp     --test=10 --format=SHA512crypt
     /john/run/john-avx512f         --test=10 --format=SHA512crypt
