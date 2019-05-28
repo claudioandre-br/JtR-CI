@@ -2,10 +2,20 @@ freebsd11_task:
         freebsd_instance:
                 image: freebsd-11-2-release-amd64
         install_script: pkg install -y devel/openmp devel/gmake
-        script:
+
+        info_script:
+                - uname -a
+                - echo '--------------------------------'
+                - cc --version
+                - echo '--------------------------------'
+                - cc -dM -E -x c /dev/null
+                - echo '--------------------------------'
+
+        build_script:
                 - cd src
                 - ./configure
                 - gmake -sj4
+                - echo '--------------------------------'
                 - ../run/john --list=build-info
 
         check_script:
@@ -16,10 +26,19 @@ freebsd12_task:
                 image: freebsd-12-0-release-amd64
         install_script: pkg install -y devel/openmp devel/gmake wget
 
-        script:
+        info_script:
+                - uname -a
+                - echo '--------------------------------'
+                - cc --version
+                - echo '--------------------------------'
+                - cc -dM -E -x c /dev/null
+                - echo '--------------------------------'
+
+        build_script:
                 - cd src
                 - ./configure
                 - gmake -sj4
+                - echo '--------------------------------'
                 - ../run/john --list=build-info
 
         check_script:
