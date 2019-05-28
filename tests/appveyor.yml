@@ -23,6 +23,14 @@ environment:
       test: yes
       location: cygwin64
 
+    # CygWin 64bits build on Windows Server 2019
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      arch: x86_64
+      bits: 64
+      doing: test
+      test: yes
+      location: cygwin64
+
     # CygWin 64bits build
     - arch: x86_64
       bits: 64
