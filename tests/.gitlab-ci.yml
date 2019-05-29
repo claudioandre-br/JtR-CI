@@ -15,7 +15,7 @@ build:
 
   script:
     # Build and export the flatpak package
-    - cd john-the-ripper/flatpak
+    - cd flatpak
     - flatpak-builder --repo=repo build com.openwall.John.json
     - flatpak build-bundle repo john.flatpak com.openwall.John
     - cp john.flatpak "$CI_PROJECT_DIR"
@@ -42,7 +42,7 @@ deploy:
     - export arch=$(uname -m)
     - export JTR_BIN='flatpak run com.openwall.John'
     - export JTR_CL='flatpak run com.openwall.John'
-    - cd john-the-ripper/flatpak
+    - cd flatpak
 
     # Adjust the testing environment, import and run some testing
     - ../tests/run_tests.sh
