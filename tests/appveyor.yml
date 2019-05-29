@@ -16,27 +16,28 @@ environment:
 
   matrix:
     # CygWin 64bits build on Windows Server 2016
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      arch: x86_64
-      bits: 64
-      doing: test
-      test: yes
-      location: cygwin64
+#    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+#      arch: x86_64
+#      bits: 64
+#      doing: test
+#      test: yes
+#      location: cygwin64
 
     # CygWin 64bits build on Windows Server 2019
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       arch: x86_64
       bits: 64
+      cygwin: install
       doing: test
       test: yes
       location: cygwin64
 
     # CygWin 64bits build
-    - arch: x86_64
-      bits: 64
-      doing: deploy
-      test: yes
-      location: cygwin64
+#    - arch: x86_64
+#      bits: 64
+#      doing: deploy
+#      test: yes
+#      location: cygwin64
 
 install:
   - echo '--------------------------------'
@@ -90,6 +91,13 @@ install:
       }
 
 before_build:
+  # If needed (CygWin is not installed) or as a workaround (CygWin update is required)
+  - ps: |
+      if ($cygwin -eq "install") {
+        appveyor DownloadFile "http://www.cygwin.com/setup-$env:Arch.exe" -FileName "C:\$env:Location\setup-$env:Arch.exe
+        cmd /c "C:\$env:Location\setup-$env:Arch.exe -q --no-desktop --no-shortcuts --no-startmenu --upgrade-also"
+      }
+
   # Install required packages and allow extra formats
   - ps: |
       cmd /c "C:\$env:Location\setup-$env:Arch.exe -q -P libssl-devel -P libbz2-devel -P libgmp-devel -P zlib-devel"
