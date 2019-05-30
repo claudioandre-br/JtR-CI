@@ -71,6 +71,7 @@ matrix:
   - dist: xenial
     env: TEST="snap;" FUZZ="snap"
 
+  #MacOS testing ###############################################################
   - os: osx
     osx_image: xcode10.2
     env: TEST="MacOS;" OPENCL="yes"
@@ -78,6 +79,23 @@ matrix:
   - os: osx
     osx_image: xcode9.4
     env: TEST="MacOS;" OPENCL="yes"
+
+  #Windows package testing #####################################################
+  # - os: windows
+  #  script:
+  #  # install_script: choco install -y 7zip wget
+  #
+  #  # info_script:
+  #  - systeminfo
+  #
+  #  # check_script:
+  # - wget https://ci.appveyor.com/api/buildjobs/81duqr81n02jb6kp/artifacts/win_x64.7z
+  #  - 7z x win_x64.7z
+  #  - cd JohnTheRipper/run
+  #  # - ./john.exe --list=build-info
+  #  # - ./john.exe --test=0
+  #  - ./john-avx512bw.exe --list=build-info
+  ##############################################################################
 
   allow_failures:
   - env: TEST="experimental;"            BUILD_OPTS="--enable-werror"
