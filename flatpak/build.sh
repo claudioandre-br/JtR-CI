@@ -41,26 +41,26 @@ if [[ -z "$TASK" ]]; then
     echo ""
     echo "---------------------------- BUILDING -----------------------------"
 
-    if [[ "$arch" == "x86_64" ]]; then
+    if [[ "$arch" == "x86_64" || "$arch" == "i686" ]]; then
         # CPU (OMP and extensions fallback)
-        ./configure $X86_NO_OPENMP CPPFLAGS="-D_BOXED" && do_build ../run/john-sse2-non-omp
-        ./configure $X86_REGULAR   CPPFLAGS="-D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-sse2-non-omp\\\"\"" && do_build ../run/john-sse2
-        ./configure $X86_NO_OPENMP CPPFLAGS="-D_BOXED -msse4.1" && do_build ../run/john-sse4-non-omp
-        ./configure $X86_REGULAR   CPPFLAGS="-D_BOXED -msse4.1 -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-sse4-non-omp\\\"\" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\"\\\"john-sse2\\\"\"" && do_build ../run/john-sse4
-        ./configure $X86_NO_OPENMP CPPFLAGS="-D_BOXED -mavx" && do_build ../run/john-avx-non-omp
-        ./configure $X86_REGULAR   CPPFLAGS="-D_BOXED -mavx -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-avx-non-omp\\\"\" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\"\\\"john-sse4\\\"\"" && do_build ../run/john-avx
-        ./configure $X86_NO_OPENMP CPPFLAGS="-D_BOXED -mxop" && do_build ../run/john-xop-non-omp
-        ./configure $X86_REGULAR   CPPFLAGS="-D_BOXED -mxop -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-xop-non-omp\\\"\" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\"\\\"john-avx\\\"\"" && do_build ../run/john-xop
-        ./configure $X86_NO_OPENMP CPPFLAGS="-D_BOXED -mavx2" && do_build ../run/john-non-omp
-        ./configure $X86_REGULAR   CPPFLAGS="-D_BOXED -mavx2 -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-non-omp\\\"\" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\"\\\"john-xop\\\"\"" && do_build
+        ./configure $X86_NO_OPENMP --enable-simd=sse2   CPPFLAGS="-D_BOXED" && do_build ../run/john-sse2-non-omp
+        ./configure $X86_REGULAR   --enable-simd=sse2   CPPFLAGS="-D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-sse2-non-omp\\\"\"" && do_build ../run/john-sse2
+        ./configure $X86_NO_OPENMP --enable-simd=sse4.1 CPPFLAGS="-D_BOXED" && do_build ../run/john-sse4-non-omp
+        ./configure $X86_REGULAR   --enable-simd=sse4.1 CPPFLAGS="-D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-sse4-non-omp\\\"\" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\"\\\"john-sse2\\\"\"" && do_build ../run/john-sse4
+        ./configure $X86_NO_OPENMP --enable-simd=avx    CPPFLAGS="-D_BOXED" && do_build ../run/john-avx-non-omp
+        ./configure $X86_REGULAR   --enable-simd=avx    CPPFLAGS="-D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-avx-non-omp\\\"\" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\"\\\"john-sse4\\\"\"" && do_build ../run/john-avx
+        ./configure $X86_NO_OPENMP --enable-simd=xop    CPPFLAGS="-D_BOXED" && do_build ../run/john-xop-non-omp
+        ./configure $X86_REGULAR   --enable-simd=xop    CPPFLAGS="-D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-xop-non-omp\\\"\" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\"\\\"john-avx\\\"\"" && do_build ../run/john-xop
+        ./configure $X86_NO_OPENMP --enable-simd=avx2   CPPFLAGS="-D_BOXED" && do_build ../run/john-non-omp
+        ./configure $X86_REGULAR   --enable-simd=avx2   CPPFLAGS="-D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-non-omp\\\"\" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\"\\\"john-xop\\\"\"" && do_build
 
         # Install OpenCL kernel code
         make kernel-copy
 
     else
         # Non X86 CPU
-        ./configure $OTHER_NO_OPENMP CPPFLAGS="-D_BOXED" && do_build ../run/john-non-omp
-        ./configure $OTHER_REGULAR   CPPFLAGS="-D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-non-omp\\\"\"" && do_build
+        ./configure $OTHER_NO_OPENMP --enable-simd=sse2  CPPFLAGS="-D_BOXED" && do_build ../run/john-non-omp
+        ./configure $OTHER_REGULAR   --enable-simd=sse2  CPPFLAGS="-D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-non-omp\\\"\"" && do_build
     fi
 
 elif [[ "$TASK" == "test" ]]; then
