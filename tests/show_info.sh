@@ -27,6 +27,8 @@ if [[ -z "$MUTE_SYS_INFO" ]]; then
     uname -m; id
     uname -a
     echo '--------------------------------'
+    free
+    echo '--------------------------------'
     cat /etc/*-release
     echo '--------------------------------'
     cat /proc/cpuinfo
