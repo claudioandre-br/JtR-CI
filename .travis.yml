@@ -18,14 +18,15 @@ matrix:
   - env: REPO=claudioandre/john   NAME=ubuntu.devel        DOCKERFILE=Dockerfile.UbuntuDevel
   - env: REPO=claudioandre/john   NAME=ubuntu.rolling      DOCKERFILE=Dockerfile.UbuntuRolling
   - env: REPO=claudioandre/john   NAME=centos.6            DOCKERFILE=Dockerfile.CentOS6
-  - env: REPO=claudioandre/john   NAME=v1.9.0J2            DOCKERFILE=Dockerfile   BIN_VERSION=yes
+  #- env: REPO=claudioandre/john   NAME=v1.9.0J2            DOCKERFILE=Dockerfile   BIN_VERSION=yes
 
 script:
   - export log_message=$(git log -n 1)
 
+  # Make it a reproducible build
   - 'if [[ "$BIN_VERSION" == "yes" ]]; then
        git clone --depth 10 https://github.com/magnumripper/JohnTheRipper.git john;
-       # git checkout a16c8a76259ab870c07e5123c237b1900402d9a6; # Make it a reproducible build
+       git checkout a16c8a76259ab870c07e5123c237b1900402d9a6;
      else
        cd tests/Dockerfiles;
      fi'
