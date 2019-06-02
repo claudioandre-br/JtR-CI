@@ -19,8 +19,10 @@ if [[ ! -d src || ! -d run ]] && [[ $1 != "-f" ]]; then
 fi
 
 #Changes needed
-rm -rf .travis.yml buggy.sh circle.yml appveyor.yml .travis/ .circle/ .circleci/
+rm -rf .travis.yml buggy.sh appveyor.yml .travis/ .circleci/
 
+mkdir -p .azure/
+mkdir -p .ci/
 mkdir -p .circleci/
 mkdir -p .travis/
 
@@ -28,32 +30,41 @@ wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/buggy
 
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/appveyor.yml
 
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure-pipelines.yml
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/linux-system-info.yml            -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/windows-system-info.yml          -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/linux-build-and-test-steps.yml   -P .azure/
+
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/.travis.yml
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/CI-tests.sh   -P .travis/
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/travis-ci.sh  -P .travis/
 
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/config.yml    -P .circleci/
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/circle-ci.sh  -P .circleci/
+
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/tests-ci.sh   -P .ci/
 
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/.cirrus.yml
 
 chmod +x buggy.sh
 chmod +x .travis/CI-tests.sh
 chmod +x .travis/travis-ci.sh
-chmod +x .circleci/circle-ci.sh
+chmod +x .ci/tests-ci.sh
 
-git add appveyor.yml
-git add .travis.yml
-git add .cirrus.yml
-git add .travis/
+git add .azure/
+git add .ci/
 git add .circleci/
+git add .cirrus.yml
+git add .travis.yml
+git add .travis/
+git add appveyor.yml
+git add azure-pipelines.yml
 
 # Ban all problematic formats (disable buggy formats)
 # If a formats fails its tests on super, I will burn it.
 ./buggy.sh disable
 
 # Save the resulting state
-git commit -a -m "CI: test and make a Windows package $(date)"
+git commit -a -m "CI: test and package for Windows $(date)"
 
 # Clean up
 rm -f buggy.sh

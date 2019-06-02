@@ -7,22 +7,10 @@ jobs:
       - checkout
       - run:
           name: Building JtR
-          command: .circleci/circle-ci.sh $TARGET_ARCH BUILD
+          command: .ci/tests-ci.sh $TARGET_ARCH BUILD
       - run:
           name: Testing JtR
-          command: .circleci/circle-ci.sh $TARGET_ARCH TEST
-
-  common_osx: &common_osx
-    macos:
-      xcode: "9.1.0"
-    steps:
-      - checkout
-      - run:
-          name: Building JtR OSX
-          command: .circleci/circle-ci.sh $TARGET BUILD
-      - run:
-          name: Testing JtR OSX
-          command: .circleci/circle-ci.sh $TARGET TEST_OSX
+          command: .ci/tests-ci.sh $TARGET_ARCH TEST
 
   linux-F30:
     <<: *common_linux
@@ -112,7 +100,9 @@ workflows:
 # Fedora can't run afl
 # - it has a buggy dependency on a clang version that is not installable.
 #
-# The "zzuf-fuzz:" fails on Fedora 30 with:
+# The "zzuf-fuzz:" fails on Fedora 30 and Ubuntu 18.04 with:
 #   zzuf[s=4,r=0.004]: signal 9 (memory exceeded?)
 #   Exited with code 1
+#
+# I also tested it using a machine with 7GB of total memory with no luck.
 ################################################################################
