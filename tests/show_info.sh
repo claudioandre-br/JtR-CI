@@ -27,7 +27,7 @@ if [[ -z "$MUTE_SYS_INFO" ]]; then
     uname -m; id
     uname -a
     echo '--------------------------------'
-    free
+    free || true
     echo '--------------------------------'
     cat /etc/*-release
     echo '--------------------------------'
