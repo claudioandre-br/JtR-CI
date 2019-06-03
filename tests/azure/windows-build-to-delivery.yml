@@ -78,15 +78,15 @@ steps:
         $EXE_NO_OMP = "--disable-native-tests --disable-openmp"
 
         # CPU (OMP and extensions fallback)
-        shell "./configure $EXE_NO_OMP --enable-simd=sse2                                                                                                                                                       && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-sse2-non-omp"
-        shell "./configure $EXE_NORMAL --enable-simd=sse2   CPPFLAGS='-DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-sse2-non-omp\\\`"\`" '                                                                  && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-sse2"
-        shell "./configure $EXE_NO_OMP --enable-simd=sse4.1 CPPFLAGS='-DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-sse2\\\`"\`" '                                                                          && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-sse41-non-omp"
-        shell "./configure $EXE_NORMAL --enable-simd=sse4.1 CPPFLAGS='-DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-sse41-non-omp\\\`"\`" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-sse2\\\`"\`" '  && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-sse41"
-        shell "./configure $EXE_NO_OMP --enable-simd=avx    CPPFLAGS='-DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-sse41\\\`"\`" '                                                                         && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx-non-omp"
-        shell "./configure $EXE_NORMAL --enable-simd=avx    CPPFLAGS='-DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx-non-omp\\\`"\`"   -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-sse41\\\`"\`" ' && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx"
-        shell "./configure $EXE_NO_OMP --enable-simd=xop    CPPFLAGS='-DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx\\\`"\`" '                                                                           && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-xop-non-omp"
-        shell "./configure $EXE_NORMAL --enable-simd=xop    CPPFLAGS='-DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-xop-non-omp\\\`"\`"   -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx\\\`"\`" '   && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-xop"
-        shell "./configure $EXE_NO_OMP --enable-simd=avx2   CPPFLAGS='-DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-xop\\\`"\`" '                                                                           && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx2-non-omp"
+        #shell "./configure $EXE_NO_OMP --enable-simd=sse2                                                                                                                                                       && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-sse2-non-omp"
+        #shell "./configure $EXE_NORMAL --enable-simd=sse2   CPPFLAGS='-DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-sse2-non-omp\\\`"\`" '                                                                  && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-sse2"
+        #shell "./configure $EXE_NO_OMP --enable-simd=sse4.1 CPPFLAGS='-DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-sse2\\\`"\`" '                                                                          && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-sse41-non-omp"
+        #shell "./configure $EXE_NORMAL --enable-simd=sse4.1 CPPFLAGS='-DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-sse41-non-omp\\\`"\`" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-sse2\\\`"\`" '  && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-sse41"
+        #shell "./configure $EXE_NO_OMP --enable-simd=avx    CPPFLAGS='-DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-sse41\\\`"\`" '                                                                         && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx-non-omp"
+        #shell "./configure $EXE_NORMAL --enable-simd=avx    CPPFLAGS='-DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx-non-omp\\\`"\`"   -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-sse41\\\`"\`" ' && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx"
+        #shell "./configure $EXE_NO_OMP --enable-simd=xop    CPPFLAGS='-DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx\\\`"\`" '                                                                           && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-xop-non-omp"
+        #shell "./configure $EXE_NORMAL --enable-simd=xop    CPPFLAGS='-DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-xop-non-omp\\\`"\`"   -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx\\\`"\`" '   && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-xop"
+        #shell "./configure $EXE_NO_OMP --enable-simd=avx2   CPPFLAGS='-DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-xop\\\`"\`" '                                                                           && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx2-non-omp"
         shell "./configure $EXE_NORMAL --enable-simd=avx2   CPPFLAGS='-DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx2-non-omp\\\`"\`"  -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-xop\\\`"\`" '   && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx2"
         $EXE_NAME = "john-avx2.exe"
 
@@ -220,29 +220,3 @@ steps:
         Write-Output "**************************************************************************" | Tee-Object -FilePath c:\checksums.txt -Append
         Get-FileHash -Path .\*.exe | Tee-Object -FilePath c:\checksums.txt -Append
       displayName: 'Compute and Save Checksums'
-
-    # There are two kinds of artifacts publication ###############
-    # - PublishBuildArtifacts
-    # - DownloadBuildArtifacts
-    # - PublishPipelineArtifacts
-    # - DownloadPipelineArtifacts
-    # ############################################################
-    - task: PublishBuildArtifacts@1
-      inputs:
-        pathtoPublish: "c:\\win_x$(Bits).7z"
-        artifactName: "win_x$(Bits).7z"
-
-    - task: PublishBuildArtifacts@1
-      inputs:
-        pathtoPublish: "c:\\optional.7z"
-        artifactName: "optional.7z"
-
-    - task: PublishBuildArtifacts@1
-      inputs:
-        pathtoPublish: "$(Build.SourcesDirectory)\\debug_logs.zip"
-        artifactName: Logs
-
-    - task: PublishBuildArtifacts@1
-      inputs:
-        pathtoPublish: "$(Build.SourcesDirectory)\\checksums.txt"
-        artifactName: Checksums
