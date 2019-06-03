@@ -8,29 +8,62 @@
 # the Free Software Foundation, as expressed in version 2, seen at
 # http://www.gnu.org/licenses/gpl-2.0.html
 ######################################################################
-jobs:
-- job: zzuf_fuzz
-  container:
-    image: 'claudioandre/john:ubuntu.opencl_J558.3'
+stages:
+- stage: basic
+  displayName: Testing
+  jobs:
+  - job: Windows_2012
+    displayName: Windows 2012
+    pool:
+      vmImage: 'vs2015-win2012r2'
+    variables:
+      - template: .azure/windows-variables.yml
+    steps:
+      - template: .azure/windows-ci.yml
 
-  variables:
-    TARGET_ARCH: "NIX"
-    EXTRA: "ZZUF_FUZZ"
-    BUILD_OPTS: "--enable-fuzz"
+  - job: Windows_2016
+    displayName: Windows 2016
+    pool:
+      vmImage: 'vs2017-win2016'
+    variables:
+      - template: .azure/windows-variables.yml
+    steps:
+      - template: .azure/windows-ci.yml
 
-  steps:
-    - template: .azure/linux-system-info.yml
-    - template: .azure/linux-build-and-test-steps.yml
+  - job: Windows_2019
+    displayName: Windows 2019
+    pool:
+      vmImage: 'windows-2019'
+    variables:
+      - template: .azure/windows-variables.yml
+    steps:
+      - template: .azure/windows-ci.yml
 
-################################################################################
-#                             LIST OF KNOWN ISSUES
-#
-# Fedora can't run afl
-# - it has a buggy dependency on a clang version that is not installable.
-#
-# The "zzuf-fuzz:" fails on Fedora 30 and Ubuntu 18.04 with:
-#   zzuf[s=4,r=0.004]: signal 9 (memory exceeded?)
-#   Exited with code 1
-#
-# I also tested it using a machine with 7GB of total memory with no luck.
-################################################################################
+- stage: fuzzing
+  displayName: Fuzz Testing
+  dependsOn: basic
+  jobs:
+  - job: zzuf
+    container:
+      image: claudioandre/john:ubuntu.opencl_J558.3
+
+    variables:
+      TARGET_ARCH: "NIX"
+      EXTRA: "ZZUF_FUZZ"
+      BUILD_OPTS: "--enable-fuzz"
+
+    steps:
+      - template: .azure/linux-ci.yml
+
+  - job: afl
+    container:
+      image: claudioandre/john:ubuntu.opencl
+
+    variables:
+      TARGET_ARCH: "NIX"
+      EXTRA: "AFL_FUZZ"
+      BUILD_OPTS: "--enable-fuzz --disable-native-tests"
+      CC: "afl-clang-fast"
+
+    steps:
+      - template: .azure/linux-ci.yml

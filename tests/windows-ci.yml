@@ -8,11 +8,7 @@
 # the Free Software Foundation, as expressed in version 2, seen at
 # http://www.gnu.org/licenses/gpl-2.0.html
 ######################################################################
-  steps:
-    - powershell: |
-        Write-Host "---------------------------------------------------------"
-        Get-ChildItem Env:
-        Write-Host "---------------------------------------------------------"
-        systeminfo
-        Write-Host "---------------------------------------------------------"
-      displayName: 'System Information'
+steps:
+    - template: checkout.yml
+    - template: windows-system-info.yml
+    - template: windows-build-and-test-steps.yml

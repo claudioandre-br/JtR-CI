@@ -9,10 +9,5 @@
 # http://www.gnu.org/licenses/gpl-2.0.html
 ######################################################################
   steps:
-    - powershell: |
-        Write-Host "---------------------------------------------------------"
-        Get-ChildItem Env:
-        Write-Host "---------------------------------------------------------"
-        systeminfo
-        Write-Host "---------------------------------------------------------"
-      displayName: 'System Information'
+    - template: linux-system-info.yml
+    - template: linux-build-and-test-steps.yml

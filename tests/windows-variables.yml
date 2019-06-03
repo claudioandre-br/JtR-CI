@@ -8,11 +8,21 @@
 # the Free Software Foundation, as expressed in version 2, seen at
 # http://www.gnu.org/licenses/gpl-2.0.html
 ######################################################################
-  steps:
-    - powershell: |
-        Write-Host "---------------------------------------------------------"
-        Get-ChildItem Env:
-        Write-Host "---------------------------------------------------------"
-        systeminfo
-        Write-Host "---------------------------------------------------------"
-      displayName: 'System Information'
+variables:
+  - name: Cygwin
+    value: "install"
+
+  - name: BUILD_FOLDER
+    value: "$(Build.SourcesDirectory)\\src"
+
+  - name: JTR_FOLDER
+    value: "$(Build.SourcesDirectory)"
+
+  - name: PROJ_FOLDER
+    value: "$(Agent.BuildDirectory)"
+
+  - name: cygwinPath
+    value: "tools\\cygwin\\bin"
+
+  - name: Bits
+    value: "64"
