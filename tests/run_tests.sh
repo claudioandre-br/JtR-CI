@@ -135,7 +135,7 @@ if [[ -z "${TEST##*crack*}" ]]; then
     report "-form=SHA512crypt alltests.in -w:solucao"
 
     $JTR_BIN --incremental=digits --mask='?w?d?d?d' --min-len=8 --max-len=8 --stdout | head
-    $JTR_BIN --incremental=digits --mask='?w?d?d?d' --min-len=8 --stdout | head
+    $JTR_BIN --incremental=digits --mask='?w?d?d?d' --min-len=4 --max-len=5 --stdout | head
 
     total=$((total + 4))
 fi
