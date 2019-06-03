@@ -13,7 +13,6 @@ stages:
   displayName: Acceptance Test
   jobs:
   - job: Windows_2012
-    condition: false
     displayName: Windows 2012
     pool:
       vmImage: 'vs2015-win2012r2'
@@ -23,7 +22,6 @@ stages:
       - template: .azure/windows-ci.yml
 
   - job: Windows_2016
-    condition: false
     displayName: Windows 2016
     pool:
       vmImage: 'vs2017-win2016'
@@ -33,7 +31,6 @@ stages:
       - template: .azure/windows-ci.yml
 
   - job: Windows_2019
-    condition: false
     displayName: Windows 2019
     pool:
       vmImage: 'windows-2019'
@@ -42,8 +39,7 @@ stages:
     steps:
       - template: .azure/windows-ci.yml
 
-  - job: internal
-    condition: false
+  - job: Ubuntu_1604
     displayName: Ubuntu 16.04
     pool:
       vmImage: 'ubuntu-16.04'
@@ -60,7 +56,6 @@ stages:
   dependsOn: basic
   jobs:
   - job: zzuf
-    condition: false
     container:
       image: claudioandre/john:ubuntu.opencl_J558.3
 
@@ -88,7 +83,6 @@ stages:
 
   # Runs "--fuzz"
   - job: internal
-    condition: false
     container:
       image: claudioandre/john:ubuntu.opencl
 
@@ -102,7 +96,6 @@ stages:
 
   # Runs "--test-full=1"
   - job: full
-    condition: false
     container:
       image: claudioandre/john:ubuntu.opencl
 
