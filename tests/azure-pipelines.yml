@@ -10,9 +10,10 @@
 ######################################################################
 stages:
 - stage: basic
-  displayName: Testing
+  displayName: Acceptance Test
   jobs:
   - job: Windows_2012
+    condition: false
     displayName: Windows 2012
     pool:
       vmImage: 'vs2015-win2012r2'
@@ -22,6 +23,7 @@ stages:
       - template: .azure/windows-ci.yml
 
   - job: Windows_2016
+    condition: false
     displayName: Windows 2016
     pool:
       vmImage: 'vs2017-win2016'
@@ -31,6 +33,7 @@ stages:
       - template: .azure/windows-ci.yml
 
   - job: Windows_2019
+    condition: false
     displayName: Windows 2019
     pool:
       vmImage: 'windows-2019'
@@ -40,7 +43,7 @@ stages:
       - template: .azure/windows-ci.yml
 
 - stage: fuzzing
-  displayName: Fuzz Testing
+  displayName: Fuzzing
   dependsOn: basic
   jobs:
   - job: zzuf
@@ -56,6 +59,7 @@ stages:
       - template: .azure/linux-ci.yml
 
   - job: afl
+    condition: false
     container:
       image: claudioandre/john:ubuntu.opencl
 
@@ -64,6 +68,32 @@ stages:
       EXTRA: "AFL_FUZZ"
       BUILD_OPTS: "--enable-fuzz --disable-native-tests"
       CC: "afl-clang-fast"
+
+    steps:
+      - template: .azure/linux-ci.yml
+
+  # Runs "--fuzz"
+  - job: internal
+    container:
+      image: claudioandre/john:ubuntu.opencl
+
+    variables:
+      TARGET_ARCH: "NIX"
+      EXTRA: "MY_INTERNAL"
+      BUILD_OPTS: "--enable-fuzz"
+
+    steps:
+      - template: .azure/linux-ci.yml
+
+  # Runs "--test-full=1"
+  - job: full
+    container:
+      image: claudioandre/john:ubuntu.opencl
+
+    variables:
+      TARGET_ARCH: "NIX"
+      EXTRA: "MY_FULL"
+      BUILD_OPTS: "--enable-fuzz"
 
     steps:
       - template: .azure/linux-ci.yml

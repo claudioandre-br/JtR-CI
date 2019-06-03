@@ -55,14 +55,9 @@ matrix:
   - env: TEST="usual;ASAN;OPENCL;" BUILD_OPTS="--disable-native-tests --disable-openmp --enable-werror CPPFLAGS='-mno-sse2 -mno-mmx -U__SSE__'" F=1
   - env: TEST="usual;ASAN;OPENCL;" BUILD_OPTS="--disable-native-tests --disable-openmp --enable-werror CPPFLAGS='-mno-sse2 -mno-mmx -U__SSE__'" F=2
 
-  #Enable alignment checking ubsan
+  #Enable ubsan
   - compiler: clang
     env: TEST="usual;OPENCL;" BUILD_OPTS="--enable-ubsan"
-
-  #Test fuzzing
-  - env: TEST="OpenCL;POCL;"        BUILD_OPTS="--enable-fuzz" FUZZ="internal"  # --fuzz
-
-  - env: TEST="OpenCL;POCL;"        BUILD_OPTS="--enable-fuzz" FUZZ="full"      # --test-full=1
 
   #Test --restore using TS
   #- env: TEST="TS --restore;" # WE KNOW IT IS NOT WORKING
