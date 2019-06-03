@@ -51,9 +51,24 @@ stages:
     steps:
       - template: .azure/linux-ci.yml
 
+- stage: functional
+  displayName: 'Functional Test'
+  dependsOn: basic
+  jobs:
+  - job: cracking
+    container:
+      image: claudioandre/john:fedora.30
+    variables:
+      TARGET_ARCH: "NIX"
+      EXTRA: "full;extra;crack;"
+      BUILD_OPTS: "--enable-werror"
+
+    steps:
+      - template: .azure/linux-ci.yml
+
 - stage: fuzz
   displayName: 'Fuzzing'
-  dependsOn: basic
+  dependsOn: functional
   jobs:
   - job: zzuf
     container:
