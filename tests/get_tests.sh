@@ -26,24 +26,36 @@ mkdir -p .ci/
 mkdir -p .circleci/
 mkdir -p .travis/
 
+# Script that disable formats
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/buggy.sh
 
+# AppVeyor CI YAML file
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/appveyor.yml
 
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure-pipelines.yml
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/linux-system-info.yml            -P .azure/
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/windows-system-info.yml          -P .azure/
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/linux-build-and-test-steps.yml   -P .azure/
+# Circle CI YAML file
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/config.yml    -P .circleci/
 
+# Cirrus CI YAML file
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/.cirrus.yml
+
+# Azure CI YAML files
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure-pipelines.yml
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/checkout.yml                     -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/linux-build-and-test-steps.yml   -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/linux-ci.yml                     -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/linux-system-info.yml            -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/windows-build-and-test-steps.yml -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/windows-ci.yml                   -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/windows-system-info.yml          -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/windows-testing.yml              -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/windows-variables.yml            -P .azure/
+
+# Travis CI YAML file and scripts
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/.travis.yml
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/CI-tests.sh   -P .travis/
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/travis-ci.sh  -P .travis/
 
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/config.yml    -P .circleci/
-
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/tests-ci.sh   -P .ci/
-
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/.cirrus.yml
 
 chmod +x buggy.sh
 chmod +x .travis/CI-tests.sh
