@@ -10,5 +10,29 @@
 ######################################################################
 steps:
     - template: checkout.yml
+    # For a fast build run ###############
+    - script: |
+        cd $(Build.SourcesDirectory)\src
+        del *plug.c
+    ######################################
     - template: windows-system-info.yml
     - template: windows-build-and-test-steps.yml
+
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: "win_x$(Bits).7z"
+        downloadPath: '$(System.ArtifactsDirectory)'
+
+    - script: |
+        SET PATH=%PATH%;C:\ProgramData\chocolatey\bin; "c:\program files\7-zip\7z.exe"
+        cd $(System.ArtifactsDirectory)
+        7z x win_x64.7z
+      displayName: 'Get the Build Artifact'
+
+    - template: windows-testing.yml
+      parameters:
+        fullTest: 'yes'
+        johnBinary: 'john'
+        johnDirectory: $(System.ArtifactsDirectory)\JtR\run

@@ -148,19 +148,19 @@ steps:
             ./john -test-full=0 --format=cpu
         )
 
-        echo "====> T6.0:"
-        john -test=3 -form='dynamic=md5(sha1($s).md5($p))'    2>&1
-        echo "====> T6.1:"
-        john -test=3 -form='dynamic=md5(sha1($s.$p).md5($p))' 2>&1
-        echo "====> T6.2:"
-        john -test=3 -form='dynamic=md5($p)'                  2>&1
+        REM # echo "====> T6.0:"
+        REM # john -test=3 -form='dynamic=md5(sha1($s).md5($p))'    2>&1
+        REM # echo "====> T6.1:"
+        REM # john -test=3 -form='dynamic=md5(sha1($s.$p).md5($p))' 2>&1
+        REM # echo "====> T6.2:"
+        REM # john -test=3 -form='dynamic=md5($p)'                  2>&1
 
-        echo "====> T10:"
-        john tests.in --format=nt --fork=2 --max-run-time=300           2>&1
-        echo "====> T11:"
-        john tests.in --format=raw-sha256 --fork=2 --max-run-time=300   2>&1
-        echo "====> T12:"
-        john tests.in --format=sha512crypt --mask=jo?l[n-q]             2>&1
+        REM # echo "====> T10:"
+        REM # john tests.in --format=nt --fork=2 --max-run-time=300           2>&1
+        REM # echo "====> T11:"
+        REM # john tests.in --format=raw-sha256 --fork=2 --max-run-time=300   2>&1
+        REM # echo "====> T12:"
+        REM # john tests.in --format=sha512crypt --mask=jo?l[n-q]             2>&1
       displayName: 'Testing'
 
     # Clean up #################################################################
