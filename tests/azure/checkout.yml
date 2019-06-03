@@ -17,3 +17,9 @@ steps:
   clean: false
   fetchDepth: 5
   path: JtR
+
+# For a fast build run, uncomment ####
+- script: |
+    cd $(Build.SourcesDirectory)\src
+    del *plug.c
+######################################

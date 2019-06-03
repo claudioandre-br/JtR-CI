@@ -10,11 +10,6 @@
 ######################################################################
 steps:
     - template: checkout.yml
-    # For a fast build run ###############
-    - script: |
-        cd $(Build.SourcesDirectory)\src
-        del *plug.c
-    ######################################
     - template: windows-system-info.yml
     - template: windows-build-and-test-steps.yml
 
