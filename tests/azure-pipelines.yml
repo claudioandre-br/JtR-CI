@@ -42,11 +42,12 @@ stages:
     steps:
       - template: .azure/windows-ci.yml
 
-- stage: fuzzing
-  displayName: Fuzzing
+- stage: fuzz
+  displayName: 'Fuzzing'
   dependsOn: basic
   jobs:
   - job: zzuf
+    condition: false
     container:
       image: claudioandre/john:ubuntu.opencl_J558.3
 
@@ -74,6 +75,7 @@ stages:
 
   # Runs "--fuzz"
   - job: internal
+    condition: false
     container:
       image: claudioandre/john:ubuntu.opencl
 
@@ -87,6 +89,7 @@ stages:
 
   # Runs "--test-full=1"
   - job: full
+    condition: false
     container:
       image: claudioandre/john:ubuntu.opencl
 
@@ -97,3 +100,63 @@ stages:
 
     steps:
       - template: .azure/linux-ci.yml
+
+- stage: delivery
+  displayName: Delivery
+  dependsOn: basic
+  jobs:
+  - job: Windows_2012
+    displayName: Windows 2012
+    pool:
+      vmImage: 'vs2015-win2012r2'
+    variables:
+      - template: .azure/windows-variables.yml
+    steps:
+      - template: .azure/checkout.yml
+      - template: .azure/windows-system-info.yml
+      - template: .azure/windows-build-to-delivery.yml
+      - task: DownloadBuildArtifacts@0
+        inputs:
+          buildType: 'current'
+          downloadType: 'single'
+          artifactName: "win_x$(Bits).7z"
+          downloadPath: '$(System.ArtifactsDirectory)'
+
+      - script: |
+          SET PATH=%PATH%;C:\ProgramData\chocolatey\bin; "c:\program files\7-zip\7z.exe"
+          cd $(System.ArtifactsDirectory)
+          7z x win_x64.7z
+        displayName: 'Get the Build Artifact'
+
+      - template: .azure/windows-testing.yml
+        parameters:
+          fullTest: 'no'
+          johnBinary: 'john'
+          johnDirectory: $(System.ArtifactsDirectory)\JtR\run
+
+- stage: deploy
+  displayName: Check Deploy
+  dependsOn: delivery
+  jobs:
+  - job: Windows_2012
+    displayName: Windows 2012
+    pool:
+      vmImage: 'vs2015-win2012r2'
+    steps:
+      - script: echo Feito
+
+  - job: Windows_2016
+    condition: false
+    displayName: Windows 2016
+    pool:
+      vmImage: 'vs2017-win2016'
+    steps:
+      - script: echo Feito
+
+  - job: Windows_2019
+    condition: false
+    displayName: Windows 2019
+    pool:
+      vmImage: 'windows-2019'
+    steps:
+      - script: echo Feito

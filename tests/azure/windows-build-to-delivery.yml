@@ -13,6 +13,12 @@ steps:
         # Setup image environment ##############################################
         $cygwinFolder = "C:\$env:cygwinPath"
 
+        if ($env:Test -eq "package") {
+            # Use upstream source code
+            cd $env:PROJ_FOLDER
+            Remove-Item ./JtR -Force -Recurse -ErrorAction SilentlyContinue
+            git clone -q --depth 1 https://github.com/magnumripper/JohnTheRipper.git JtR
+        }
         cd $env:BUILD_FOLDER
         git describe --dirty=+ --always
         echo '--------------------------------'
@@ -68,8 +74,36 @@ steps:
         #    + CategoryInfo          : NotSpecified: (ar: creating aes.a:String) [], RemoteException
         #    + FullyQualifiedErrorId : NativeCommandError
         # ####
-        shell "./configure --disable-opencl && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-best"
-        $EXE_NAME = "john-best.exe"
+        $EXE_NORMAL = "--disable-native-tests"
+        $EXE_NO_OMP = "--disable-native-tests --disable-openmp"
+
+        # CPU (OMP and extensions fallback)
+        shell "./configure $EXE_NO_OMP --enable-simd=sse2                                                                                                                                                       && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-sse2-non-omp"
+        shell "./configure $EXE_NORMAL --enable-simd=sse2   CPPFLAGS='-DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-sse2-non-omp\\\`"\`" '                                                                  && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-sse2"
+        shell "./configure $EXE_NO_OMP --enable-simd=sse4.1 CPPFLAGS='-DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-sse2\\\`"\`" '                                                                          && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-sse41-non-omp"
+        shell "./configure $EXE_NORMAL --enable-simd=sse4.1 CPPFLAGS='-DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-sse41-non-omp\\\`"\`" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-sse2\\\`"\`" '  && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-sse41"
+        shell "./configure $EXE_NO_OMP --enable-simd=avx    CPPFLAGS='-DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-sse41\\\`"\`" '                                                                         && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx-non-omp"
+        shell "./configure $EXE_NORMAL --enable-simd=avx    CPPFLAGS='-DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx-non-omp\\\`"\`"   -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-sse41\\\`"\`" ' && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx"
+        shell "./configure $EXE_NO_OMP --enable-simd=xop    CPPFLAGS='-DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx\\\`"\`" '                                                                           && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-xop-non-omp"
+        shell "./configure $EXE_NORMAL --enable-simd=xop    CPPFLAGS='-DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-xop-non-omp\\\`"\`"   -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx\\\`"\`" '   && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-xop"
+        shell "./configure $EXE_NO_OMP --enable-simd=avx2   CPPFLAGS='-DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-xop\\\`"\`" '                                                                           && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx2-non-omp"
+        shell "./configure $EXE_NORMAL --enable-simd=avx2   CPPFLAGS='-DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx2-non-omp\\\`"\`"  -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-xop\\\`"\`" '   && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx2"
+        $EXE_NAME = "john-avx2.exe"
+
+        if ($env:Arch -eq "x86_64") {
+          shell "./configure $EXE_NO_OMP --enable-simd=avx512bw CPPFLAGS='-fno-asynchronous-unwind-tables -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`" '                                                                            && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx512bw-non-omp"
+          shell "./configure $EXE_NORMAL --enable-simd=avx512bw CPPFLAGS='-fno-asynchronous-unwind-tables -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx512bw-non-omp\\\`"\`" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`" ' && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx512bw"
+          $EXE_NAME = "john-avx512bw.exe"
+        }
+
+        # Configure OpenCL ICD
+        shell "mkdir -p ../etc/OpenCL/vendors"
+        shell "echo 'c:\Windows\System32\amdocl64.dll' > ../etc/OpenCL/vendors/amd.icd"
+        shell "echo 'c:\Windows\System32\nvopencl.dll' > ../etc/OpenCL/vendors/nvidia.icd"
+        shell "echo 'c:\Windows\System32\IntelOpenCL64.dll' > ../etc/OpenCL/vendors/intel.icd"
+
+        # Install OpenCL kernel code
+        shell "make -s kernel-copy"
 
         # The "windows-package" make target depends on default,
         # - So it needs the john.exe I built above
@@ -118,44 +152,6 @@ steps:
 
         c:\%cygwinPath%\peflags --dynamicbase=true --nxcompat=true *.exe 2>&1
       displayName: 'Enable ASLR and DEP for the binaries'
-
-    # The test_script ##########################################################
-    - script: |
-        powershell -command 'Write-Host "--------------------------------------------------------"'
-        powershell -command 'Write-Host "                 =====  Testing  =====                  " -ForegroundColor White'
-        powershell -command 'Write-Host "--------------------------------------------------------"'
-
-        REM # Setup worker environment
-        cd $(Build.SourcesDirectory)\run
-
-        echo "====> Build Info"
-        john --list=build-info
-
-        echo $NT$066ddfd4ef0e9cd7c256fe77191ef43c > tests.in
-        echo $NT$8846f7eaee8fb117ad06bdd830b7586c >> tests.in
-        echo df64225ca3472d32342dd1a33e4d7019f01c513ed7ebe85c6af102f6473702d2 >> tests.in
-        echo 73e6bc8a66b5cead5e333766963b5744c806d1509e9ab3a31b057a418de5c86f >> tests.in
-        echo $6$saltstring$fgNTR89zXnDUV97U5dkWayBBRaB0WIBnu6s4T7T8Tz1SbUyewwiHjho25yWVkph2p18CmUkqXh4aIyjPnxdgl0 >> tests.in
-
-        if "%test%" == "yes" (
-            echo "====> T0:"
-            ./john -test-full=0 --format=cpu
-        )
-
-        REM # echo "====> T6.0:"
-        REM # john -test=3 -form='dynamic=md5(sha1($s).md5($p))'    2>&1
-        REM # echo "====> T6.1:"
-        REM # john -test=3 -form='dynamic=md5(sha1($s.$p).md5($p))' 2>&1
-        REM # echo "====> T6.2:"
-        REM # john -test=3 -form='dynamic=md5($p)'                  2>&1
-
-        REM # echo "====> T10:"
-        REM # john tests.in --format=nt --fork=2 --max-run-time=300           2>&1
-        REM # echo "====> T11:"
-        REM # john tests.in --format=raw-sha256 --fork=2 --max-run-time=300   2>&1
-        REM # echo "====> T12:"
-        REM # john tests.in --format=sha512crypt --mask=jo?l[n-q]             2>&1
-      displayName: 'Testing'
 
     # Clean up #################################################################
     - script: |
@@ -220,11 +216,17 @@ steps:
         }
 
         Write-Output "**************************************************************************"
-        Write-Output "File verification is the process of using an algorithm for verifying the integrity of a computer file. A popular approach is to store checksums (hashes) of files, also known as message digests, for later comparison." | Tee-Object -FilePath ..\checksums.txt
-        Write-Output "**************************************************************************" | Tee-Object -FilePath ..\checksums.txt -Append
-        Get-FileHash -Path .\*.exe | Tee-Object -FilePath ..\checksums.txt -Append
+        Write-Output "File verification is the process of using an algorithm for verifying the integrity of a computer file. A popular approach is to store checksums (hashes) of files, also known as message digests, for later comparison." | Tee-Object -FilePath c:\checksums.txt
+        Write-Output "**************************************************************************" | Tee-Object -FilePath c:\checksums.txt -Append
+        Get-FileHash -Path .\*.exe | Tee-Object -FilePath c:\checksums.txt -Append
       displayName: 'Compute and Save Checksums'
 
+    # There are two kinds of artifacts publication ###############
+    # - PublishBuildArtifacts
+    # - DownloadBuildArtifacts
+    # - PublishPipelineArtifacts
+    # - DownloadPipelineArtifacts
+    # ############################################################
     - task: PublishBuildArtifacts@1
       inputs:
         pathtoPublish: "c:\\win_x$(Bits).7z"

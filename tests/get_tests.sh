@@ -19,7 +19,7 @@ if [[ ! -d src || ! -d run ]] && [[ $1 != "-f" ]]; then
 fi
 
 #Changes needed
-rm -rf .travis.yml buggy.sh appveyor.yml .travis/ .circleci/
+rm -rf .travis.yml appveyor.yml .travis/ .circleci/
 
 mkdir -p .azure/
 mkdir -p .ci/
