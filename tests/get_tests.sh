@@ -40,15 +40,15 @@ wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/.cirr
 
 # Azure CI YAML files
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure-pipelines.yml
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/checkout.yml                     -P .azure/
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/linux-build-and-test-steps.yml   -P .azure/
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/linux-ci.yml                     -P .azure/
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/linux-system-info.yml            -P .azure/
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/windows-build-and-test-steps.yml -P .azure/
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/windows-ci.yml                   -P .azure/
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/windows-system-info.yml          -P .azure/
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/windows-testing.yml              -P .azure/
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/windows-variables.yml            -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/checkout.yml                     -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/linux-build-and-test-steps.yml   -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/linux-ci.yml                     -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/linux-system-info.yml            -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/windows-build-and-test-steps.yml -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/windows-ci.yml                   -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/windows-system-info.yml          -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/windows-testing.yml              -P .azure/
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/windows-variables.yml            -P .azure/
 
 # Travis CI YAML file and scripts
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/.travis.yml
