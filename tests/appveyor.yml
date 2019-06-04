@@ -8,6 +8,11 @@
 # the Free Software Foundation, as expressed in version 2, seen at
 # http://www.gnu.org/licenses/gpl-2.0.html
 ######################################################################
+branches:
+  only:
+    - test
+    - release
+
 environment:
   global:
     PROJ_FOLDER: C:\projects
