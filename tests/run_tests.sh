@@ -255,6 +255,54 @@ if [[ -z "${TEST##*SIMD*}" ]]; then
     /john/run/john-avx512bw-no-omp --test=10 --format=SHA512crypt
     /john/run/john-ztex            --test=10 --format=SHA512crypt
     /john/run/john-ztex-no-omp     --test=10 --format=SHA512crypt
+
+    total=$((total + 18))
+fi
+
+if [[ -z "${TEST##*OpenCL-full*}" ]]; then
+    echo "--------------------------- test full ---------------------------"
+    $JTR_BIN -test-full=0 --format=opencl
+    report "-test-full=0 --format=opencl"
+fi
+
+if [[ -z "${TEST##*OpenCL-crack*}" ]]; then
+    echo "--------------------------- real cracking ---------------------------"
+    $JTR_BIN -list=format-tests | cut -f3 > alltests.in
+    $JTR_BIN -form=SHA512crypt-opencl alltests.in --max-len=2 --progress=30
+    report "-form=SHA512crypt-opencl alltests.in --max-len=2 --progress=30"
+
+    $JTR_BIN -list=format-tests --format=sha512crypt | cut -f4 | head > solucao
+    $JTR_BIN -form=SHA512crypt-opencl alltests.in -w:solucao
+    report "-form=SHA512crypt-opencl alltests.in -w:solucao"
+
+    $JTR_BIN -list=format-tests | cut -f3 > alltests.in
+    $JTR_BIN -form=SHA256crypt-opencl alltests.in --max-len=2 --progress=30
+    report "-form=SHA256crypt-opencl alltests.in --max-len=2 --progress=30"
+
+    $JTR_BIN -list=format-tests --format=SHA256crypt | cut -f4 | head > solucao
+    $JTR_BIN -form=SHA256crypt-opencl alltests.in -w:solucao
+    report "-form=SHA256crypt-opencl alltests.in -w:solucao"
+
+    $JTR_BIN -list=format-tests | cut -f3 > alltests.in
+    $JTR_BIN -list=format-tests | cut -f4 > solucao
+
+    $JTR_BIN -form=RAW-SHA256-opencl alltests.in --max-len=2 --progress=30
+    report "-form=RAW-SHA256-opencl alltests.in --max-len=2 --progress=30"
+
+    $JTR_BIN -form=RAW-SHA256-opencl alltests.in -w:solucao
+    report "-form=RAW-SHA256-opencl alltests.in -w:solucao"
+
+    $JTR_BIN -form=RAW-SHA512-opencl alltests.in --max-len=2 --progress=30
+    report "-form=RAW-SHA512-opencl alltests.in --max-len=2 --progress=30"
+
+    $JTR_BIN -form=RAW-SHA512-opencl alltests.in -w:solucao
+    report "-form=RAW-SHA512-opencl alltests.in -w:solucao"
+
+    $JTR_BIN -form=xSHA512-opencl alltests.in --max-len=2 --progress=30
+    report "-form=xSHA512-opencl alltests.in --max-len=2 --progress=30"
+
+    $JTR_BIN -form=xSHA512-opencl alltests.in -w:solucao
+    report "-form=xSHA512-opencl alltests.in -w:solucao"
 fi
 
 echo '-------------------------------------------'
