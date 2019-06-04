@@ -28,6 +28,7 @@ mkdir -p .travis/
 
 # Script that disable formats
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/buggy.sh
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/disable_formats.sh
 
 # AppVeyor CI YAML file
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/appveyor.yml
@@ -74,6 +75,8 @@ git add azure-pipelines.yml
 # Ban all problematic formats (disable buggy formats)
 # If a formats fails its tests on super, I will burn it.
 ./buggy.sh disable
+cd src && ../disable_formats.sh && cd ..
+git add run/john-local.conf -f
 
 # Save the resulting state
 git commit -a -m "CI: test and package for Windows $(date)"
@@ -81,3 +84,4 @@ git commit -a -m "CI: test and package for Windows $(date)"
 # Clean up
 rm -f buggy.sh
 rm -f get_tests.sh
+rm -f disable_formats.sh

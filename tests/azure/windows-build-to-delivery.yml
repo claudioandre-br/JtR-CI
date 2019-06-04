@@ -162,6 +162,7 @@ steps:
         REM # Remove the left-over from testing
         del "%JTR_FOLDER%\run\john.log"
         del "%JTR_FOLDER%\run\john.pot"
+        del "%JTR_FOLDER%\run\john-local.conf"
 
         REM # Remove unused/unneeded stuff
         rmdir "%JTR_FOLDER%\run\ztex" /s /Q

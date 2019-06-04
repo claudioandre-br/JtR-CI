@@ -65,7 +65,8 @@ echo 'rawsha1-opencl = Y' >> ../run/john-local.conf
 echo 'salted_sha-opencl = Y' >> ../run/john-local.conf
 echo 'bitlocker-opencl = Y' >> ../run/john-local.conf
 echo 'keepass-opencl = Y' >> ../run/john-local.conf
-echo 'lotus5-opencl = Y' >> ../run/john-local.conf
+echo 'lotus5-opencl = Y' >> ../run/john-local.conf  #SIGSEGV
+echo 'pgpdisk-opencl = Y' >> ../run/john-local.conf #FAILED (cmp_all(49)) Intel OpenCL CPU
 
 # Kernel <lotus5> was successfully vectorized (8)
 # Done.

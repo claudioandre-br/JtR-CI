@@ -261,6 +261,7 @@ after_test:
   # Remove the left-over from testing
   - del john.log
   - del john.pot
+  - del john-local.conf
 
   # Remove unused/unneeded stuff
   - rmdir "%JTR_FOLDER%\run\ztex" /s /Q
