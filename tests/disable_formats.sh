@@ -65,4 +65,8 @@ echo 'rawsha1-opencl = Y' >> ../run/john-local.conf
 echo 'salted_sha-opencl = Y' >> ../run/john-local.conf
 echo 'bitlocker-opencl = Y' >> ../run/john-local.conf
 echo 'keepass-opencl = Y' >> ../run/john-local.conf
+echo 'lotus5-opencl = Y' >> ../run/john-local.conf
 
+# Kernel <lotus5> was successfully vectorized (8)
+# Done.
+# run_tests.sh: line 266:  6155 Segmentation fault      (core dumped) $JTR_BIN -test-full=0 --format=opencl
