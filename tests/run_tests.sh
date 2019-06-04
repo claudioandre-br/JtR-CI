@@ -52,7 +52,7 @@ echo 'df64225ca3472d32342dd1a33e4d7019f01c513ed7ebe85c6af102f6473702d2' >> ~/tes
 echo '73e6bc8a66b5cead5e333766963b5744c806d1509e9ab3a31b057a418de5c86f' >> ~/tests.in
 echo '$6$saltstring$fgNTR89zXnDUV97U5dkWayBBRaB0WIBnu6s4T7T8Tz1SbUyewwiHjho25yWVkph2p18CmUkqXh4aIyjPnxdgl0' >> ~/tests.in
 
-if [[ -z "${TEST##*full*}" ]]; then
+if [[ -z "${TEST##*;full;*}" ]]; then
     echo "--------------------------- test full ---------------------------"
     $JTR_BIN -test-full=0 --format=cpu
     report "-test-full=0 --format=cpu"
@@ -124,7 +124,7 @@ if [[ -z "${TEST##*extra*}" ]]; then
     fi
 fi
 
-if [[ -z "${TEST##*crack*}" ]]; then
+if [[ -z "${TEST##*;crack;*}" ]]; then
     echo "--------------------------- real cracking ---------------------------"
     $JTR_BIN -list=format-tests | cut -f3 > alltests.in
     $JTR_BIN -form=SHA512crypt alltests.in --max-len=2 --progress=30
