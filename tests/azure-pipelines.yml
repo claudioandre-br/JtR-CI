@@ -67,6 +67,42 @@ stages:
     steps:
       - template: .azure/linux-ci.yml
 
+  # Intel OpenCL CPU testing ###################################################
+  # Tests run on top of:
+  # - ubuntu:16.04
+  # - Intel driver 18.1.0.013
+  ##############################################################################
+  - job: intel_opencl
+    displayName: Intel OpenCL CPU
+    container:
+      image: claudioandre/john:opencl
+
+    variables:
+      TARGET_ARCH: "NIX"
+      EXTRA: "MY_FULL;OpenCL-full;OpenCL-crack;"
+      BUILD_OPTS: "--enable-werror"
+
+    steps:
+      - template: .azure/linux-ci.yml
+
+  # Known issues ###############################################################
+  # - Can't use '--enable-asan' in intel_opencl Job
+  #
+  #    #16 0x7f36513fefa0 in dlopen (/lib/x86_64-linux-gnu/libdl.so.2+0xfa0)
+  #    #17 0x7f365242b20f in dlopen (/usr/lib/x86_64-linux-gnu/libasan.so.2+0x3720f)
+  #    #18 0x7f3651b27862 in khrIcdVendorAdd (/usr/lib/x86_64-linux-gnu/libOpenCL.so.1+0x2862)
+  #    #19 0x7f3651b2bcc2 in khrIcdOsVendorsEnumerate (/usr/lib/x86_64-linux-gnu/libOpenCL.so.1+0x6cc2)
+  #    #20 0x7f3650b85a98 in __pthread_once_slow (/lib/x86_64-linux-gnu/libpthread.so.0+0xea98)
+  #    #21 0x7f3651b28325 in clGetPlatformIDs (/usr/lib/x86_64-linux-gnu/libOpenCL.so.1+0x3325)
+  #    #22 0x8f3112 in load_opencl_environment /__w/1/s/src/opencl_common.c:463
+  #    #23 0x8fade2 in opencl_load_environment /__w/1/s/src/opencl_common.c:879
+  #    #24 0x8fb637 in opencl_prepare_dev /__w/1/s/src/opencl_common.c:2362
+  #    #25 0xa0c234 in init /__w/1/s/src/opencl_rawsha256_fmt_plug.c:550
+  #    #26 0x840956 in fmt_init /__w/1/s/src/formats.c:80
+  #    #27 0x824526 in benchmark_all /__w/1/s/src/bench.c:782
+  #    #28 0x851f08 in john_run /__w/1/s/src/john.c:1697
+  ##############################################################################
+
 - stage: fuzz
   displayName: 'Fuzzing'
   dependsOn: functional
