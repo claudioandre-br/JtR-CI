@@ -147,7 +147,7 @@ if [[ -z "${TEST##*CHECK*}" ]]; then
 fi
 
 if [[ -z "${TEST##*AFL_FUZZ*}" ]]; then
-    echo "------------------------- afl fuzzing --------------------------"
+    echo "------------------------- "my" afl fuzzing --------------------------"
     echo "$ afl-fuzz -i in -o out JtR @@ "
     export LWS=5
     export GWS=25
@@ -172,7 +172,7 @@ if [[ -z "${TEST##*AFL_FUZZ*}" ]]; then
 fi
 
 if [[ -z "${TEST##*ZZUF_FUZZ*}" ]]; then
-    echo "------------------------- zzuf fuzzing --------------------------"
+    echo "------------------------- "my" zzuf fuzzing --------------------------"
     echo "$ zzuf -s 0:1000 -c -C 3 -T 3 JtR"
     export LWS=8
     export GWS=64
@@ -197,7 +197,7 @@ if [[ -z "${TEST##*ZZUF_FUZZ*}" ]]; then
 fi
 
 if [[ -z "${TEST##*MY_INTERNAL*}" ]]; then
-    echo "------------------------- fuzzing --fuzz --------------------------"
+    echo "------------------------- "my" fuzzing --fuzz --------------------------"
     echo "$ JtR --fuzz @@ "
 
     # Check if all formats passes self-test
@@ -210,7 +210,7 @@ if [[ -z "${TEST##*MY_INTERNAL*}" ]]; then
 fi
 
 if [[ -z "${TEST##*MY_FULL*}" ]]; then
-    echo "------------------------- test full --------------------------"
+    echo "------------------------- "my" test full --------------------------"
     echo "$ JtR -test-full=1 @@ "
 
     # Check if all formats passes self-test
@@ -260,13 +260,13 @@ if [[ -z "${TEST##*SIMD*}" ]]; then
 fi
 
 if [[ -z "${TEST##*OpenCL-full*}" ]]; then
-    echo "--------------------------- test full ---------------------------"
+    echo "--------------------------- OpenCL test full ---------------------------"
     $JTR_BIN -test-full=0 --format=opencl
     report "-test-full=0 --format=opencl"
 fi
 
 if [[ -z "${TEST##*OpenCL-crack*}" ]]; then
-    echo "--------------------------- real cracking ---------------------------"
+    echo "--------------------------- OpenCL real cracking ---------------------------"
     $JTR_BIN -list=format-tests | cut -f3 > alltests.in
     $JTR_BIN -form=SHA512crypt-opencl alltests.in --max-len=2 --progress=30
     report "-form=SHA512crypt-opencl alltests.in --max-len=2 --progress=30"
