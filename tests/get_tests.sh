@@ -62,6 +62,7 @@ wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/travi
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/tests-ci.sh   -P .ci/
 
 chmod +x buggy.sh
+chmod +x disable_formats.sh
 chmod +x .travis/CI-tests.sh
 chmod +x .travis/travis-ci.sh
 chmod +x .ci/tests-ci.sh
