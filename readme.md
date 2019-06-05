@@ -5,6 +5,7 @@
 [![FreeBSD Build](https://api.cirrus-ci.com/github/claudioandre-br/JohnTheRipper.svg)](https://cirrus-ci.com/github/claudioandre-br/JohnTheRipper)
 [![Travis Build](https://api.travis-ci.org/claudioandre-br/JohnTheRipper.svg)](https://travis-ci.org/claudioandre-br/JohnTheRipper)
 [![Circle Build](https://circleci.com/gh/claudioandre-br/JohnTheRipper.svg?style=shield)](https://circleci.com/gh/claudioandre-br/JohnTheRipper)
+[![Build Status](https://claudioandre-br.visualstudio.com/JohnTheRipper/_apis/build/status/JohnTheRipper?branchName=bleeding-jumbo)](https://claudioandre-br.visualstudio.com/JohnTheRipper/_build/latest?definitionId=1&branchName=bleeding-jumbo)
 [![License](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://github.com/claudioandre-br/JtR-CI/blob/master/LICENSE.txt)
 
 > John the Ripper password cracker
