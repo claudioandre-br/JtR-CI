@@ -45,8 +45,12 @@ echo 'enpass = Y' >> ../run/john-local.conf      #BE
 echo 'RACF-KDFAES = Y' >> ../run/john-local.conf #SLOW
 echo 'RAR = Y' >> ../run/john-local.conf         #SLOW
 
-echo 'pbkdf2_hmac_md4-opencl = Y' >> ../run/john-local.conf
-echo 'pbkdf2_hmac_md5-opencl = Y' >> ../run/john-local.conf
+echo 'bcrypt = Y' >> ../run/john-local.conf                  # TS
+echo 'bcrypt-opencl = Y' >> ../run/john-local.conf           # TS
+echo 'descrypt-opencl = Y' >> ../run/john-local.conf         # TS
+
+echo 'pbkdf2-hmac-md4-opencl = Y' >> ../run/john-local.conf  # TS
+echo 'pbkdf2-hmac-md5-opencl = Y' >> ../run/john-local.conf  # TS
 echo 'bf-opencl = Y' >> ../run/john-local.conf
 echo 'DES-opencl = Y' >> ../run/john-local.conf
 echo 'gpg-opencl = Y' >> ../run/john-local.conf
@@ -57,7 +61,8 @@ echo 'ntlmv2-opencl = Y' >> ../run/john-local.conf
 echo 'o5logon-opencl = Y' >> ../run/john-local.conf
 echo 'rawmd5-opencl = Y' >> ../run/john-local.conf
 echo 'rawmd4-opencl = Y' >> ../run/john-local.conf
-echo 'xsha512-free-opencl = Y' >> ../run/john-local.conf
+echo 'raw-SHA512-free-opencl = Y' >> ../run/john-local.conf  # Inefficient
+echo 'xsha512-free-opencl = Y' >> ../run/john-local.conf     # Inefficient
 echo 'mysqlsha1-opencl = Y' >> ../run/john-local.conf
 echo 'mscash-opencl = Y' >> ../run/john-local.conf
 echo 'sl3-opencl = Y' >> ../run/john-local.conf
