@@ -150,17 +150,13 @@ steps:
         john tests.in --format=raw-sha256 --fork=2 --max-run-time=300   2>&1
         echo "====> T12:"
         john tests.in --format=sha512crypt --mask=jo?l[n-q]             2>&1
-      displayName: 'Testing'
+      displayName: 'Fast Check'
 
     # Clean up #################################################################
     - script: |
         REM # Setup worker environment
         SET PATH=%PATH%;C:\ProgramData\chocolatey\bin; "c:\program files\7-zip\7z.exe"
         cd $(Build.SourcesDirectory)
-
-        REM # Remove the left-over from testing
-        del "%JTR_FOLDER%\run\john.log"
-        del "%JTR_FOLDER%\run\john.pot"
 
         REM # Remove unused/unneeded stuff
         rmdir "%JTR_FOLDER%\run\ztex" /s /Q

@@ -33,7 +33,7 @@ steps:
 
         if "${{ parameters.fullTest }}" == "yes" (
             echo "====> T0:"
-            ${{ parameters.johnBinary }} -test-full=0 --format=cpu
+            ${{ parameters.johnBinary }} -test-full=0 --format=cpu                    2>&1
         )
 
         echo "====> T6.0:"
