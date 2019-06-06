@@ -25,7 +25,7 @@ steps:
           downloadPath: '$(System.ArtifactsDirectory)'
 
       - script: |
-          SET PATH=%PATH%;C:\ProgramData\chocolatey\bin; "c:\program files\7-zip\7z.exe"
+          SET PATH=%PATH%;C:\ProgramData\chocolatey\bin
           cd $(System.ArtifactsDirectory)
           7z x win_x64.7z
         displayName: 'Get the Build Artifact'

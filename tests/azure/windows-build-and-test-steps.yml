@@ -111,7 +111,7 @@ steps:
     # Clean up #################################################################
     - script: |
         REM # Setup worker environment
-        SET PATH=%PATH%;C:\ProgramData\chocolatey\bin; "c:\program files\7-zip\7z.exe"
+        SET PATH=%PATH%;C:\ProgramData\chocolatey\bin
         cd $(Build.SourcesDirectory)
 
         REM # Remove unused/unneeded stuff
