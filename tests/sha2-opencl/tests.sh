@@ -156,7 +156,7 @@ function do_Test_Suite(){
     cd - || return > /dev/null
 }
 
-function do_Full_TS(){
+function do_All_TS(){
     cd ..
 
     # Workaround to force NVIDIA GTX TITAN X
@@ -167,6 +167,23 @@ function do_Full_TS(){
     do_Test_TS "NONE" ""
 
     cd - || return > /dev/null
+}
+
+function do_All_Full(){
+    TEMP=$(mktemp _tmp_output.XXXXXXXX)
+    TO_RUN="$3 ../../run/john --test-full=1 $1 $2 -dev:$Dev_3 2>&1 | tee $TEMP"
+    eval "$TO_RUN"
+    ret_code=$?
+
+    if [[ $ret_code -ne 0 ]]; then
+        echo "ERROR ($ret_code): $TO_RUN"
+        echo
+
+        Total_Erros=$((Total_Erros + 1))
+    fi
+    Total_Tests=$((Total_Tests + 1))
+    #-- Remove tmp files.
+    rm "$TEMP"
 }
 
 function do_Test_Bench(){
@@ -526,8 +543,9 @@ case "$1" in
     "--fuzz" | "-f")
         do_Fuzz
         ;;
-    "--full-ts")
-        do_Full_TS
+    "--delivery" | "-d")
+        do_All_TS
+        do_All_Full
         ;;
 esac
 
