@@ -2,6 +2,12 @@ language: c
 dist: trusty
 services: docker
 
+stages:
+  - test
+  - Test Suite
+  - name: package
+    if: commit_message =~ /test-package/
+
 matrix:
   include:
   #Test JtR using a stable OS/compiler
@@ -27,18 +33,6 @@ matrix:
   - env: TEST="fresh;clang-6;"           BUILD_OPTS="--enable-ubsan"
   - env: TEST="experimental;"            BUILD_OPTS="--enable-werror"
 
-  #Test using TS - CPU formats
-  - compiler: clang
-    env: TEST="TS;"
-
-  #Test using TS - OpenCL
-  - compiler: clang
-    env: TEST="TS;OPENCL;"
-
-  #Test --internal using TS
-  - compiler: clang
-    env: TEST="TS --internal;OPENCL;"
-
   #Test OpenMP with OMP_NUM_THREADS=1
   - env: TEST="usual;ASAN;" OMP_NUM_THREADS=1
 
@@ -59,14 +53,7 @@ matrix:
   - compiler: clang
     env: TEST="usual;OPENCL;" BUILD_OPTS="--enable-ubsan"
 
-  #Test --restore using TS
-  #- env: TEST="TS --restore;" # WE KNOW IT IS NOT WORKING
-
-  #Test the Ubuntu Snap package
-  - dist: xenial
-    env: TEST="snap;" FUZZ="snap"
-
-  #MacOS testing ###############################################################
+  # MacOS testing ##############################################################
   - os: osx
     osx_image: xcode10.2
     env: TEST="MacOS;" OPENCL="yes"
@@ -75,31 +62,50 @@ matrix:
     osx_image: xcode9.4
     env: TEST="MacOS;" OPENCL="yes"
 
-  #Windows package testing #####################################################
-  # - os: windows
-  #  script:
-  #  # install_script: choco install -y 7zip wget
-  #
-  #  # info_script:
-  #  - systeminfo
-  #
-  #  # check_script:
-  # - wget https://ci.appveyor.com/api/buildjobs/81duqr81n02jb6kp/artifacts/win_x64.7z
-  #  - 7z x win_x64.7z
-  #  - cd JohnTheRipper/run
-  #  # - ./john.exe --list=build-info
-  #  # - ./john.exe --test=0
-  #  - ./john-avx512bw.exe --list=build-info
+  # Test Suite Testing #########################################################
+  #Test using TS - CPU formats
+  - stage: Test Suite
+    compiler: clang
+    env: TEST="TS;"
+
+  #Test using TS - OpenCL
+  - stage: Test Suite
+    compiler: clang
+    env: TEST="TS;OPENCL;"
+
+  #Test --internal using TS
+  - stage: Test Suite
+    compiler: clang
+    env: TEST="TS --internal;OPENCL;"
+
+  #Test --restore using TS
+  #- env: TEST="TS --restore;" # WE KNOW IT IS NOT WORKING
+  ##############################################################################
+
+  # Test the Ubuntu Snap package ###############################################
+  - stage: package
+    dist: xenial
+    env: TEST="snap;" FUZZ="snap"
+
+  # Windows package testing ####################################################
+  - stage: package
+    os: windows
+    script:
+    # install_script: choco install -y 7zip wget
+
+    # info_script:
+    - systeminfo
+
+    # check_script:
+    - wget https://ci.appveyor.com/api/buildjobs/fh0dicj2387oa40c/artifacts/win_x64.7z
+    - 7z x win_x64.7z
+    - cd JohnTheRipper/run
+    - ./john.exe --list=build-info
+    - ./john.exe --test=0
   ##############################################################################
 
   allow_failures:
   - env: TEST="experimental;"            BUILD_OPTS="--enable-werror"
-
-  - env: TEST="TS;"
-
-  - env: TEST="TS;OPENCL;"
-
-  - env: TEST="TS --internal;OPENCL;"
 
   - env: TEST="usual;ASAN;" OMP_NUM_THREADS=1
 
@@ -114,15 +120,12 @@ matrix:
 
   - env: TEST="usual;OPENCL;" BUILD_OPTS="--enable-ubsan"
 
-  - env: TEST="OpenCL;POCL;afl-clang-fast;" BUILD_OPTS="--enable-fuzz" FUZZ="afl"
+  - stage: package
+    env: TEST="TS;"
 
-  - env: TEST="OpenCL;POCL;clang;"  BUILD_OPTS="--enable-fuzz" FUZZ="zzuf"
+  - env: TEST="TS;OPENCL;"
 
-  - env: TEST="OpenCL;POCL;"        BUILD_OPTS="--enable-fuzz" FUZZ="internal"  # --fuzz
-
-  - env: TEST="OpenCL;POCL;"        BUILD_OPTS="--enable-fuzz" FUZZ="full"      # --test-full=1
-
-  - env: TEST="snap;" FUZZ="snap"
+  - env: TEST="TS --internal;OPENCL;"
 
   fast_finish: true
 
