@@ -163,10 +163,10 @@ stages:
   displayName: Delivery
   dependsOn: basic
   jobs:
-  - job: Windows_2012
-    displayName: Windows 2012
+  - job: Windows_2016
+    displayName: Windows 2016
     pool:
-      vmImage: 'vs2015-win2012r2'
+      vmImage: 'vs2017-win2016'
     variables:
       - template: .azure/windows-variables.yml
     steps:
