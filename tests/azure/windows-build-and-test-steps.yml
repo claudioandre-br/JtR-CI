@@ -114,38 +114,6 @@ steps:
         SET PATH=%PATH%;C:\ProgramData\chocolatey\bin
         cd $(Build.SourcesDirectory)
 
-        REM # Remove unused/unneeded stuff
-        rmdir "%JTR_FOLDER%\run\ztex" /s /Q
-
-        REM # Remove hidden .name files and folders
-        del "%JTR_FOLDER%\.cirrus.yml"
-        del "%JTR_FOLDER%\.editorconfig"
-        del "%JTR_FOLDER%\.gitattributes"
-        del "%JTR_FOLDER%\.gitignore"
-        del "%JTR_FOLDER%\.mailmap"
-        del "%JTR_FOLDER%\.pre-commit.sh"
-        del "%JTR_FOLDER%\.travis.yml"
-
-        rmdir "%JTR_FOLDER%\.ci"       /s /Q
-        rmdir "%JTR_FOLDER%\.circleci" /s /Q
-        rmdir "%JTR_FOLDER%\.github"   /s /Q
-        rmdir "%JTR_FOLDER%\.travis"   /s /Q
-
-        dir "%JTR_FOLDER%" /s > dir.txt
-        if exist "dir.txt" 7z a -tzip debug_logs.zip "dir.txt" > nul
-        if exist "%JTR_FOLDER%\src\config.log" 7z a -tzip debug_logs.zip "%JTR_FOLDER%\src\config.log" > nul
-        if exist "%JTR_FOLDER%\src\configure" 7z a -tzip debug_logs.zip "%JTR_FOLDER%\src\configure" > nul
-        if exist "%JTR_FOLDER%\src\Makefile" 7z a -tzip debug_logs.zip "%JTR_FOLDER%\src\Makefile" > nul
-
-        REM # Save the DLLs zip file
-        if exist "%JTR_FOLDER%\lib" 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on "optional.7z" "%JTR_FOLDER%\lib"
-        move optional.7z c:\
-
-        REM # Remove non distributable files
-        rmdir "%JTR_FOLDER%\lib" /s /Q
-        rmdir "%JTR_FOLDER%\.git" /s /Q
-        rmdir "%JTR_FOLDER%\src" /s /Q
-
         REM # Save John the Ripper zip file
         if exist "%JTR_FOLDER%\run\john.exe" 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on "win_x%bits%.7z" "%JTR_FOLDER%"
         move "win_x%bits%.7z" c:\
