@@ -85,7 +85,11 @@ function do_Test_Fuzz(){
 }
 
 function do_Test_TS(){
-    TO_RUN="./jtrts.pl $3 -type $1 -passthru '$2'"
+    if [[ "$1" == "NONE" ]]; then
+        TO_RUN="./jtrts.pl $3 -passthru '$2'"
+    else
+        TO_RUN="./jtrts.pl $3 -type $1 -passthru '$2'"
+    fi
     eval "$TO_RUN"
     ret_code=$?
 
@@ -148,6 +152,19 @@ function do_Test_Suite(){
         do_Test_TS sha512crypt-opencl "-dev:$Dev_2 --fork=3" "-internal"
         do_Test_TS sha512crypt-opencl "-dev:$Dev_3 --fork=4" "-internal"
     fi
+
+    cd - || return > /dev/null
+}
+
+function do_Full_TS(){
+    cd ..
+
+    # Workaround to force NVIDIA GTX TITAN X
+    echo "[Options:OpenCL]" >  ../run/john-local.conf
+    echo "Device = $Dev_3" >> ../run/john-local.conf
+
+    echo 'Running CPU plus NVIDIA GTX TITAN X OpenCL only Test Suite tests...'
+    do_Test_TS "NONE" ""
 
     cd - || return > /dev/null
 }
@@ -508,6 +525,9 @@ case "$1" in
         ;;
     "--fuzz" | "-f")
         do_Fuzz
+        ;;
+    "--full-ts")
+        do_Full_TS
         ;;
 esac
 
