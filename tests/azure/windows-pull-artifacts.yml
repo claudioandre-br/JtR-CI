@@ -21,7 +21,7 @@ steps:
         inputs:
           buildType: 'current'
           downloadType: 'single'
-          artifactName: "finalwin_x$(Bits).7z"
+          artifactName: "win_x$(Bits).7z"
           downloadPath: '$(System.ArtifactsDirectory)'
 
       - script: |

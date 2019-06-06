@@ -18,20 +18,20 @@ steps:
     - task: PublishPipelineArtifact@0
       inputs:
         targetPath: "c:\\win_x$(Bits).7z"
-        artifactName: "finalwin_x$(Bits).7z"
+        artifactName: "win_x$(Bits).7z"
 
     - task: PublishPipelineArtifact@0
       inputs:
         targetPath: "c:\\optional.7z"
-        artifactName: "finaloptional.7z"
+        artifactName: "optional.7z"
 
     - task: PublishPipelineArtifact@0
       inputs:
         targetPath: "$(Build.SourcesDirectory)\\debug_logs.zip"
-        artifactName: finalLogs
+        artifactName: Logs
 
     - task: PublishPipelineArtifact@0
       inputs:
         targetPath: "c:\\checksums.txt"
-        artifactName: finalChecksums
+        artifactName: Checksums
 
