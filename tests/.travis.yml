@@ -101,7 +101,7 @@ matrix:
     - 7z x win_x64.7z
     - cd JohnTheRipper/run
     - ./john.exe --list=build-info
-    - ./john.exe --test=0
+    - ./john.exe --test=0 --format=cpu
   ##############################################################################
 
   allow_failures:
