@@ -20,9 +20,9 @@
 # Disable for '-dev': wget https://launchpad.net/~claudioandre.br/+snap/john-the-ripper/+build/557705/+files/buildlog_snap_ubuntu_xenial_s390x_john-the-ripper_BUILDING.txt.gz
 
 # AppVeyor (Windows 64 and 32 bits)
-wget https://ci.appveyor.com/api/buildjobs/fh0dicj2387oa40c/artifacts/win_x64.zip     -O winX64.zip
-wget https://ci.appveyor.com/api/buildjobs/fh0dicj2387oa40c/artifacts/optional.zip    -O winX64_optional.zip
-wget https://ci.appveyor.com/api/buildjobs/fh0dicj2387oa40c/log                       -O winX64_buildlog.txt
+wget https://ci.appveyor.com/api/buildjobs/fh0dicj2387oa40c/artifacts/win_x64.7z     -O winX64.7z
+wget https://ci.appveyor.com/api/buildjobs/fh0dicj2387oa40c/artifacts/optional.7z    -O winX64_optional.7z
+wget https://ci.appveyor.com/api/buildjobs/fh0dicj2387oa40c/log                      -O winX64_buildlog.txt
 
 # Disable for '-dev': wget https://ci.appveyor.com/api/buildjobs/dq1hp9jbkmyo0sc4/artifacts/win_x32.zip     -O winX32.zip
 # Disable for '-dev': wget https://ci.appveyor.com/api/buildjobs/dq1hp9jbkmyo0sc4/artifacts/optional.zip    -O winX32_optional.zip
@@ -39,3 +39,6 @@ wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/223481578/raw             
 unzip bundle_JtR.zip
 sha256sum *.zip
 sha256sum john.flatpak
+
+# Keep only the zipped file
+rm -f john.flatpak
