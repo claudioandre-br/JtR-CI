@@ -26,3 +26,6 @@ variables:
 
   - name: Bits
     value: "64"
+
+  - name: Arch
+    value: "x86_64"
