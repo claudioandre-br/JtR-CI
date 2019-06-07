@@ -44,8 +44,8 @@ echo 'enpass = Y' >> ../run/john-local.conf      #BE
 
 echo 'RACF-KDFAES = Y' >> ../run/john-local.conf             #SLOW
 echo 'RAR = Y' >> ../run/john-local.conf                     #SLOW
-echo 'wpapsk-opencl' >> ../run/john-local.conf               #SLOW
-echo 'wpapsk-pmk-opencl' >> ../run/john-local.conf           #SLOW
+echo 'wpapsk-opencl = Y' >> ../run/john-local.conf           #SLOW
+echo 'wpapsk-pmk-opencl = Y' >> ../run/john-local.conf       #SLOW
 
 echo 'bcrypt = Y' >> ../run/john-local.conf                  # TS
 echo 'bcrypt-opencl = Y' >> ../run/john-local.conf           # TS
