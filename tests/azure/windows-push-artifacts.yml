@@ -27,7 +27,7 @@ steps:
 
     - task: PublishPipelineArtifact@0
       inputs:
-        targetPath: "$(Build.SourcesDirectory)\\debug_logs.zip"
+        targetPath: "c:\\debug_logs.zip"
         artifactName: Logs
 
     - task: PublishPipelineArtifact@0

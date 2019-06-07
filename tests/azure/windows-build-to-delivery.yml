@@ -168,6 +168,7 @@ steps:
         rmdir "%JTR_FOLDER%\run\ztex" /s /Q
 
         REM # Remove hidden .name files and folders
+        del "%JTR_FOLDER%\azure-pipelines.yml"
         del "%JTR_FOLDER%\.cirrus.yml"
         del "%JTR_FOLDER%\.editorconfig"
         del "%JTR_FOLDER%\.gitattributes"
@@ -176,6 +177,7 @@ steps:
         del "%JTR_FOLDER%\.pre-commit.sh"
         del "%JTR_FOLDER%\.travis.yml"
 
+        rmdir "%JTR_FOLDER%\.azure"    /s /Q
         rmdir "%JTR_FOLDER%\.ci"       /s /Q
         rmdir "%JTR_FOLDER%\.circleci" /s /Q
         rmdir "%JTR_FOLDER%\.github"   /s /Q
@@ -186,6 +188,7 @@ steps:
         if exist "%JTR_FOLDER%\src\config.log" 7z a -tzip debug_logs.zip "%JTR_FOLDER%\src\config.log" > nul
         if exist "%JTR_FOLDER%\src\configure" 7z a -tzip debug_logs.zip "%JTR_FOLDER%\src\configure" > nul
         if exist "%JTR_FOLDER%\src\Makefile" 7z a -tzip debug_logs.zip "%JTR_FOLDER%\src\Makefile" > nul
+        move debug_logs.zip c:\
 
         REM # Save the DLLs zip file
         if exist "%JTR_FOLDER%\lib" 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on "optional.7z" "%JTR_FOLDER%\lib"
