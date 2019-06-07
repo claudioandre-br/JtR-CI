@@ -6,8 +6,7 @@
     "command": "john",
     "tags": [ "edge" ],
     "finish-args": [
-        "--filesystem=home",
-        "--device=dri"
+        "--filesystem=home"
     ],
     "cleanup" : [
         "/include",
@@ -45,33 +44,27 @@
                 },
                 {
                     "type": "file",
-                    "path": "../tests/show_info.sh",
-                    "dest-filename": "show_info.sh"
+                    "path": "../tests/show_info.sh"
                 },
                 {
                     "type": "file",
-                    "path": "../tests/package_version.sh",
-                    "dest-filename": "package_version.sh"
+                    "path": "../tests/package_version.sh"
                 },
                 {
                     "type": "file",
-                    "path": "../tests/disable_formats.sh",
-                    "dest-filename": "disable_formats.sh"
+                    "path": "../tests/disable_formats.sh"
                 },
                 {
                     "type": "file",
-                    "path": "../tests/run_tests.sh",
-                    "dest-filename": "run_tests.sh"
+                    "path": "../tests/run_tests.sh"
                 },
                 {
                     "type": "file",
-                    "path": "../tests/clean_package.sh",
-                    "dest-filename": "clean_package.sh"
+                    "path": "../tests/clean_package.sh"
                 },
                 {
                     "type": "file",
-                    "path": "../tests/run_build.sh",
-                    "dest-filename": "run_build.sh"
+                    "path": "../tests/run_build.sh"
                 },
                 {
                     "type": "file",
@@ -88,6 +81,14 @@
                 {
                     "type": "file",
                     "path": "com.openwall.John.png"
+                },
+                {
+                    "type": "file",
+                    "path": "64.png"
+                },
+                {
+                    "type": "file",
+                    "path": "128.png"
                 }
             ],
             "post-install": [
@@ -99,7 +100,9 @@
                 "mkdir -p /app/share/bash-completion/completions",
                 "cp ../run/john.*_completion /app/share/bash-completion/completions",
                 "###### Environment ######",
-                "install -Dm644 ../com.openwall.John.png /app/share/icons/com.openwall.John.png",
+                "install -Dm644 ../com.openwall.John.png /app/share/icons/hicolor/256x256/apps/com.openwall.John.png",
+                "install -Dm644 ../128.png               /app/share/icons/hicolor/128x128/apps/com.openwall.John.png",
+                "install -Dm644 ../64.png                /app/share/icons/hicolor/64x64/apps/com.openwall.John.png",
                 "install -Dm644 ../com.openwall.John.desktop /app/share/applications/com.openwall.John.desktop",
                 "install -Dm644 ../com.openwall.John.appdata.xml /app/share/appdata/com.openwall.John.appdata.xml"
             ]
