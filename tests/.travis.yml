@@ -104,6 +104,30 @@ matrix:
     - ./john.exe --test=0 --format=cpu
   ##############################################################################
 
+  # Flatpak package testing ####################################################
+  - stage: package
+    image: claudioandre/john:fedora.30.flatpak
+    script:
+    - wget https://github.com/claudioandre-br/JohnTheRipper/releases/download/jumbo-dev/bundle_1_JtR.zip
+    - unzip bundle_1_JtR.zip
+
+    # Install flatpak package
+    - flatpak install --user -y --bundle john.flatpak
+
+    # Do some testing
+    - flatpak run com.openwall.John
+    - flatpak run com.openwall.John --list=build-info
+    - export TEST=';full;extra;' # Controls how the test will happen
+    - export arch=$(uname -m)
+    - export JTR_BIN='flatpak run com.openwall.John'
+    - export JTR_CL='flatpak run com.openwall.John'
+    - cd flatpak
+
+    # Adjust the testing environment, import and run some testing
+    - wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
+    - source run_tests.sh
+  ##############################################################################
+
   allow_failures:
   - env: TEST="experimental;"            BUILD_OPTS="--enable-werror"
 
