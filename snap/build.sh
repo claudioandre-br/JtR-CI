@@ -81,8 +81,8 @@ if [[ "$arch" == "x86_64" || "$arch" == "i686" ]]; then
 
 else
     # Non X86 CPU
-    ./configure $OTHER_NO_OPENMP --enable-simd=sse2  CPPFLAGS="-D_SNAP -D_BOXED" && do_build ../run/john-non-omp
-    ./configure $OTHER_REGULAR   --enable-simd=sse2  CPPFLAGS="-D_SNAP -D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-non-omp\\\"\"" && do_build
+    ./configure $OTHER_NO_OPENMP   CPPFLAGS="-D_SNAP -D_BOXED" && do_build ../run/john-non-omp
+    ./configure $OTHER_REGULAR     CPPFLAGS="-D_SNAP -D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-non-omp\\\"\"" && do_build
 fi
 
 # To be able to run testing

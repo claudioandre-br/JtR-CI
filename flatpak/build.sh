@@ -59,8 +59,8 @@ if [[ -z "$TASK" ]]; then
 
     else
         # Non X86 CPU
-        ./configure $OTHER_NO_OPENMP --enable-simd=sse2  CPPFLAGS="-D_BOXED" && do_build ../run/john-non-omp
-        ./configure $OTHER_REGULAR   --enable-simd=sse2  CPPFLAGS="-D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-non-omp\\\"\"" && do_build
+        ./configure $OTHER_NO_OPENMP   CPPFLAGS="-D_BOXED" && do_build ../run/john-non-omp
+        ./configure $OTHER_REGULAR     CPPFLAGS="-D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-non-omp\\\"\"" && do_build
     fi
 
 elif [[ "$TASK" == "test" ]]; then
