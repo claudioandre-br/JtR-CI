@@ -97,7 +97,7 @@ matrix:
     - systeminfo
 
     # check_script:
-    - wget https://ci.appveyor.com/api/buildjobs/fh0dicj2387oa40c/artifacts/win_x64.7z
+    - wget https://github.com/claudioandre-br/JohnTheRipper/releases/download/jumbo-dev/winX64_1_JtR.7z -O win_x64.7z
     - 7z x win_x64.7z
     - cd JohnTheRipper/run
     - ./john.exe --list=build-info
