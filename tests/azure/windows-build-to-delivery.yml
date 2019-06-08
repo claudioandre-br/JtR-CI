@@ -91,8 +91,10 @@ steps:
         $EXE_NAME = "john-avx2.exe"
 
         if ($env:Arch -eq "x86_64") {
-          shell "./configure $EXE_NO_OMP --enable-simd=avx512bw CPPFLAGS='-fno-asynchronous-unwind-tables -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`" '                                                                            && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx512bw-non-omp"
-          shell "./configure $EXE_NORMAL --enable-simd=avx512bw CPPFLAGS='-fno-asynchronous-unwind-tables -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx512bw-non-omp\\\`"\`" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`" ' && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx512bw"
+          shell "./configure $EXE_NO_OMP --enable-simd=avx512f  CPPFLAGS='-fno-asynchronous-unwind-tables -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`" '                                                                               && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx512f-non-omp"
+          shell "./configure $EXE_NORMAL --enable-simd=avx512f  CPPFLAGS='-fno-asynchronous-unwind-tables -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx512f-non-omp\\\`"\`"  -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`" '    && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx512f"
+          shell "./configure $EXE_NO_OMP --enable-simd=avx512bw CPPFLAGS='-fno-asynchronous-unwind-tables -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx512f\\\`"\`" '                                                                            && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx512bw-non-omp"
+          shell "./configure $EXE_NORMAL --enable-simd=avx512bw CPPFLAGS='-fno-asynchronous-unwind-tables -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx512bw-non-omp\\\`"\`" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx512f\\\`"\`" ' && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx512bw"
           $EXE_NAME = "john-avx512bw.exe"
         }
 
@@ -168,6 +170,7 @@ steps:
         rmdir "%JTR_FOLDER%\run\ztex" /s /Q
 
         REM # Remove hidden .name files and folders
+        del "%JTR_FOLDER%\appveyor.yml"
         del "%JTR_FOLDER%\azure-pipelines.yml"
         del "%JTR_FOLDER%\.cirrus.yml"
         del "%JTR_FOLDER%\.editorconfig"
