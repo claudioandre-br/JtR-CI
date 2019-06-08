@@ -120,7 +120,6 @@ stages:
       - template: .azure/linux-ci.yml
 
   - job: afl
-    condition: false
     container:
       image: claudioandre/john:ubuntu.opencl
 
