@@ -21,11 +21,11 @@
 
 # AppVeyor (Windows 64 and 32 bits)
 wget https://ci.appveyor.com/api/buildjobs/6xi3fnryax6hkvk9/artifacts/win_x64.7z     -O winX64_1_JtR.7z
-wget https://ci.appveyor.com/api/buildjobs/6xi3fnryax6hkvk9/artifacts/optional.7z    -O winX64_3_optional.7z
+#wget https://ci.appveyor.com/api/buildjobs/6xi3fnryax6hkvk9/artifacts/optional.7z    -O winX64_3_optional.7z
 wget https://ci.appveyor.com/api/buildjobs/6xi3fnryax6hkvk9/log                      -O winX64_2_buildlog.txt
 
 # Disable for '-dev': wget https://ci.appveyor.com/api/buildjobs/dq1hp9jbkmyo0sc4/artifacts/win_x32.zip     -O winX32.zip
-# Disable for '-dev': wget https://ci.appveyor.com/api/buildjobs/dq1hp9jbkmyo0sc4/artifacts/optional.zip    -O winX32_optional.zip
+# Disable for '-dev': #wget https://ci.appveyor.com/api/buildjobs/dq1hp9jbkmyo0sc4/artifacts/optional.zip    -O winX32_optional.zip
 # Disable for '-dev': wget https://ci.appveyor.com/api/buildjobs/dq1hp9jbkmyo0sc4/log                       -O winX32_buildlog.txt
 
 # GitLab (Linux Flatpak app)
