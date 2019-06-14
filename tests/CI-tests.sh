@@ -255,13 +255,13 @@ elif test "$FUZZ" = "check" ; then
 
 elif test "$FUZZ" = "ztex" ; then
     echo "$ JtR -test=0 --format=ztex"
-    do_Test "$JtR -test=0 --format=descrypt-ztex" "no valid ZTEX devices found" 0 0 "ERROR"
-    do_Test "$JtR -test=0 --format=bcrypt-ztex"   "no valid ZTEX devices found" 0 0 "ERROR"
-    do_Test "$JtR -test=0 --format=sha512crypt-ztex"   "no valid ZTEX devices found" 0 0 "ERROR"
-    do_Test "$JtR -test=0 --format=drupal7-ztex"   "no valid ZTEX devices found" 0 0 "ERROR"
-    do_Test "$JtR -test=0 --format=sha256crypt-ztex"   "no valid ZTEX devices found" 0 0 "ERROR"
-    do_Test "$JtR -test=0 --format=md5crypt-ztex"   "no valid ZTEX devices found" 0 0 "ERROR"
-    do_Test "$JtR -test=0 --format=phpass-ztex"   "no valid ZTEX devices found" 0 0 "ERROR"
+    do_Test "$JtR -test=0 --format=descrypt-ztex" "No ZTEX devices found" 0 0 "ERROR"
+    do_Test "$JtR -test=0 --format=bcrypt-ztex"   "No ZTEX devices found" 0 0 "ERROR"
+    do_Test "$JtR -test=0 --format=sha512crypt-ztex"   "No ZTEX devices found" 0 0 "ERROR"
+    do_Test "$JtR -test=0 --format=drupal7-ztex"   "No ZTEX devices found" 0 0 "ERROR"
+    do_Test "$JtR -test=0 --format=sha256crypt-ztex"   "No ZTEX devices found" 0 0 "ERROR"
+    do_Test "$JtR -test=0 --format=md5crypt-ztex"   "No ZTEX devices found" 0 0 "ERROR"
+    do_Test "$JtR -test=0 --format=phpass-ztex"   "No ZTEX devices found" 0 0 "ERROR"
 
 else
     # ---- Regular testing ----
