@@ -21,8 +21,8 @@
 
 # AppVeyor (Windows 64 and 32 bits)
 wget https://ci.appveyor.com/api/buildjobs/6xi3fnryax6hkvk9/artifacts/win_x64.7z     -O winX64_1_JtR.7z
-#wget https://ci.appveyor.com/api/buildjobs/6xi3fnryax6hkvk9/artifacts/optional.7z    -O winX64_3_optional.7z
 wget https://ci.appveyor.com/api/buildjobs/6xi3fnryax6hkvk9/log                      -O winX64_2_buildlog.txt
+#wget https://ci.appveyor.com/api/buildjobs/6xi3fnryax6hkvk9/artifacts/optional.7z    -O winX64_3_optional.7z
 
 # Disable for '-dev': wget https://ci.appveyor.com/api/buildjobs/dq1hp9jbkmyo0sc4/artifacts/win_x32.zip     -O winX32.zip
 # Disable for '-dev': #wget https://ci.appveyor.com/api/buildjobs/dq1hp9jbkmyo0sc4/artifacts/optional.zip    -O winX32_optional.zip
@@ -31,7 +31,7 @@ wget https://ci.appveyor.com/api/buildjobs/6xi3fnryax6hkvk9/log                 
 # GitLab (Linux Flatpak app)
 wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/227581967/artifacts/download  -O bundle_1_JtR.zip
 wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/227581967/raw                 -O bundle_2_buildlog.txt
-wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/227581974/raw                 -O bundle_3_testlog.txt
+#wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/227581974/raw                 -O bundle_3_testlog.txt
 
 # GitHub (Linux Docker image)
 # Disable for '-dev': wget https://api.travis-ci.org/v3/job/532480502/log.txt                               -O docker_buildlog.txt
