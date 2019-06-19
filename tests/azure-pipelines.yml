@@ -118,19 +118,20 @@ stages:
 
     steps:
       - template: .azure/linux-ci.yml
+  
+  # Due to 60 minutes job limit (that seems to be a bug)
+  # - job: afl
+  #   container:
+  #     image: claudioandre/john:ubuntu.opencl
 
-  - job: afl
-    container:
-      image: claudioandre/john:ubuntu.opencl
+  #   variables:
+  #     TARGET_ARCH: "NIX"
+  #     EXTRA: "AFL_FUZZ"
+  #     BUILD_OPTS: "--enable-fuzz --disable-native-tests"
+  #     CC: "afl-clang-fast"
 
-    variables:
-      TARGET_ARCH: "NIX"
-      EXTRA: "AFL_FUZZ"
-      BUILD_OPTS: "--enable-fuzz --disable-native-tests"
-      CC: "afl-clang-fast"
-
-    steps:
-      - template: .azure/linux-ci.yml
+  #   steps:
+  #     - template: .azure/linux-ci.yml
 
   # Runs "--fuzz"
   - job: internal
