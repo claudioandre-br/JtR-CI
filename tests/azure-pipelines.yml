@@ -119,19 +119,20 @@ stages:
     steps:
       - template: .azure/linux-ci.yml
   
-  # Due to 60 minutes job limit (that seems to be a bug)
-  # - job: afl
-  #   container:
-  #     image: claudioandre/john:ubuntu.opencl
+  # There is a 60 minutes job limit (so, I need the timeoutInMinutes)
+  - job: afl
+    timeoutInMinutes: 0
+    container:
+      image: claudioandre/john:ubuntu.opencl
 
-  #   variables:
-  #     TARGET_ARCH: "NIX"
-  #     EXTRA: "AFL_FUZZ"
-  #     BUILD_OPTS: "--enable-fuzz --disable-native-tests"
-  #     CC: "afl-clang-fast"
+    variables:
+      TARGET_ARCH: "NIX"
+      EXTRA: "AFL_FUZZ"
+      BUILD_OPTS: "--enable-fuzz --disable-native-tests"
+      CC: "afl-clang-fast"
 
-  #   steps:
-  #     - template: .azure/linux-ci.yml
+    steps:
+      - template: .azure/linux-ci.yml
 
   # Runs "--fuzz"
   - job: internal
@@ -165,6 +166,7 @@ stages:
   jobs:
   - job: Windows_2016
     displayName: Windows 2016
+    timeoutInMinutes: 0
     pool:
       vmImage: 'vs2017-win2016'
     variables:
