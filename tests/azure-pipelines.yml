@@ -51,6 +51,17 @@ stages:
     steps:
       - template: .azure/linux-ci.yml
 
+  - job: Ubuntu_1804
+    displayName: Ubuntu 18.04
+    container:
+      image: claudioandre/john:ubuntu.opencl
+    variables:
+      TARGET_ARCH: "NIX"
+      EXTRA: "full;extra;crack;"
+
+    steps:
+      - template: .azure/linux-ci.yml
+
 - stage: functional
   displayName: 'Functional Test'
   dependsOn: basic
@@ -118,7 +129,7 @@ stages:
 
     steps:
       - template: .azure/linux-ci.yml
-  
+
   # There is a 60 minutes job limit (so, I need the timeoutInMinutes)
   - job: afl
     timeoutInMinutes: 0
