@@ -42,11 +42,11 @@ RUN apt-get update -qq && \
       ./configure --disable-native-tests                  CPPFLAGS='-mavx512f'  && make -s clean && make -sj2 && mv ../run/john ../run/john-avx512f && \
       ./configure --disable-native-tests --disable-openmp CPPFLAGS='-mavx512bw' && make -s clean && make -sj2 && mv ../run/john ../run/john-avx512bw-no-omp && \
       ./configure --disable-native-tests                  CPPFLAGS='-mavx512bw' && make -s clean && make -sj2 && mv ../run/john ../run/john-avx512bw && \
-      ./configure --disable-native-tests --enable-ztex --disable-openmp CPPFLAGS='-msse2' && make -s clean && make -sj2 && mv ../run/john ../run/john-ztex-no-omp && \
-      ./configure --disable-native-tests --enable-ztex                  CPPFLAGS='-msse2' && make -s clean && make -sj2 && mv ../run/john ../run/john-ztex && \
+    #  ./configure --disable-native-tests --enable-ztex --disable-openmp CPPFLAGS='-msse2' && make -s clean && make -sj2 && mv ../run/john ../run/john-ztex-no-omp && \
+    #  ./configure --disable-native-tests --enable-ztex                  CPPFLAGS='-msse2' && make -s clean && make -sj2 && mv ../run/john ../run/john-ztex && \
     # Clean the image
-    rm *.o && \
-      apt-get -y remove --purge build-essential binutils-common yasm pkg-config perl fakeroot && \
+    rm *.o && rm -rf ../.git && rm -rf ../run/ztex && rm -rf ztex && \
+      apt-get -y remove --purge build-essential binutils-common libssl-dev zlib1g-dev yasm libgmp-dev libpcap-dev pkg-config perl fakeroot gcc && \
       apt-get -y autoremove && \
       apt-get -y install libgomp1 && \
       apt-get -y clean && \

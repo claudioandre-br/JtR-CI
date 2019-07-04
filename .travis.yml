@@ -18,7 +18,7 @@ matrix:
   - env: REPO=claudioandre/john   NAME=ubuntu.devel        DOCKERFILE=Dockerfile.UbuntuDevel
   - env: REPO=claudioandre/john   NAME=ubuntu.rolling      DOCKERFILE=Dockerfile.UbuntuRolling
   - env: REPO=claudioandre/john   NAME=centos.6            DOCKERFILE=Dockerfile.CentOS6
-  #- env: REPO=claudioandre/john   NAME=v1.9.0J2            DOCKERFILE=Dockerfile   BIN_VERSION=yes
+  #- env: REPO=claudioandre/john   NAME=v1.9.0J2            DOCKERFILE=Dockerfile   BIN_VERSION=yes BUILD_RELEASE=no
 
 script:
   - export log_message=$(git log -n 1)
@@ -26,9 +26,13 @@ script:
   # Make it a reproducible build
   - 'if [[ "$BIN_VERSION" == "yes" ]]; then
        git clone --depth 10 https://github.com/magnumripper/JohnTheRipper.git john;
-       git checkout a16c8a76259ab870c07e5123c237b1900402d9a6;
      else
        cd tests/Dockerfiles;
+     fi'
+  - 'if [[ "$BUILD_RELEASE" == "yes" ]]; then
+       cd john;
+       git checkout a16c8a76259ab870c07e5123c237b1900402d9a6;
+       cd ..;
      fi'
   - docker build -t "$REPO:$NAME" --file "$DOCKERFILE" .
 
@@ -41,6 +45,8 @@ script:
 
   # Test the JtR Docker Image
   - 'if [[ "$log_message" == *"[test image]"* && "$log_message" == *"[$NAME]"* ]]; then
+       docker run claudioandre/john:v1.9.0J2 best    --list=build-info;
+       docker run claudioandre/john:v1.9.0J2 best    --test=10 --format=SHA512crypt;
        docker run claudioandre/john:v1.9.0J2 sse2    --test=10 --format=SHA512crypt;
        docker run claudioandre/john:v1.9.0J2 ssse3   --test=10 --format=SHA512crypt;
        docker run claudioandre/john:v1.9.0J2 sse4.1  --test=10 --format=SHA512crypt;
