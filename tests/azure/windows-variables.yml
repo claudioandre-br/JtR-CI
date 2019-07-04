@@ -29,3 +29,6 @@ variables:
 
   - name: Arch
     value: "x86_64"
+
+  - name: Test
+    value: "package"
