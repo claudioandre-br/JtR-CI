@@ -272,8 +272,8 @@ after_test:
   - rmdir "%JTR_FOLDER%\run\ztex" /s /Q
 
   # Remove hidden .name files and folders
-  - del "%JTR_FOLDER%\azure-pipelines.yml"
-  - del "%JTR_FOLDER%\.cirrus.yml"
+  - if "%test%" != "package" del "%JTR_FOLDER%\azure-pipelines.yml"
+  - if "%test%" != "package" del "%JTR_FOLDER%\.cirrus.yml"
   - del "%JTR_FOLDER%\.editorconfig"
   - del "%JTR_FOLDER%\.gitattributes"
   - del "%JTR_FOLDER%\.gitignore"
@@ -281,7 +281,7 @@ after_test:
   - del "%JTR_FOLDER%\.pre-commit.sh"
   - del "%JTR_FOLDER%\.travis.yml"
 
-  - rmdir "%JTR_FOLDER%\.azure"    /s /Q
+  - if "%test%" != "package" rmdir "%JTR_FOLDER%\.azure"    /s /Q
   - rmdir "%JTR_FOLDER%\.ci"       /s /Q
   - rmdir "%JTR_FOLDER%\.circleci" /s /Q
   - rmdir "%JTR_FOLDER%\.github"   /s /Q
