@@ -171,8 +171,8 @@ steps:
 
         REM # Remove hidden .name files and folders
         del "%JTR_FOLDER%\appveyor.yml"
-        del "%JTR_FOLDER%\azure-pipelines.yml"
-        del "%JTR_FOLDER%\.cirrus.yml"
+        if "%test%" != "package" del "%JTR_FOLDER%\azure-pipelines.yml"
+        if "%test%" != "package" del "%JTR_FOLDER%\.cirrus.yml"
         del "%JTR_FOLDER%\.editorconfig"
         del "%JTR_FOLDER%\.gitattributes"
         del "%JTR_FOLDER%\.gitignore"
@@ -180,13 +180,12 @@ steps:
         del "%JTR_FOLDER%\.pre-commit.sh"
         del "%JTR_FOLDER%\.travis.yml"
 
-        rmdir "%JTR_FOLDER%\.azure"    /s /Q
+        if "%test%" != "package" rmdir "%JTR_FOLDER%\.azure"    /s /Q
         rmdir "%JTR_FOLDER%\.ci"       /s /Q
         rmdir "%JTR_FOLDER%\.circleci" /s /Q
         rmdir "%JTR_FOLDER%\.github"   /s /Q
         rmdir "%JTR_FOLDER%\.travis"   /s /Q
 
-        dir "%JTR_FOLDER%" /s > dir.txt
         if exist "dir.txt" 7z a -tzip debug_logs.zip "dir.txt" > nul
         if exist "%JTR_FOLDER%\src\config.log" 7z a -tzip debug_logs.zip "%JTR_FOLDER%\src\config.log" > nul
         if exist "%JTR_FOLDER%\src\configure" 7z a -tzip debug_logs.zip "%JTR_FOLDER%\src\configure" > nul
