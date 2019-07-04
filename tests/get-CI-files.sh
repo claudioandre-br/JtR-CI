@@ -20,8 +20,8 @@
 # Disable for '-dev': wget https://launchpad.net/~claudioandre.br/+snap/john-the-ripper/+build/557705/+files/buildlog_snap_ubuntu_xenial_s390x_john-the-ripper_BUILDING.txt.gz
 
 # AppVeyor (Windows 64 and 32 bits)
-wget https://ci.appveyor.com/api/buildjobs/6xi3fnryax6hkvk9/artifacts/win_x64.7z     -O winX64_1_JtR.7z
-wget https://ci.appveyor.com/api/buildjobs/6xi3fnryax6hkvk9/log                      -O winX64_2_buildlog.txt
+wget https://ci.appveyor.com/api/buildjobs/2hrjj53vlk1fe66y/artifacts/win_x64.7z     -O winX64_1_JtR.7z
+wget https://ci.appveyor.com/api/buildjobs/2hrjj53vlk1fe66y/log                      -O winX64_2_buildlog.txt
 #wget https://ci.appveyor.com/api/buildjobs/6xi3fnryax6hkvk9/artifacts/optional.7z    -O winX64_3_optional.7z
 
 # Disable for '-dev': wget https://ci.appveyor.com/api/buildjobs/dq1hp9jbkmyo0sc4/artifacts/win_x32.zip     -O winX32.zip
@@ -29,8 +29,8 @@ wget https://ci.appveyor.com/api/buildjobs/6xi3fnryax6hkvk9/log                 
 # Disable for '-dev': wget https://ci.appveyor.com/api/buildjobs/dq1hp9jbkmyo0sc4/log                       -O winX32_buildlog.txt
 
 # GitLab (Linux Flatpak app)
-wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/227581967/artifacts/download  -O bundle_1_JtR.zip
-wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/227581967/raw                 -O bundle_2_buildlog.txt
+wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/245466253/artifacts/download  -O bundle_1_JtR.zip
+wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/245466253/raw                 -O bundle_2_buildlog.txt
 #wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/227581974/raw                 -O bundle_3_testlog.txt
 
 # GitHub (Linux Docker image)
