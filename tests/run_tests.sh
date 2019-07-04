@@ -207,6 +207,11 @@ if [[ -z "${TEST##*MY_INTERNAL*}" ]]; then
     $JTR_BIN --fuzz --format=sha256crypt-opencl
     $JTR_BIN --fuzz --format=sha512crypt-opencl
     total=$((total + 5))
+
+    echo "------------------------- fuzzing --fuzz --------------------------"
+    echo "$ JtR --fuzz --format=cpu"
+    $JTR_BIN --fuzz --format=cpu
+    total=$((total + 1))
 fi
 
 if [[ -z "${TEST##*MY_FULL*}" ]]; then
@@ -232,6 +237,11 @@ if [[ -z "${TEST##*MY_FULL*}" ]]; then
     $JTR_BIN -test-full=10 --format=raw-sha512-opencl --mask=?w?l?d?a?1
     $JTR_BIN -test-full=10 --format=xsha512-opencl    --mask=?w?l?d?a?1
     total=$((total + 15))
+
+    echo "------------------------- test full --------------------------"
+    echo "$ JtR -test-full=1 --format=cpu"
+    $JTR_BIN -test-full=3 --format=cpu
+    total=$((total + 1))
 fi
 
 if [[ -z "${TEST##*SIMD*}" ]]; then
