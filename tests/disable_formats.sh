@@ -42,6 +42,10 @@ echo 'monero = Y' >> ../run/john-local.conf      #BE
 echo 'STRIP = Y' >> ../run/john-local.conf       #BE
 echo 'enpass = Y' >> ../run/john-local.conf      #BE
 
+#echo 'agilekeychain = Y' >> ../run/john-local.conf           #Error ID 10
+#echo 'as400-ssha1 = Y' >> ../run/john-local.conf             # "
+#echo 'AxCrypt = Y' >> ../run/john-local.conf                 # "
+
 echo 'RACF-KDFAES = Y' >> ../run/john-local.conf             #SLOW
 echo 'RAR = Y' >> ../run/john-local.conf                     #SLOW
 echo 'wpapsk-opencl = Y' >> ../run/john-local.conf           #SLOW
@@ -81,3 +85,10 @@ echo 'pgpdisk-opencl = Y' >> ../run/john-local.conf #FAILED (cmp_all(49)) Intel 
 # Kernel <lotus5> was successfully vectorized (8)
 # Done.
 # run_tests.sh: line 266:  6155 Segmentation fault      (core dumped) $JTR_BIN -test-full=0 --format=opencl
+
+# #############
+# $JtR --fuzz --format=cpu
+# ID: 10
+# Fuzzing: agilekeychain, 1Password Agile Keychain [PBKDF2-SHA1 AES 256/256 AVX2 8x]... run_tests.sh: line 215:  6305 Killed                  $JTR_BIN --fuzz --format=cpu
+# Fuzzing: as400-ssha1, AS400-SaltedSHA1 [?] in UTF-8 mode... Segmentation fault
+# Fuzzing: AxCrypt [PBKDF2-SHA512/SHA1 AES 32/64]... Segmentation fault

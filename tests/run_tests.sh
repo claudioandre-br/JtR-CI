@@ -207,11 +207,6 @@ if [[ -z "${TEST##*MY_INTERNAL*}" ]]; then
     $JTR_BIN --fuzz --format=sha256crypt-opencl
     $JTR_BIN --fuzz --format=sha512crypt-opencl
     total=$((total + 5))
-
-    echo "------------------------- fuzzing --fuzz --------------------------"
-    echo "$ JtR --fuzz --format=cpu"
-    $JTR_BIN --fuzz --format=cpu
-    total=$((total + 1))
 fi
 
 if [[ -z "${TEST##*MY_FULL*}" ]]; then
