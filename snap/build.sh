@@ -76,9 +76,6 @@ if [[ "$arch" == "x86_64" || "$arch" == "i686" ]]; then
     ./configure $X86_NO_OPENMP --enable-simd=avx2   CPPFLAGS="-D_SNAP -D_BOXED" && do_build ../run/john-non-omp
     ./configure $X86_REGULAR   --enable-simd=avx2   CPPFLAGS="-D_SNAP -D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-non-omp\\\"\" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\"\\\"john-xop\\\"\"" && do_build
 
-    # Install OpenCL kernel code
-    make kernel-copy
-
 else
     # Non X86 CPU
     ./configure $OTHER_NO_OPENMP   CPPFLAGS="-D_SNAP -D_BOXED" && do_build ../run/john-non-omp

@@ -159,9 +159,6 @@ build_script:
         shell "echo 'c:\Windows\System32\nvopencl.dll' > ../etc/OpenCL/vendors/nvidia.icd"
         shell "echo 'c:\Windows\System32\IntelOpenCL64.dll' > ../etc/OpenCL/vendors/intel.icd"
 
-        # Install OpenCL kernel code
-        shell "make -s kernel-copy"
-
       } else {
         shell "./configure --disable-opencl && make -s clean && make -sj2 && make -s strip && mv ../run/john ../run/john-best"
         $EXE_NAME = "john-best.exe"
