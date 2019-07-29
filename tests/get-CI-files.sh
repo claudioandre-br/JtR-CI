@@ -29,14 +29,14 @@ wget https://ci.appveyor.com/api/buildjobs/2hrjj53vlk1fe66y/log                 
 # Disable for '-dev': wget https://ci.appveyor.com/api/buildjobs/dq1hp9jbkmyo0sc4/log                       -O winX32_buildlog.txt
 
 # GitLab (Linux Flatpak app)
-wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/245466253/artifacts/download  -O bundle_1_JtR.zip
-wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/245466253/raw                 -O bundle_2_buildlog.txt
-#wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/227581974/raw                 -O bundle_3_testlog.txt
+wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/245466253/artifacts/download  -O flatpak_1_JtR.zip
+wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/245466253/raw                 -O flatpak_2_buildlog.txt
+#wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/227581974/raw                 -O flatpak_3_testlog.txt
 
 # GitHub (Linux Docker image)
 # Disable for '-dev': wget https://api.travis-ci.org/v3/job/532480502/log.txt                               -O docker_buildlog.txt
 
-unzip bundle_1_JtR.zip
+unzip flatpak_1_JtR.zip
 sha256sum *.zip
 sha256sum *.7z
 sha256sum john.flatpak
