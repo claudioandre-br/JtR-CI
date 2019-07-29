@@ -31,7 +31,7 @@ matrix:
   - env: TEST="fresh;ASAN;EXTRAS;gcc;"   BUILD_OPTS="--enable-werror --enable-ubsan"
   - env: TEST="ztex;ASAN;clang;"         BUILD_OPTS="--enable-ztex --enable-werror"  FUZZ="ztex"
   - env: TEST="fresh;clang-6;"           BUILD_OPTS="--enable-ubsan"
-  - env: TEST="experimental;"            BUILD_OPTS="--enable-werror"
+  - env: TEST="experimental;"            # BUILD_OPTS="--enable-werror"
 
   #Test OpenMP with OMP_NUM_THREADS=1
   - env: TEST="usual;ASAN;" OMP_NUM_THREADS=1
