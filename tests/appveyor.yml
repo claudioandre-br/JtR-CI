@@ -12,6 +12,7 @@ branches:
   only:
     - test
     - release
+    - bleeding-jumbo
 
 environment:
   global:
