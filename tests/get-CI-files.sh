@@ -43,3 +43,6 @@ sha256sum john.flatpak
 
 # Keep only the zipped file
 rm -f john.flatpak
+
+# Save a note to inform the "Build Date"
+echo "Release date" > 0-created.$(date +%Y-%m-%d).txt
