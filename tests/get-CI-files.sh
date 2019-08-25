@@ -20,8 +20,8 @@
 # Disable for '-dev': wget https://launchpad.net/~claudioandre.br/+snap/john-the-ripper/+build/557705/+files/buildlog_snap_ubuntu_xenial_s390x_john-the-ripper_BUILDING.txt.gz
 
 # AppVeyor (Windows 64 and 32 bits)
-wget https://ci.appveyor.com/api/buildjobs/k6a6wo8icemjbm5h/artifacts/win_x64.7z     -O winX64_1_JtR.7z
-wget https://ci.appveyor.com/api/buildjobs/k6a6wo8icemjbm5h/log                      -O winX64_2_buildlog.txt
+wget https://ci.appveyor.com/api/buildjobs/wye13atj41ysxonv/artifacts/win_x64.7z     -O winX64_1_JtR.7z
+wget https://ci.appveyor.com/api/buildjobs/wye13atj41ysxonv/log                      -O winX64_2_buildlog.txt
 #wget https://ci.appveyor.com/api/buildjobs/6xi3fnryax6hkvk9/artifacts/optional.7z    -O winX64_3_optional.7z
 
 # Disable for '-dev': wget https://ci.appveyor.com/api/buildjobs/dq1hp9jbkmyo0sc4/artifacts/win_x32.zip     -O winX32.zip
@@ -29,8 +29,8 @@ wget https://ci.appveyor.com/api/buildjobs/k6a6wo8icemjbm5h/log                 
 # Disable for '-dev': wget https://ci.appveyor.com/api/buildjobs/dq1hp9jbkmyo0sc4/log                       -O winX32_buildlog.txt
 
 # GitLab (Linux Flatpak app)
-wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/261359271/artifacts/download  -O flatpak_1_JtR.zip
-wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/261359271/raw                 -O flatpak_2_buildlog.txt
+wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/279628867/artifacts/download  -O flatpak_1_JtR.zip
+wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/279628867/raw                 -O flatpak_2_buildlog.txt
 #wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/227581974/raw                 -O flatpak_3_testlog.txt
 
 # GitHub (Linux Docker image)
@@ -45,4 +45,4 @@ sha256sum john.flatpak
 rm -f john.flatpak
 
 # Save a note to inform the "Build Date"
-echo "Release date" > 0-created.$(date +%Y-%m-%d).txt
+echo "The release date is $(date). I'm Azure on behalf of Claudio." > 0-created.$(date +%Y-%m-%d).txt
