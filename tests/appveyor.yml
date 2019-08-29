@@ -148,7 +148,7 @@ build_script:
         shell "./configure $EXE_NORMAL --enable-simd=avx2   CPPFLAGS='-DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx2-non-omp\\\`"\`"  -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-xop\\\`"\`" '   && make -s clean && make -sj2 && make -s strip && mv ../run/john ../run/john-avx2"
         $EXE_NAME = "john-avx2.exe"
 
-        if ($env:Arch -eq "x86_64") {
+        if ($env:Arch -eq "none-x86_64") {
           shell "./configure $EXE_NO_OMP --enable-simd=avx512bw CPPFLAGS='-fno-asynchronous-unwind-tables -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`" '                                                                            && make -s clean && make -sj2 && make -s strip && mv ../run/john ../run/john-avx512bw-non-omp"
           shell "./configure $EXE_NORMAL --enable-simd=avx512bw CPPFLAGS='-fno-asynchronous-unwind-tables -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx512bw-non-omp\\\`"\`" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`" ' && make -s clean && make -sj2 && make -s strip && mv ../run/john ../run/john-avx512bw"
           $EXE_NAME = "john-avx512bw.exe"
