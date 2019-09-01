@@ -504,6 +504,9 @@ case "$1" in
         sha512          #   idem
         rawsha256       #--cracking
         rawsha512       #   idem
+        do_Random       #--random
+        do_All_TS       #--delivery
+        do_All_Full     #   idem
         ;;
     "--basic" | "-b")
         do_All_Devices "$2"
