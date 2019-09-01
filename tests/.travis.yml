@@ -25,13 +25,13 @@ matrix:
     env: TEST="usual;OPENCL;" BUILD_OPTS="--enable-werror"
 
   #Test JtR using a "hot" OS/compiler
-  - env: TEST="fresh;ASAN;clang;"        BUILD_OPTS="--enable-werror --enable-ubsan"
-  - env: TEST="fresh;ASAN;gcc;slow;"     BUILD_OPTS="--enable-werror --enable-ubsan" FUZZ="slow"
-  - env: TEST="fresh;ASAN;EXTRAS;clang;" BUILD_OPTS="--enable-werror --enable-ubsan"
-  - env: TEST="fresh;ASAN;EXTRAS;gcc;"   BUILD_OPTS="--enable-werror --enable-ubsan"
+  - env: TEST="fresh;ASAN;clang;"        BUILD_OPTS="--enable-ubsan"  # "--enable-werror"
+  - env: TEST="fresh;ASAN;gcc;slow;"     BUILD_OPTS="--enable-ubsan" FUZZ="slow"  # "--enable-werror"
+  - env: TEST="fresh;ASAN;EXTRAS;clang;" BUILD_OPTS="--enable-ubsan"  # "--enable-werror"
+  - env: TEST="fresh;ASAN;EXTRAS;gcc;"   BUILD_OPTS="--enable-ubsan"  # "--enable-werror"
   - env: TEST="ztex;ASAN;clang;"         BUILD_OPTS="--enable-ztex --enable-werror"  FUZZ="ztex"
   - env: TEST="fresh;clang-6;"           BUILD_OPTS="--enable-ubsan"
-  - env: TEST="experimental;"            # BUILD_OPTS="--enable-werror"
+  - env: TEST="experimental;"            # "--enable-werror"
 
   #Test OpenMP with OMP_NUM_THREADS=1
   - env: TEST="usual;ASAN;" OMP_NUM_THREADS=1
