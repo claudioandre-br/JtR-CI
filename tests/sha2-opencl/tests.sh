@@ -160,11 +160,14 @@ function do_All_TS(){
     cd ..
 
     # Workaround to force NVIDIA GTX TITAN X
-    echo "[Options:OpenCL]" >  ../run/john-local.conf
+    echo "[Local:Options:OpenCL]" >  ../run/john-local.conf
     echo "Device = $Dev_3" >> ../run/john-local.conf
 
     echo 'Running CPU plus NVIDIA GTX TITAN X OpenCL only Test Suite tests...'
     do_Test_TS "NONE" ""
+
+    # Remove MY temporary file (take care when running in other computers)
+    rm ../run/john-local.conf
 
     cd - || return > /dev/null
 }
@@ -271,38 +274,38 @@ function do_All_Devices(){
     if [[ "$1" == "rawsha256" ]] || [[ -z "$1" ]] || [[ $# -eq 0 ]]; then
         echo 'Evaluating raw-sha256 in all devices...'
         for i in $Device_List ; do
+            do_Test_Bench "-form:Raw-SHA256-opencl" "-dev:$i --no-mask" ""
             do_Test_Bench "-form:Raw-SHA256-opencl" "-dev:$i" ""
-            do_Test_Bench "-form:Raw-SHA256-opencl" "--mask -dev:$i" ""
         done
     fi
 
     if [[ "$1" == "rawsha512" ]] || [[ -z "$1" ]] || [[ $# -eq 0 ]]; then
         echo 'Evaluating raw-sha512 in all devices...'
         for i in $Device_List ; do
+            do_Test_Bench "-form:Raw-SHA512-opencl" "-dev:$i --no-mask" ""
             do_Test_Bench "-form:Raw-SHA512-opencl" "-dev:$i" ""
-            do_Test_Bench "-form:Raw-SHA512-opencl" "--mask -dev:$i" ""
         done
 
         echo 'Evaluating xSHA512 in all devices...'
         for i in $Device_List ; do
+            do_Test_Bench "-form:xSHA512-opencl" "-dev:$i --no-mask" ""
             do_Test_Bench "-form:xSHA512-opencl" "-dev:$i" ""
-            do_Test_Bench "-form:xSHA512-opencl" "--mask -dev:$i" ""
         done
     fi
 
     if [[ "$1" == "sha256" ]] || [[ -z "$1" ]] || [[ $# -eq 0 ]]; then
         echo 'Evaluating sha256crypt in all devices...'
         for i in $Device_List ; do
+            do_Test_Bench "-form:sha256crypt-opencl" "-dev:$i --no-mask" ""
             do_Test_Bench "-form:sha256crypt-opencl" "-dev:$i" ""
-            do_Test_Bench "-form:sha256crypt-opencl" "--mask -dev:$i" ""
         done
     fi
 
     if [[ "$1" == "sha512" ]] || [[ -z "$1" ]] || [[ $# -eq 0 ]]; then
         echo 'Evaluating sha512crypt in all devices...'
         for i in $Device_List ; do
+            do_Test_Bench "-form:sha512crypt-opencl" "-dev:$i --no-mask" ""
             do_Test_Bench "-form:sha512crypt-opencl" "-dev:$i" ""
-            do_Test_Bench "-form:sha512crypt-opencl" "--mask -dev:$i" ""
         done
     fi
 }
