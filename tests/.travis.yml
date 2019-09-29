@@ -97,7 +97,7 @@ matrix:
     - systeminfo
 
     # check_script:
-    - wget https://github.com/claudioandre-br/JohnTheRipper/releases/download/jumbo-dev/winX64_1_JtR.7z -O win_x64.7z
+    - wget https://github.com/claudioandre-br/packages/releases/download/jumbo-dev/winX64_1_JtR.7z -O win_x64.7z
     - 7z x win_x64.7z
     - cd JohnTheRipper/run
     - ./john.exe --list=build-info
@@ -108,8 +108,8 @@ matrix:
   - stage: package
     image: claudioandre/john:fedora.30.flatpak
     script:
-    - wget https://github.com/claudioandre-br/JohnTheRipper/releases/download/jumbo-dev/bundle_1_JtR.zip
-    - unzip bundle_1_JtR.zip
+    - wget https://github.com/claudioandre-br/packages/releases/download/jumbo-dev/flatpak_1_JtR.zip
+    - unzip flatpak_1_JtR.zip
 
     # Install flatpak package
     - flatpak install --user -y --bundle john.flatpak
