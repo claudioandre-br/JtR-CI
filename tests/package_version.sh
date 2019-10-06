@@ -46,4 +46,4 @@ case "$arch" in
         ;;
 esac
 # View package version
-echo "1.9J2-$git_tag$text"
+echo "1.9J2+$git_tag$text"
