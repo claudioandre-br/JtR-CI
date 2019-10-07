@@ -54,7 +54,7 @@ echo '$6$saltstring$fgNTR89zXnDUV97U5dkWayBBRaB0WIBnu6s4T7T8Tz1SbUyewwiHjho25yWV
 
 if [[ -z "${TEST##*;full;*}" ]]; then
     echo "--------------------------- test full ---------------------------"
-    OMP_NUM_THREADS=1 $JTR_BIN -test-full=0 --format=cpu
+    $JTR_BIN -test-full=0 --format=cpu
     report "-test-full=0 --format=cpu"
 fi
 
