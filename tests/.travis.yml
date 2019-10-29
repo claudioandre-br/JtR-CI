@@ -6,7 +6,7 @@ stages:
   - test
   - Test Suite
   - name: package
-  #  if: commit_message =~ /test-package/
+    if: commit_message =~ /test-package/
 
 matrix:
   include:
