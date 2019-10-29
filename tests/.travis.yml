@@ -53,6 +53,10 @@ matrix:
   - compiler: clang
     env: TEST="usual;OPENCL;" BUILD_OPTS="--enable-ubsan"
 
+  # Packet Arm64 (Armv8 compliant) testing #####################################
+  - env: TEST="usual;"
+    arch: arm64
+
   # MacOS testing ##############################################################
   - os: osx
     osx_image: xcode10.2
