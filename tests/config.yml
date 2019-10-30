@@ -73,9 +73,9 @@ workflows:
       - testing:
           type: approval
 
-      - afl-fuzz:
-          requires:
-            - fuzzing
+    #  - afl-fuzz:
+    #      requires:
+    #        - fuzzing
       - compare-simd:
           requires:
             - testing
