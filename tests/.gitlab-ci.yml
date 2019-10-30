@@ -1,5 +1,5 @@
 # Fedora docker image.
-image: claudioandre/john:fedora.30.flatpak
+image: claudioandre/john:fedora.31.flatpak
 
 services:
   - docker:dind
