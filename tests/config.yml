@@ -45,7 +45,7 @@ jobs:
   wine-64bits:
     <<: *common_linux
     docker:
-      - image: claudioandre/john:fedora.31
+      - image: claudioandre/john:fedora.30
         environment:
           TARGET_ARCH: "x86_64"
           EXTRA: "full;extra;"
