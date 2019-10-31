@@ -29,7 +29,7 @@ matrix:
   - env: TEST="fresh;ASAN;gcc;slow;"     BUILD_OPTS="--enable-ubsan" FUZZ="slow"  # "--enable-werror"
   - env: TEST="fresh;ASAN;EXTRAS;clang;" BUILD_OPTS="--enable-ubsan"  # "--enable-werror"
   - env: TEST="fresh;ASAN;EXTRAS;gcc;"   BUILD_OPTS="--enable-ubsan"  # "--enable-werror"
-  - env: TEST="ztex;ASAN;clang;"         BUILD_OPTS="--enable-ztex --enable-werror"  FUZZ="ztex"
+  - env: TEST="ztex;ASAN;clang;"         BUILD_OPTS="--enable-ztex"  FUZZ="ztex"  # "--enable-werror"
   - env: TEST="fresh;clang-6;"           BUILD_OPTS="--enable-ubsan"
   - env: TEST="experimental;"            # "--enable-werror"
 
