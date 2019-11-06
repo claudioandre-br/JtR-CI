@@ -210,7 +210,7 @@ if [[ -z "${TEST##*MY_INTERNAL*}" ]]; then
 fi
 
 if [[ -z "${TEST##*MY_FULL*}" ]]; then
-    echo "------------------------- "my" test full --------------------------"
+    echo "------------------------- my test full --------------------------"
     echo "$ JtR -test-full=1 @@ "
 
     # Check if all formats passes self-test
