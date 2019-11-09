@@ -58,9 +58,13 @@ matrix:
     arch: arm64
 
   # MacOS testing ##############################################################
+  - os: osx # Requires to point SSL to Cellar folder, as seen below
+    osx_image: xcode11.2
+    env: TEST="MacOS;" OPENCL="yes"  BUILD_OPTS="OPENSSL_CFLAGS=-I/usr/local/opt/openssl@1.1/include OPENSSL_LIBS='-L/usr/local/Cellar/openssl@1.1/1.1.1d/lib -lssl -lcrypto'"
+
   - os: osx
     osx_image: xcode10.2
-    env: TEST="MacOS;" OPENCL="yes"
+    env: TEST="MacOS;" OPENCL="yes" BUILD_OPTS="OPENSSL_CFLAGS=-I/usr/local/opt/openssl/include OPENSSL_LIBS='-L/usr/local/opt/openssl/lib -lssl -lcrypto'"
 
   - os: osx
     osx_image: xcode9.4

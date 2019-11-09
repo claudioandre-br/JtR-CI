@@ -44,7 +44,11 @@ function do_Install_Dependencies(){
 
 function do_Build(){
 
-    BASE="Ubuntu"
+    if [[ "$TEST" == "MacOS" ]]; then
+        BASE="Apple MacOS"
+    else
+        BASE="Ubuntu"
+    fi
     TASK_RUNNING="$TEST"
     wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/show_info.sh
     source show_info.sh
