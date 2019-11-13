@@ -44,7 +44,7 @@ function do_Install_Dependencies(){
 
 function do_Build(){
 
-    if [[ "$TEST" == "MacOS" ]]; then
+    if [[ "$TEST" == *"MacOS"* ]]; then
         BASE="Apple MacOS"
     else
         BASE="Ubuntu"
