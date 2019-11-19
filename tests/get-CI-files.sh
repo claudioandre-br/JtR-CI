@@ -11,10 +11,10 @@
 ######################################################################
 
 # Directory names and folders
-APPVEYOR_64bits="s96jgcmtq01b60ja"
+APPVEYOR_64bits="nt65ptk2aeu4c7mf"
 APPVEYOR_32bits="" # Disable for '-dev' releases
-FLATPAK="343955277"
-AZURE_ID="184"
+FLATPAK="355291312"
+AZURE_ID="188"
 
 # AppVeyor (Windows 64 and 32 bits) ############################################
 wget https://ci.appveyor.com/api/buildjobs/$APPVEYOR_64bits/artifacts/win_x64.7z      -O winX64_1_JtR.7z
