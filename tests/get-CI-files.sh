@@ -30,7 +30,7 @@ wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/artifacts/downloa
 wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/raw                    -O flatpak_2_buildlog.txt
 
 # Azure Windows package
-wget https://dev.azure.com/claudioandre-br/40224313-b91e-465d-852b-fc4ea516f33e/_apis/build/builds/$AZURE_ID/logs/132 -O azure-buildlog.txt
+wget https://dev.azure.com/claudioandre-br/40224313-b91e-465d-852b-fc4ea516f33e/_apis/build/builds/$AZURE_ID/logs/132 -O winX64_2_buildlog-endorsed.txt
 
 if [[ "$1" == "LOG_FILES"  ]]; then
     # Download log files, to commit them in the git repo
