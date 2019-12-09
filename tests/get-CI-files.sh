@@ -65,4 +65,4 @@ sha256sum john.flatpak
 rm -f john.flatpak
 
 # Save a note to inform the "Build Date"
-echo "The release date is $(date). I'm Azure on behalf of Claudio." > 0-created.$(date +%Y-%m-%d).txt
+echo "The release date is $(date). I'm Azure on behalf of Claudio." > 0-Created_$(date +%Y-%m-%d).txt
