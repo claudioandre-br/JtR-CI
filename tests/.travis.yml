@@ -107,12 +107,11 @@ matrix:
     - systeminfo
 
     # check_script:
-    - wget https://github.com/claudioandre-br/packages/releases/download/jumbo-dev/winX64_1_JtR.7z -O win_x64.7z
+    - wget https://github.com/claudioandre-br/packages/releases/download/jumbo-dev/azure-winX64_1_JtR.7z -O win_x64.7z
     - 7z x win_x64.7z
-    - cd JohnTheRipper/run
-    - dir
-    - john.exe --list=build-info
-    - john.exe --test=0 --format=cpu
+    - cd JtR/run
+    - powershell "cmd /c 'john --list=build-info'"
+    - powershell "cmd /c 'john --test=0 --format=cpu'"
   ##############################################################################
 
   # Flatpak package testing ####################################################
