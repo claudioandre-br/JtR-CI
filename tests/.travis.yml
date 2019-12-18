@@ -51,7 +51,7 @@ matrix:
 
   #Enable ubsan
   - compiler: clang
-    env: TEST="usual;OPENCL;" BUILD_OPTS="--enable-ubsan"
+    env: TEST="usual;OPENCL;" BUILD_OPTS="--enable-ubsan --enable-simd=avx2"
 
   # Packet Arm64 (Armv8 compliant) testing #####################################
   - env: TEST="usual;"
@@ -74,17 +74,17 @@ matrix:
   #Test using TS - CPU formats
   - stage: Test Suite
     compiler: clang
-    env: TEST="TS;"
+    env: TEST="TS;" BUILD_OPTS="--enable-simd=avx2"
 
   #Test using TS - OpenCL
   - stage: Test Suite
     compiler: clang
-    env: TEST="TS;OPENCL;"
+    env: TEST="TS;OPENCL;" BUILD_OPTS="--enable-simd=avx2"
 
   #Test --internal using TS
   - stage: Test Suite
     compiler: clang
-    env: TEST="TS --internal;OPENCL;"
+    env: TEST="TS --internal;OPENCL;" BUILD_OPTS="--enable-simd=avx2"
 
   #Test --restore using TS
   #- env: TEST="TS --restore;" # WE KNOW IT IS NOT WORKING
@@ -154,12 +154,11 @@ matrix:
 
   - env: TEST="usual;OPENCL;" BUILD_OPTS="--enable-ubsan"
 
-  - stage: package
-    env: TEST="TS;"
+  - env: TEST="TS;" BUILD_OPTS="--enable-simd=avx2"
 
-  - env: TEST="TS;OPENCL;"
+  - env: TEST="TS;OPENCL;" BUILD_OPTS="--enable-simd=avx2"
 
-  - env: TEST="TS --internal;OPENCL;"
+  - env: TEST="TS --internal;OPENCL;" BUILD_OPTS="--enable-simd=avx2"
 
   fast_finish: true
 
