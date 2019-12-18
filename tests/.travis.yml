@@ -22,7 +22,7 @@ matrix:
   #Test JtR using a clang build and OpenCL
    # (clang + ASAN + OpenCL build fails)
   - compiler: clang
-    env: TEST="usual;OPENCL;" BUILD_OPTS="--enable-werror"
+    env: TEST="usual;OPENCL;" BUILD_OPTS="--enable-werror --enable-simd=avx2"
 
   #Test JtR using a "hot" OS/compiler
   - env: TEST="fresh;ASAN;clang;"        BUILD_OPTS="--enable-ubsan"  # "--enable-werror"
@@ -30,7 +30,7 @@ matrix:
   - env: TEST="fresh;ASAN;EXTRAS;clang;" BUILD_OPTS="--enable-ubsan"  # "--enable-werror"
   - env: TEST="fresh;ASAN;EXTRAS;gcc;"   BUILD_OPTS="--enable-ubsan"  # "--enable-werror"
   - env: TEST="ztex;ASAN;clang;"         BUILD_OPTS="--enable-ztex"  FUZZ="ztex"  # "--enable-werror"
-  - env: TEST="fresh;clang-6;"           BUILD_OPTS="--enable-ubsan"
+  - env: TEST="fresh;clang-6;"           BUILD_OPTS="--enable-ubsan --enable-simd=avx2"
   - env: TEST="experimental;"            # "--enable-werror"
 
   #Test OpenMP with OMP_NUM_THREADS=1
