@@ -64,7 +64,7 @@ matrix:
 
   - os: osx
     osx_image: xcode10.2
-    env: TEST="MacOS;" OPENCL="yes" BUILD_OPTS="OPENSSL_CFLAGS=-I/usr/local/opt/openssl/include OPENSSL_LIBS='-L/usr/local/opt/openssl/lib -lssl -lcrypto'"
+    env: TEST="MacOS;" OPENCL="yes"  BUILD_OPTS="OPENSSL_CFLAGS=-I/usr/local/opt/openssl@1.1/include OPENSSL_LIBS='-L/usr/local/Cellar/openssl@1.1/1.1.1d/lib -lssl -lcrypto'"
 
   - os: osx
     osx_image: xcode9.4
