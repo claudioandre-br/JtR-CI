@@ -36,7 +36,7 @@ environment:
       doing: test
       test: yes
       location: cygwin64
-      cygwin: install
+    #  cygwin: install (not needed after Dec 2019)
 
     # CygWin 64bits build
     - arch: x86_64
