@@ -25,7 +25,7 @@ matrix:
     env: TEST="usual;OPENCL;" BUILD_OPTS="--enable-werror --enable-simd=avx2"
 
   #Test JtR using a "hot" OS/compiler
-  - env: TEST="fresh;ASAN;clang;"        BUILD_OPTS="--enable-ubsan"  # "--enable-werror"
+  - env: TEST="fresh;ASAN;clang;"        BUILD_OPTS="--enable-ubsan --enable-simd=avx2"  # "--enable-werror"
   - env: TEST="fresh;ASAN;gcc;slow;"     BUILD_OPTS="--enable-ubsan" FUZZ="slow"  # "--enable-werror"
   - env: TEST="fresh;ASAN;EXTRAS;clang;" BUILD_OPTS="--enable-ubsan"  # "--enable-werror"
   - env: TEST="fresh;ASAN;EXTRAS;gcc;"   BUILD_OPTS="--enable-ubsan"  # "--enable-werror"
