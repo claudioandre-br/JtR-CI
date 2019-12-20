@@ -17,9 +17,7 @@
 #########################################################################
 
 # Disable clueless formats
-echo '[Disabled:Formats]' >> ../run/john-local.conf
-echo '#formatname = Y' >> ../run/john-local.conf
-echo ".include '\$JOHN/dynamic_disabled.conf'" >> ../run/john-local.conf
+echo '[Local:Disabled:Formats]' >> ../run/john-local.conf
 
 echo 'pbkdf2-hmac-md4 = Y' >> ../run/john-local.conf
 echo 'pbkdf2-hmac-md5 = Y' >> ../run/john-local.conf

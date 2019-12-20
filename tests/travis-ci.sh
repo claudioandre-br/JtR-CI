@@ -84,6 +84,9 @@ function do_TS_Setup(){
     #export PERL_MM_USE_DEFAULT=1
     (echo y;echo o conf prerequisites_policy follow;echo o conf commit)|cpan
     cpan install Digest::MD5
+
+    # copy the needed john-local.conf to the run folder
+    cp john-local.conf ../run/
 }
 
 function do_Build_Docker_Command(){
@@ -221,7 +224,7 @@ elif [[ "$TEST" == *"fresh;"* ]]; then
 elif [[ "$TEST" == *"experimental;"* ]]; then
     # Build the docker command line
     do_Build_Docker_Command
- 
+
      # Run docker
      docker run --cap-add SYS_PTRACE -v "$HOME":/root -v "$(pwd)":/cwd ubuntu:devel sh -c "$docker_command"
 
@@ -264,7 +267,7 @@ elif [[ "$TEST" == *"TS;"* ]]; then
         ./jtrts.pl -stoponerror -dynamic none
     else
         # Disable failing formats
-        echo 'descrypt-opencl = Y' >> john-local.conf
+        echo 'descrypt-opencl = Y' >> ../run/john-local.conf
 
         ./jtrts.pl -noprelims -type opencl
     fi
