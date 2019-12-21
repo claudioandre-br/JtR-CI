@@ -86,7 +86,8 @@ function do_TS_Setup(){
     cpan install Digest::MD5
 
     # copy the needed john-local.conf to the run folder
-    cp john-local.conf ../run/
+    echo "### Adding ###" >> ../run/john-local.conf
+    cat john-local.conf >> ../run/john-local.conf
 }
 
 function do_Build_Docker_Command(){
@@ -266,9 +267,6 @@ elif [[ "$TEST" == *"TS;"* ]]; then
     if [[ "$TEST" != *";OPENCL;"* ]]; then
         ./jtrts.pl -stoponerror -dynamic none
     else
-        # Disable failing formats
-        echo 'descrypt-opencl = Y' >> ../run/john-local.conf
-
         ./jtrts.pl -noprelims -type opencl
     fi
 
