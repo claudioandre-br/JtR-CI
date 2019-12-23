@@ -213,6 +213,16 @@ elif test "$FUZZ" = "afl" ; then
     wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
     source run_tests.sh
 
+elif test "$FUZZ" = "shared" ; then
+    # Required defines
+    # TEST  # Defined inside .travis.yml
+    arch=$(uname -m)
+    JTR_BIN="$JtR"
+    JTR_CL=""
+
+    wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
+    source run_tests.sh
+
 elif test "$FUZZ" = "full" ; then
     # Required defines
     TEST=';MY_FULL;' # Controls how the test will happen
