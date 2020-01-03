@@ -85,19 +85,19 @@ matrix:
     arch: amd64
 
   # Packet Arm64 (Armv8 compliant) testing #####################################
-  - env: TEST="usual;full;extra;crack;EXTRAS;" FUZZ="shared" OMP_NUM_THREADS=2
+  - env: TEST="usual;full;extra;crack;" FUZZ="shared" OMP_NUM_THREADS=2
     stage: machine
     dist: bionic
     arch: arm64
 
   # Packet Power (PPC64LE) testing #############################################
-  - env: TEST="usual;full;extra;crack;EXTRAS;" FUZZ="shared"
+  - env: TEST="usual;full;extra;crack;" FUZZ="shared"
     stage: machine
     dist: bionic
     arch: ppc64le
 
   # Packet IBM (IBM System Z) testing ##########################################
-  - env: TEST="usual;full;extra;crack;EXTRAS;" FUZZ="shared"
+  - env: TEST="usual;full;extra;crack;" FUZZ="shared"
     stage: machine
     dist: bionic
     arch: s390x
