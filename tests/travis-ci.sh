@@ -256,39 +256,28 @@ elif [[ "$TEST" == *"snap;"* ]]; then
     # Run the test
     .travis/CI-tests.sh
 
-elif [[ "$TEST" == *"TS;"* ]]; then
+elif [[ "$TEST" == *"TS"* ]]; then
     # Configure and build
     do_Prepare_To_Test
 
     # Test Suite set up
     do_TS_Setup
 
-    # Run the test: Test Suite
-    if [[ "$TEST" != *";OPENCL;"* ]]; then
-        ./jtrts.pl -stoponerror -dynamic none
+    if [[ "$TEST" == *"TS --restore;"* ]]; then
+        # Run the test: Test Suite --restore
+        ./jtrts.pl --restore
+
+    elif [[ "$TEST" == *"TS --internal;"* ]]; then
+        # Run the test: Test Suite --internal
+        ./jtrts.pl -noprelims -internal
     else
-        ./jtrts.pl -noprelims -type opencl
+        # Run the test: Test Suite
+        if [[ "$TEST" != *";OPENCL;"* ]]; then
+            ./jtrts.pl -stoponerror -dynamic none
+        else
+            ./jtrts.pl -noprelims -type opencl
+        fi
     fi
-
-elif [[ "$TEST" == *"TS --restore;"* ]]; then
-    # Configure and build
-    do_Prepare_To_Test
-
-    # Test Suite set up
-    do_TS_Setup
-
-    # Run the test: Test Suite --restore
-    ./jtrts.pl --restore
-
-elif [[ "$TEST" == *"TS --internal;"* ]]; then
-    # Configure and build
-    do_Prepare_To_Test
-
-    # Test Suite set up
-    do_TS_Setup
-
-    # Run the test: Test Suite --internal
-    ./jtrts.pl -noprelims -internal
 
 else
     echo
