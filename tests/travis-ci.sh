@@ -181,10 +181,6 @@ if [[ "$TEST" == *";clang;"* ]]; then
     export CCO="clang"
 fi
 
-if [[ "$TEST" == *";clang-6;"* ]]; then
-    export CCO="clang-6.0"
-fi
-
 if [[ "$TEST" == *";afl-clang-fast;"* ]]; then
     export CCO="afl-clang-fast"
 fi
@@ -213,7 +209,7 @@ elif [[ "$TEST" == *"ztex;"* ]]; then
     do_Build_Docker_Command_Image
 
     # Run docker
-    docker run -v "$HOME":/root -v "$(pwd)":/cwd claudioandre/john:ubuntu.rolling sh -c "$docker_command"
+    docker run --cap-add SYS_PTRACE -v "$HOME":/root -v "$(pwd)":/cwd claudioandre/john:ubuntu.rolling sh -c "$docker_command"
 
 elif [[ "$TEST" == *"fresh;"* ]]; then
     # Build the docker command line

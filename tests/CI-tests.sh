@@ -192,8 +192,9 @@ if [[ -z "${TEST##*EXTRAS*}" ]]; then
     echo '--------------------------------------------------------------------------------'
     echo "All tests passed without error! Performed $Total_Tests tests in $SECONDS seconds."
     echo '--------------------------------------------------------------------------------'
+fi
 
-elif test "$FUZZ" = "zzuf" ; then
+if test "$FUZZ" = "zzuf" ; then
     # Required defines
     TEST=';ZZUF_FUZZ;' # Controls how the test will happen
     arch=$(uname -m)
