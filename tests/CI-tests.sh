@@ -274,7 +274,7 @@ elif test "$FUZZ" = "ztex" ; then
     do_Test "$JtR -test=0 --format=md5crypt-ztex"   "No ZTEX devices found" 0 0 "ERROR"
     do_Test "$JtR -test=0 --format=phpass-ztex"   "No ZTEX devices found" 0 0 "ERROR"
 
-else
+elif [[ "$TEST" != *"EXTRAS"* ]]; then
     # ---- Regular testing ----
     # Trusty AMD GPU drivers on Travis are fragile.
     # - a simple run of --test fails;
