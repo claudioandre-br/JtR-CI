@@ -106,7 +106,7 @@ matrix:
   - os: osx # Requires to point SSL to Cellar folder, as seen below
     stage: machine
     osx_image: xcode11.2
-    env: TEST="MacOS;EXTRAS;" OPENCL="yes"  BUILD_OPTS="OPENSSL_CFLAGS=-I/usr/local/opt/openssl@1.1/include OPENSSL_LIBS='-L/usr/local/Cellar/openssl@1.1/1.1.1d/lib -lssl -lcrypto'"
+    env: TEST="MacOS;" OPENCL="yes"  BUILD_OPTS="OPENSSL_CFLAGS=-I/usr/local/opt/openssl@1.1/include OPENSSL_LIBS='-L/usr/local/Cellar/openssl@1.1/1.1.1d/lib -lssl -lcrypto'"
 
   - os: osx
     stage: machine
@@ -122,7 +122,7 @@ matrix:
   #Test using TS - CPU formats
   - stage: Test Suite
     compiler: clang
-    env: TEST="TS;"
+    env: TEST="TS;" BUILD_OPTS="--enable-simd=avx2"
 
   #Test using TS - OpenCL
   - stage: Test Suite
