@@ -37,8 +37,9 @@ $Zip2John "hello-world-module.tar.xz.zip" > unknown.hash
 $JtR unknown.hash --pot=a1.pot --max-run-time=600 --word=guess.txt --rules=all --format=ZIP-opencl --dev=5,6 --fork=3
 $JtR unknown.hash --pot=a1.pot --max-run-time=600 --prince=guess.txt --rules=jumbo --format=ZIP-opencl --dev=5,6 --fork=3
 
-echo ""; echo "==> Wiki Examples"
+echo ""; echo "==> Wiki Examples plus Not Encrypted"
 $Zip2John examples/*.zip > examples.hash
+$Zip2John test.zip >> examples.hash
 $JtR examples.hash --pot=a1.pot --max-run-time=600 --format=ZIP-opencl --dev=5,6 --fork=3
 $JtR examples.hash --pot=a1.pot --max-run-time=600 --format=pkzip
 
