@@ -14,6 +14,7 @@ LABEL maintainer Claudio André (c) 2017-2019 1.0.UbuntuDevel
 LABEL software CI for John the Ripper
 
 RUN apt-get update -qq && \
+    export DEBIAN_FRONTEND="noninteractive" && \
     apt-get install -y \
         build-essential libssl-dev yasm libgmp-dev libpcap-dev pkg-config debhelper libnet1-dev \
         libbz2-dev wget llvm libomp-dev zlib1g-dev git clang clang-6.0 && \
