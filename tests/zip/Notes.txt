@@ -1,0 +1,2 @@
+hello-world-module.tar.xz: from a JtR issue. We don't know the password.
+AES-B1-2K(w{6f#@rXMd%S9.zip: created using B1 software. The password is 2K(w{6f#@rXMd%S9.
