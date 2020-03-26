@@ -163,6 +163,10 @@ function do_All_TS(){
     echo "[Local:Options:OpenCL]" >  ../run/john-local.conf
     echo "Device = $Dev_3" >> ../run/john-local.conf
 
+    # copy the needed john-local.conf to the run folder
+    echo "### Adding ###" >> ../run/john-local.conf
+    cat john-local.conf >> ../run/john-local.conf
+
     echo 'Running CPU plus NVIDIA GTX TITAN X OpenCL only Test Suite tests...'
     do_Test_TS "NONE" ""
 
