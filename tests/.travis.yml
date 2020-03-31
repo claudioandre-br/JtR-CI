@@ -165,27 +165,28 @@ matrix:
   ##############################################################################
 
   # Flatpak package testing ####################################################
-  # - stage: package
-  #   image: claudioandre/john:fedora.31.flatpak
-  #   script:
-  #   - wget https://github.com/claudioandre-br/packages/releases/download/jumbo-dev/flatpak_1_JtR.zip
-  #   - unzip flatpak_1_JtR.zip
-  #
-  #   # Install flatpak package
-  #   - flatpak install --user -y --bundle john.flatpak
-  #
-  #   # Do some testing
-  #   - flatpak run com.openwall.John
-  #   - flatpak run com.openwall.John --list=build-info
-  #   - export TEST=';full;extra;' # Controls how the test will happen
-  #   - export arch=$(uname -m)
-  #   - export JTR_BIN='flatpak run com.openwall.John'
-  #   - export JTR_CL='flatpak run com.openwall.John'
-  #   - cd flatpak
-  #
-  #   # Adjust the testing environment, import and run some testing
-  #   - wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
-  #   - source run_tests.sh
+  - stage: package
+    script:
+    - wget https://github.com/claudioandre-br/packages/releases/download/jumbo-dev/flatpak_1_JtR.zip
+    - unzip flatpak_1_JtR.zip
+    - sudo apt-get install -y flatpak
+    - sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    - sudo flatpak install -y flathub org.freedesktop.Platform//18.08
+
+    # Install flatpak package
+    - sudo flatpak install --user -y --bundle john.flatpak
+
+    # Do some testing
+    - sudo flatpak run com.openwall.John
+    - sudo flatpak run com.openwall.John --list=build-info
+    - export TEST=';full;extra;' # Controls how the test will happen
+    - export arch=$(uname -m)
+    - export JTR_BIN='sudo flatpak run com.openwall.John'
+    - export JTR_CL='flatpak run com.openwall.John'
+
+    # Adjust the testing environment, import and run some testing
+    - wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
+    - source run_tests.sh
   ##############################################################################
 
   allow_failures:
