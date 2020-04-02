@@ -210,7 +210,7 @@ stages:
       - checkout: none
       - template: .azure/windows-pull-artifacts.yml
 
-      - template: .azure/windows-testing.yml
+      - template: .azure/windows-testing-2012.yml
         parameters:
           fullTest: 'yes'
           johnBinary: 'john'
