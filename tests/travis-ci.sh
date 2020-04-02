@@ -96,6 +96,7 @@ function do_Build_Docker_Command(){
 
     if [[ true ]]; then
         update="\
+          export DEBIAN_FRONTEND='noninteractive'; \
           apt-get update -qq; \
           apt-get install -y -qq build-essential libssl-dev yasm libgmp-dev libpcap-dev pkg-config debhelper libnet1-dev libbz2-dev wget llvm libomp-dev zlib1g-dev git > /dev/null; "
 
