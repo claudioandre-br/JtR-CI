@@ -11,10 +11,10 @@
 ######################################################################
 
 # Directory names and folders
-APPVEYOR_64bits="8qjv4id473o92kq4"
+APPVEYOR_64bits="k6cwcuk00dkv6cij"
 APPVEYOR_32bits="" # Disable for '-dev' releases
-FLATPAK="472019853"
-AZURE_ID="217"
+FLATPAK="496857645"
+AZURE_ID="226"
 
 # AppVeyor (Windows 64 and 32 bits) ############################################
 wget https://ci.appveyor.com/api/buildjobs/$APPVEYOR_64bits/artifacts/win_x64.7z      -O winX64_1_JtR.7z
@@ -30,7 +30,7 @@ wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/artifacts/downloa
 wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/raw                    -O flatpak_2_buildlog.txt
 
 # Azure Windows package
-wget https://dev.azure.com/claudioandre-br/40224313-b91e-465d-852b-fc4ea516f33e/_apis/build/builds/$AZURE_ID/logs/125 -O winX64_2_buildlog-endorsed.txt
+wget https://dev.azure.com/claudioandre-br/40224313-b91e-465d-852b-fc4ea516f33e/_apis/build/builds/$AZURE_ID/logs/111 -O winX64_2_buildlog-endorsed.txt
 
 if [[ "$1" == "LOG_FILES"  ]]; then
     # Download log files, to commit them in the git repo
