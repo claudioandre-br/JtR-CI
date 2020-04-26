@@ -52,3 +52,20 @@ $JtR --pot=a1.pot --show examples.hash
 sleep 10
 rm -f *.hash guess.txt *.pot zip_sample_files.tar
 rm -rf examples/
+
+if [[ false ]]; then
+    bestCryptFDE2John="/home/claudio/Downloads/bestCryptFDE2john.py"
+
+    python $bestCryptFDE2John aes.bin >> bcrypt.hash
+    python $bestCryptFDE2John aes-v3.bin >> bcrypt.hash
+    python $bestCryptFDE2John camellia.bin >> bcrypt.hash
+    python $bestCryptFDE2John rc6.bin >> bcrypt.hash
+    python $bestCryptFDE2John serpent.bin >> bcrypt.hash
+    python $bestCryptFDE2John twofish.bin >> bcrypt.hash
+
+python $bestCryptFDE2John encrypted.raw
+
+    $JtR bcrypt.hash
+
+    rm -f *.hash
+fi
