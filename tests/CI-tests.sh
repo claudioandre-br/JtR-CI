@@ -246,13 +246,13 @@ elif test "$FUZZ" = "internal" ; then
 
 elif test "$FUZZ" = "snap" ; then
     # Required defines
-    TEST=';full;extra;crack;' # Controls how the test will happen
+    TEST=";full;extra;crack;$TEST" # Controls how the test will happen
     arch=$(uname -m)
     JTR_BIN="$JtR"
     JTR_CL=""
 
     if [[ "$TEST" == *"OPENCL;"* ]];  then
-        TEST="$TEST;OpenCL-crack;snap;"
+        TEST='OpenCL-crack;snap;'
         JTR_CL="$JtR"
     fi
 

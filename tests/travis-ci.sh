@@ -251,7 +251,7 @@ elif [[ "$TEST" == *"snap;"* ]]; then
     if [[ "$TEST" != *";OPENCL;"* ]]; then
         sudo snap install --channel=edge john-the-ripper
     else
-        sudo snap install --channel=edge john-the-ripper --classic
+        sudo snap install --channel=edge john-the-ripper --devmode
     fi
 
     # Run the test
