@@ -150,16 +150,24 @@ jobs:
 
   # Test the Ubuntu Snap package ###############################################
   - stage: package
+    name: "16.04 LTS snap app test"
     dist: xenial
     env: TEST="snap;" FUZZ="snap"
 
   - stage: package
+    name: "18.04 LTS snap app test"
     dist: bionic
     env: TEST="snap;" FUZZ="snap"
 
   - stage: package
+    name: "20.04 LTS snap app test"
     dist: focal
     env: TEST="snap;" FUZZ="snap"
+
+  - stage: package
+    name: "OpenCL snap app test"
+    dist: focal
+    env: TEST="snap;OPENCL;" FUZZ="snap"
 
   # Windows package testing ####################################################
   - stage: package

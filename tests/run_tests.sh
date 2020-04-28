@@ -271,6 +271,14 @@ if [[ -z "${TEST##*OpenCL-full*}" ]]; then
 fi
 
 if [[ -z "${TEST##*OpenCL-crack*}" ]]; then
+
+    if [[ -z "${TEST##*snap*}" ]]; then
+        echo "====> Installing OpenCL:"
+        sudo apt-get install -y libpocl-dev ocl-icd-libopencl1 pocl-opencl-icd
+        echo "------------------------------------------------------------------"
+        echo
+    fi
+
     echo "--------------------------- OpenCL real cracking ---------------------------"
     $JTR_BIN -list=format-tests | cut -f3 > alltests.in
     $JTR_BIN -form=SHA512crypt-opencl alltests.in --max-len=2 --progress=30

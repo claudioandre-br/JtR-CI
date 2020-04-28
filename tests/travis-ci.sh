@@ -248,7 +248,11 @@ elif [[ "$TEST" == *"snap;"* ]]; then
     sudo apt-get install snapd
 
     # Install and test
-    sudo snap install --channel=edge john-the-ripper
+    if [[ "$TEST" != *";OPENCL;"* ]]; then
+        sudo snap install --channel=edge john-the-ripper
+    else
+        sudo snap install --channel=edge john-the-ripper --classic
+    fi
 
     # Run the test
     .travis/CI-tests.sh
