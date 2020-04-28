@@ -116,13 +116,6 @@ if [[ -z "${TEST##*extra*}" ]]; then
     echo
 
     if [[ -n "$JTR_CL" ]]; then
-
-        if [[ -z "${TEST##*OpenCL-crack;snap;*}" ]]; then
-            echo "====> Installing OpenCL:"
-            sudo apt-get install -y libpocl-dev ocl-icd-libopencl1 pocl-opencl-icd
-            echo "------------------------------------------------------------------"
-            echo
-        fi
         echo "====> T20:"
         $JTR_CL -test-full=0 --format=sha512crypt-opencl
         report "--format=sha512crypt-opencl" "FAIL"

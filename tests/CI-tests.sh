@@ -252,6 +252,12 @@ elif test "$FUZZ" = "snap" ; then
     JTR_CL=""
 
     if [[ "$TEST" == *"OPENCL;"* ]];  then
+        echo "====> Installing OpenCL:"
+        sudo apt-get install -y libpocl-dev ocl-icd-libopencl1 pocl-opencl-icd
+        sudo ln -s /usr/lib/x86_64-linux-gnu/libOpenCL.so.1 /usr/lib/x86_64-linux-gnu/libOpenCL.so
+        echo "------------------------------------------------------------------"
+        echo
+
         TEST='OpenCL-crack;snap;'
         JTR_CL="$JtR"
     fi
