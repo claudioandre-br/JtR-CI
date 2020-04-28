@@ -6,7 +6,7 @@ version-script: |
 confinement: strict
 grade: devel
 assumes: [ snapd2.38 ]
-base: core18
+base: core20
 
 #license: GPL-2.0
 #title: John the Ripper Community Edition
@@ -79,10 +79,13 @@ parts:
       - libpcap-dev
       - libbz2-dev
       - zlib1g-dev
-      - opencl-headers
       - git
       - wget
       - patch
+      # OpenCL stuff is available only in X86 architecture, make it optional
+      - try:
+        - beignet-dev
+        - opencl-headers
 
     organize:
       ../build/run/: run/

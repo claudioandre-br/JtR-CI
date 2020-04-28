@@ -61,8 +61,8 @@ echo ""
 echo "---------------------------- BUILDING -----------------------------"
 
 if [[ "$arch" == "x86_64" || "$arch" == "i686" ]]; then
-    # Allow an OpenCL build
-    sudo apt-get install -y beignet-dev
+    # Workaround (WTF)
+    sudo ln -s /usr/lib/x86_64-linux-gnu/libOpenCL.so.1 /usr/lib/x86_64-linux-gnu/libOpenCL.so
 
     # CPU (OMP and extensions fallback)
     ./configure $X86_NO_OPENMP --enable-simd=sse2   CPPFLAGS="-D_SNAP -D_BOXED" && do_build ../run/john-sse2-non-omp
@@ -74,7 +74,14 @@ if [[ "$arch" == "x86_64" || "$arch" == "i686" ]]; then
     ./configure $X86_NO_OPENMP --enable-simd=xop    CPPFLAGS="-D_SNAP -D_BOXED" && do_build ../run/john-xop-non-omp
     ./configure $X86_REGULAR   --enable-simd=xop    CPPFLAGS="-D_SNAP -D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-xop-non-omp\\\"\" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\"\\\"john-avx\\\"\"" && do_build ../run/john-xop
     ./configure $X86_NO_OPENMP --enable-simd=avx2   CPPFLAGS="-D_SNAP -D_BOXED" && do_build ../run/john-non-omp
-    ./configure $X86_REGULAR   --enable-simd=avx2   CPPFLAGS="-D_SNAP -D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-non-omp\\\"\" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\"\\\"john-xop\\\"\"" && do_build
+    ./configure $X86_REGULAR   --enable-simd=avx2   CPPFLAGS="-D_SNAP -D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-non-omp\\\"\" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\"\\\"john-xop\\\"\"" && do_build ../run/john-avx2
+
+    if [[ "$arch" == "x86_64" ]]; then
+        ./configure $X86_NO_OPENMP --enable-simd=avx512f  CPPFLAGS="-D_SNAP -D_BOXED" && do_build ../run/john-avx512f-non-omp
+        ./configure $X86_REGULAR   --enable-simd=avx512f  CPPFLAGS="-D_SNAP -D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-avx512f-non-omp\\\"\" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\"\\\"john-avx2\\\"\"" && do_build ../run/john-avx512f
+        ./configure $X86_NO_OPENMP --enable-simd=avx512bw CPPFLAGS="-D_SNAP -D_BOXED" && do_build ../run/john-avx512bw-non-omp
+        ./configure $X86_REGULAR   --enable-simd=avx512bw CPPFLAGS="-D_SNAP -D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-avx512bw-non-omp\\\"\" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\"\\\"john-avx512f\\\"\"" && do_build
+    fi
 
 else
     # Non X86 CPU
