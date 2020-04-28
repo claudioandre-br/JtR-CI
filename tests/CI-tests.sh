@@ -249,7 +249,12 @@ elif test "$FUZZ" = "snap" ; then
     TEST=';full;extra;crack;' # Controls how the test will happen
     arch=$(uname -m)
     JTR_BIN="$JtR"
-    JTR_CL="$JtR"
+    JTR_CL=""
+
+    if [[ "$TEST" == *"OPENCL;"* ]];  then
+        TEST="$TEST;OpenCL-crack;snap;"
+        JTR_CL="$JtR"
+    fi
 
     wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
     source run_tests.sh
