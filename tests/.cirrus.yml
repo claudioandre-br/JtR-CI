@@ -1,7 +1,7 @@
 freebsd11_task:
         freebsd_instance:
                 image_family: freebsd-11-3-snap
-        install_script: pkg install -y devel/openmp devel/gmake perl5
+        install_script: pkg install -y devel/gmake perl5
 
         info_script:
                 - uname -a
