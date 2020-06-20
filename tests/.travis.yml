@@ -60,15 +60,15 @@ jobs:
 
   # Unusual test environment ###################################################
   #Test OpenMP with OMP_NUM_THREADS=1
-  - env: TEST="usual;ASAN;" OMP_NUM_THREADS=1
+  - env: TEST="usual;ASAN;" OMP_NUM_THREADS=1 BUILD_OPTS="--enable-werror"
     stage: test
 
   #Test OpenMP with OMP_NUM_THREADS=3
-  - env: TEST="usual;ASAN;" OMP_NUM_THREADS=3
+  - env: TEST="usual;ASAN;" OMP_NUM_THREADS=3 BUILD_OPTS="--enable-werror"
     stage: test
 
   #Test --enable-openmp-for-fast-formats
-  - env: TEST="usual;ASAN;" BUILD_OPTS="--enable-openmp-for-fast-formats"
+  - env: TEST="usual;ASAN;" BUILD_OPTS="--enable-openmp-for-fast-formats --enable-werror"
     stage: test
 
   #Test a non OpenMP build with clang
@@ -91,22 +91,22 @@ jobs:
 
 
   # AMD64 testing ##############################################################
-  - env: TEST="usual;full;extra;crack;EXTRAS;" FUZZ="shared"
+  - env: TEST="usual;full;extra;crack;EXTRAS;" FUZZ="shared" BUILD_OPTS="--enable-werror"
     stage: machine
     arch: amd64
 
   # Packet Arm64 (Armv8 compliant) testing #####################################
-  - env: TEST="usual;full;extra;crack;" FUZZ="shared" OMP_NUM_THREADS=2
+  - env: TEST="usual;full;extra;crack;" FUZZ="shared" OMP_NUM_THREADS=2 BUILD_OPTS="--enable-werror"
     stage: machine
     arch: arm64
 
   # Packet Power (PPC64LE) testing #############################################
-  - env: TEST="usual;full;extra;crack;" FUZZ="shared"
+  - env: TEST="usual;full;extra;crack;" FUZZ="shared" BUILD_OPTS="--enable-werror"
     stage: machine
     arch: ppc64le
 
   # Packet IBM (IBM System Z) testing ##########################################
-  - env: TEST="usual;full;extra;crack;" FUZZ="shared"
+  - env: TEST="usual;full;extra;crack;" FUZZ="shared" BUILD_OPTS="--enable-werror"
     stage: machine
     arch: s390x
 
@@ -114,7 +114,7 @@ jobs:
   - os: osx # Requires to point SSL to Cellar folder, as seen below
     stage: machine
     osx_image: xcode11.2
-    env: TEST="MacOS;" OPENCL="yes"
+    env: TEST="MacOS;" OPENCL="yes" BUILD_OPTS="--enable-werror"
 
   - os: osx
     stage: machine

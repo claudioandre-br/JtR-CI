@@ -13,7 +13,7 @@ freebsd11_task:
 
         build_script:
                 - cd src
-                - ./configure
+                - ./configure --enable-werror
                 - gmake -sj4
                 - echo '--------------------------------'
                 - ../run/john --list=build-info
@@ -36,7 +36,7 @@ freebsd12_task:
 
         build_script:
                 - cd src
-                - ./configure
+                - ./configure --enable-werror
                 - gmake -sj4
                 - echo '--------------------------------'
                 - ../run/john --list=build-info
