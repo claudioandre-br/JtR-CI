@@ -10,7 +10,7 @@
 ######################################################################
 
 FROM ubuntu:18.04
-LABEL maintainer Claudio André (c) 2017-2019 1.9.0J1
+LABEL maintainer Claudio André (c) 2017-2020 1.9.0J1+
 LABEL software John the Ripper 1.9.0 Jumbo 1+
 
 COPY john/ /john
@@ -46,7 +46,8 @@ RUN apt-get update -qq && \
     #  ./configure --disable-native-tests --enable-ztex                  CPPFLAGS='-msse2' && make -s clean && make -sj2 && mv ../run/john ../run/john-ztex && \
     # Clean the image
     rm *.o && rm -rf ../.git && rm -rf ../run/ztex && rm -rf ztex && \
-      apt-get -y remove --purge build-essential binutils-common libssl-dev zlib1g-dev yasm libgmp-dev libpcap-dev pkg-config perl fakeroot gcc && \
+      apt-get -y remove --purge build-essential libssl-dev zlib1g-dev yasm libgmp-dev libpcap-dev pkg-config \
+           libbz2-dev wget git libusb-1.0-0-dev && \
       apt-get -y autoremove && \
       apt-get -y install libgomp1 && \
       apt-get -y clean && \
