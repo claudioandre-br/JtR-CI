@@ -164,6 +164,12 @@ jobs:
     dist: focal
     env: TEST="snap;" FUZZ="snap"
 
+  - stage: package
+    name: "18.04 LTS snap on ARM64 app test"
+    dist: bionic
+    arch: arm64
+    env: TEST="snap;" FUZZ="snap"
+
   #- stage: package
   #  name: "OpenCL snap app test"
   #  dist: focal
