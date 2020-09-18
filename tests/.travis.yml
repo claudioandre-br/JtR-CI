@@ -188,7 +188,7 @@ jobs:
     - 7z x win_x64.7z
     - cd JtR/run
     - powershell "cmd /c 'john --list=build-info'"
-    - .\john --test=0 --format=cpu'"
+    - .\john --test=0 --format=cpu
   ##############################################################################
 
   # Flatpak package testing ####################################################
