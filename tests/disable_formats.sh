@@ -35,11 +35,13 @@ echo 'raw-BLAKE2 = Y' >> ../run/john-local.conf  #BLAKE2
 echo 'argon2 = Y' >> ../run/john-local.conf      #BLAKE2
 echo 'tezos = Y' >> ../run/john-local.conf       #BLAKE2
 
-echo 'diskcryptor = Y' >> ../run/john-local.conf #BE
-echo 'monero = Y' >> ../run/john-local.conf      #BE
-echo 'STRIP = Y' >> ../run/john-local.conf       #BE
-echo 'enpass = Y' >> ../run/john-local.conf      #BE
+#    ## Already disabled elsewhere ##
+#echo 'diskcryptor = Y' >> ../run/john-local.conf #BE
+#echo 'monero = Y' >> ../run/john-local.conf      #BE
+#echo 'STRIP = Y' >> ../run/john-local.conf       #BE
+#echo 'enpass = Y' >> ../run/john-local.conf      #BE
 
+#    ## Document why it was disabled here ##
 #echo 'agilekeychain = Y' >> ../run/john-local.conf           #Error ID 10
 #echo 'as400-ssha1 = Y' >> ../run/john-local.conf             # "
 #echo 'AxCrypt = Y' >> ../run/john-local.conf                 # "
@@ -90,3 +92,29 @@ echo 'pgpdisk-opencl = Y' >> ../run/john-local.conf #FAILED (cmp_all(49)) Intel 
 # Fuzzing: agilekeychain, 1Password Agile Keychain [PBKDF2-SHA1 AES 256/256 AVX2 8x]... run_tests.sh: line 215:  6305 Killed                  $JTR_BIN --fuzz --format=cpu
 # Fuzzing: as400-ssha1, AS400-SaltedSHA1 [?] in UTF-8 mode... Segmentation fault
 # Fuzzing: AxCrypt [PBKDF2-SHA512/SHA1 AES 32/64]... Segmentation fault
+
+#
+
+#    ## Delete files instead. We no longer can disable a format ##
+# rm -rf opencl_rar_fmt_plug.c racf_fmt_plug.c opencl_wpapsk_fmt_plug.c opencl_ssh_fmt_plug.c \
+#        pbkdf2-hmac-md4_fmt_plug.c  pbkdf2-hmac-md5_fmt_plug.c opencl_bf_fmt_plug.c \
+#        opencl_gpg_fmt_plug.c opencl_krb5pa-md5_fmt_plug.c opencl_mscash2_fmt_plug.c \
+#        opencl_nt_fmt_plug.c  opencl_ntlmv2_fmt_plug.c opencl_rawmd4_fmt_plug.c \
+#        opencl_rawmd5_fmt_plug.c opencl_rawsha512_fmt_plug.c opencl_xsha512_fmt_plug.c \
+#        opencl_mysqlsha1_fmt_plug.c opencl_mscash_fmt_plug.c opencl_sl3_fmt_plug.c \
+#        opencl_rawsha1_fmt_plug.c opencl_salted_sha_fmt_plug.c opencl_bitlocker_fmt_plug.c \
+#        opencl_keepass_fmt_plug.c opencl_lotus5_fmt_plug.c opencl_pgpdisk_fmt_plug.c \
+#        opencl_DES_fmt_plug.c
+
+# TS OpenCL
+rm -rf opencl_rar_fmt_plug.c racf_fmt_plug.c opencl_wpapsk_fmt_plug.c \
+       opencl_mscash_fmt_plug.c opencl_mscash2_fmt_plug.c \
+       opencl_nt_fmt_plug.c  opencl_ntlmv2_fmt_plug.c \
+       opencl_rawsha512_fmt_plug.c opencl_xsha512_fmt_plug.c \
+       opencl_DES_fmt_plug.c opencl_krb5pa-md5_fmt_plug.c
+
+# TS --internal
+rm -rf bcrypt adxcrypt_fmt_plug.c pbkdf2-hmac-md4_fmt_plug.c \
+       pbkdf2-hmac-md5_fmt_plug.c phpassMD5_fmt_plug.c opencl_keepass_fmt_plug.c \
+       opencl_pbkdf2_hmac_md4_fmt_plug.c opencl_pbkdf2_hmac_md5_fmt_plug.c \
+       opencl_bitlocker_fmt_plug.c opencl_bf_fmt_plug.c
