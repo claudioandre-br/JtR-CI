@@ -123,7 +123,7 @@ jobs:
 
   - os: osx
     stage: machine
-    osx_image: xcode9.4
+    osx_image: xcode12u
     env: TEST="MacOS;" OPENCL="yes"
 
   # Test Suite Testing #########################################################
