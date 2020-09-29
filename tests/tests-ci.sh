@@ -40,7 +40,7 @@ if [[ $2 == "TEST" ]]; then
 fi
 
 # The image does not have wget installed
-if [[ -z "${TEST##*SIMD*}" ]]; then
+if [[ "$EXTRA" == "SIMD" ]]; then
     apt update
     apt -y install wget
 fi

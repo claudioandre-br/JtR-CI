@@ -258,8 +258,8 @@ if [[ -z "${TEST##*SIMD*}" ]]; then
     /john/run/john-avx512f-no-omp  --test=10 --format=SHA512crypt
     /john/run/john-avx512bw        --test=10 --format=SHA512crypt
     /john/run/john-avx512bw-no-omp --test=10 --format=SHA512crypt
-    /john/run/john-ztex            --test=10 --format=SHA512crypt
-    /john/run/john-ztex-no-omp     --test=10 --format=SHA512crypt
+    # /john/run/john-ztex            --test=10 --format=SHA512crypt I don't build zTex
+    # /john/run/john-ztex-no-omp     --test=10 --format=SHA512crypt I don't build zTex
 
     total=$((total + 18))
 fi
