@@ -38,6 +38,13 @@ JTR=../run/john
 if [[ $2 == "TEST" ]]; then
     MUTE_SYS_INFO="Yes"
 fi
+
+# The image does not have wget installed
+if [[ -z "${TEST##*SIMD*}" ]]; then
+    apt update
+    apt -y install wget
+fi
+
 TASK_RUNNING="$2"
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/show_info.sh
 source show_info.sh
