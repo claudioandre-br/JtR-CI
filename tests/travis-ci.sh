@@ -270,7 +270,7 @@ elif [[ "$TEST" == *"TS"* ]]; then
 
     elif [[ "$TEST" == *"TS --internal;"* ]]; then
         # Run the test: Test Suite --internal
-        ./jtrts.pl -noprelims -internal
+        ./jtrts.pl -noprelims -internal enabled
     else
         # Run the test: Test Suite
         if [[ "$TEST" != *";OPENCL;"* ]]; then
