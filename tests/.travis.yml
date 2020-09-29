@@ -45,7 +45,9 @@ jobs:
   # Test JtR using a "hot" OS/compiler #########################################
   - env: TEST="fresh;ASAN;clang;"        BUILD_OPTS="--enable-ubsan"
     stage: test
-  - env: TEST="fresh;ASAN;gcc;slow;"     BUILD_OPTS="--enable-ubsan" FUZZ="slow"
+  # It was fresh
+  # Ubuntu 20.10 is failing in Testing crypt, generic crypt(3) [?/64]... (2xOMP) AddressSanitizer:DEADLYSIGNAL
+  - env: TEST="usual;ASAN;gcc;slow;"     BUILD_OPTS="--enable-ubsan" FUZZ="slow"
     stage: test
   - env: TEST="fresh;EXTRAS;clang;"      # Remove ASAN, it is failing
     stage: test                          # TEST="fresh;ASAN;EXTRAS;clang;"
