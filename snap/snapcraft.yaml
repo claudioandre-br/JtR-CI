@@ -6,7 +6,7 @@ version-script: |
 confinement: strict
 grade: devel
 assumes: [ snapd2.38 ]
-base: core20
+base: core18
 
 #license: GPL-2.0
 #title: John the Ripper Community Edition
