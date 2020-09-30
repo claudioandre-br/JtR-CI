@@ -39,10 +39,10 @@ if [[ $2 == "TEST" ]]; then
     MUTE_SYS_INFO="Yes"
 fi
 
-# The image does not have wget installed
+# The new J2 Docker image does not have wget installed
 if [[ "$EXTRA" == "SIMD" ]]; then
-    apt update
-    apt -y install wget
+    apt-get update
+    apt-get -y install wget
 fi
 
 TASK_RUNNING="$2"

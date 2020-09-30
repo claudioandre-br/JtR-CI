@@ -43,7 +43,7 @@ jobs:
   ##############################################################################
 
   # Test JtR using a "hot" OS/compiler #########################################
-  - env: TEST="fresh;ASAN;clang;"        BUILD_OPTS="--enable-ubsan"
+  - env: TEST="fresh;ASAN;clang;"        BUILD_OPTS="--enable-ubsan --enable-simd=avx2"
     stage: test
   # It was fresh
   # Ubuntu 20.10 is failing in Testing crypt, generic crypt(3) [?/64]... (2xOMP) AddressSanitizer:DEADLYSIGNAL
@@ -66,11 +66,11 @@ jobs:
     stage: test
 
   #Test OpenMP with OMP_NUM_THREADS=3
-  - env: TEST="usual;ASAN;" OMP_NUM_THREADS=3 BUILD_OPTS="--enable-werror"
+  - env: TEST="usual;ASAN;" OMP_NUM_THREADS=3 BUILD_OPTS="--enable-werror --enable-simd=avx2"
     stage: test
 
   #Test --enable-openmp-for-fast-formats
-  - env: TEST="usual;ASAN;" BUILD_OPTS="--enable-openmp-for-fast-formats --enable-werror"
+  - env: TEST="usual;ASAN;" BUILD_OPTS="--enable-openmp-for-fast-formats --enable-werror --enable-simd=avx2"
     stage: test
 
   #Test a non OpenMP build with clang
