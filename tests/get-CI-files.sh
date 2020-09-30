@@ -13,8 +13,8 @@
 # Directory names and folders
 APPVEYOR_64bits="" # Disabled: I'm using Azure packages
 APPVEYOR_32bits="" # Disabled for '-dev' releases
-FLATPAK="758586728"
-AZURE_ID="260"
+FLATPAK="765912707"
+AZURE_ID="265"
 
 # AppVeyor (Windows 64 and 32 bits) ############################################
 # I am no longer using the AppVeyor package
