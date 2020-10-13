@@ -9,7 +9,7 @@
             "command": "./configure",
             "options": {
                 "cwd": "${workspaceFolder}/src"
-              }
+            }
         },
         {
             "type": "shell",
@@ -17,11 +17,12 @@
             "command": "make -sj4",
             "options": {
                 "cwd": "${workspaceFolder}/src"
-              },
+            },
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
+            },
+            "problemMatcher": []
         }
     ]
 }
