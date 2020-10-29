@@ -13,6 +13,22 @@ FROM ubuntu:18.04
 LABEL maintainer Claudio André (c) 2017-2020 1.9.0J1+
 LABEL software John the Ripper 1.9.0 Jumbo 1+
 
+#####                                                            #####
+#Note: the build should take place in a temporary folder, it removes
+#      files before copying from host. From the folder containing the
+#      Dockerfile, e.g.:
+#   `git clone --depth 10 https://github.com/openwall/john.git john`
+#   `docker build --file Dockerfile .`
+#
+#A regular user can also (I do CI, plus the need to install curl, zip, ...):
+#RUN mkdir -p /john \
+#    && wget https://github.com/openwall/john/archive/bleeding-jumbo.zip \
+#    && unzip bleeding-jumbo.zip -d /john \
+#    && rm "UNNEEDED FILES"
+#
+## Remove unnecessary files BEFORE creating the Docker image layer  ##
+RUN rm -rf john/.git && rm -rf john/run/ztex && rm -rf john/src/ztex
+
 COPY john/ /john
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN ln -s /usr/local/bin/docker-entrypoint.sh / # backwards compat
@@ -45,7 +61,7 @@ RUN apt-get update -qq && \
     #  ./configure --disable-native-tests --enable-ztex --disable-openmp CPPFLAGS='-msse2' && make -s clean && make -sj2 && mv ../run/john ../run/john-ztex-no-omp && \
     #  ./configure --disable-native-tests --enable-ztex                  CPPFLAGS='-msse2' && make -s clean && make -sj2 && mv ../run/john ../run/john-ztex && \
     # Clean the image
-    rm *.o && rm -rf ../.git && rm -rf ../run/ztex && rm -rf ztex && \
+    rm *.o && \
       apt-get -y remove --purge build-essential libssl-dev zlib1g-dev yasm libgmp-dev libpcap-dev pkg-config \
            libbz2-dev wget git libusb-1.0-0-dev && \
       apt-get -y autoremove && \
