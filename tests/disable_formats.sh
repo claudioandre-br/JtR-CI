@@ -51,10 +51,6 @@ echo 'RAR = Y' >> ../run/john-local.conf                     #SLOW
 echo 'wpapsk-opencl = Y' >> ../run/john-local.conf           #SLOW
 echo 'wpapsk-pmk-opencl = Y' >> ../run/john-local.conf       #SLOW
 
-echo 'bcrypt = Y' >> ../run/john-local.conf                  # TS
-echo 'bcrypt-opencl = Y' >> ../run/john-local.conf           # TS
-echo 'descrypt-opencl = Y' >> ../run/john-local.conf         # TS
-
 echo 'pbkdf2-hmac-md4-opencl = Y' >> ../run/john-local.conf  # TS
 echo 'pbkdf2-hmac-md5-opencl = Y' >> ../run/john-local.conf  # TS
 
@@ -79,7 +75,6 @@ echo 'rawsha1-opencl = Y' >> ../run/john-local.conf
 echo 'salted_sha-opencl = Y' >> ../run/john-local.conf
 echo 'bitlocker-opencl = Y' >> ../run/john-local.conf
 echo 'keepass-opencl = Y' >> ../run/john-local.conf
-echo 'lotus5-opencl = Y' >> ../run/john-local.conf  #SIGSEGV
 echo 'pgpdisk-opencl = Y' >> ../run/john-local.conf #FAILED (cmp_all(49)) Intel OpenCL CPU
 
 # Kernel <lotus5> was successfully vectorized (8)
@@ -103,7 +98,7 @@ echo 'pgpdisk-opencl = Y' >> ../run/john-local.conf #FAILED (cmp_all(49)) Intel 
 #        opencl_rawmd5_fmt_plug.c opencl_rawsha512_fmt_plug.c opencl_xsha512_fmt_plug.c \
 #        opencl_mysqlsha1_fmt_plug.c opencl_mscash_fmt_plug.c opencl_sl3_fmt_plug.c \
 #        opencl_rawsha1_fmt_plug.c opencl_salted_sha_fmt_plug.c opencl_bitlocker_fmt_plug.c \
-#        opencl_keepass_fmt_plug.c opencl_lotus5_fmt_plug.c opencl_pgpdisk_fmt_plug.c \
+#        opencl_keepass_fmt_plug.c opencl_pgpdisk_fmt_plug.c \
 #        opencl_DES_fmt_plug.c
 
 # TS OpenCL
@@ -116,7 +111,7 @@ rm -rf opencl_rar_fmt_plug.c racf_fmt_plug.c opencl_wpapsk_fmt_plug.c \
        opencl_krb5pa-md5_fmt_plug.c
 
 # TS --internal
-rm -rf bcrypt adxcrypt_fmt_plug.c pbkdf2-hmac-md4_fmt_plug.c \
+rm -rf adxcrypt_fmt_plug.c pbkdf2-hmac-md4_fmt_plug.c \
        pbkdf2-hmac-md5_fmt_plug.c phpassMD5_fmt_plug.c opencl_keepass_fmt_plug.c \
        opencl_pbkdf2_hmac_md4_fmt_plug.c opencl_pbkdf2_hmac_md5_fmt_plug.c \
        opencl_bitlocker_fmt_plug.c opencl_bf_fmt_plug.c opencl_o5logon_fmt_plug.c
