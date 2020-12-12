@@ -63,7 +63,7 @@ if [[ -z "${TEST##*extra*}" ]]; then
     echo "====> mask T1 A: 9 lines"
     $JTR_BIN --stdout --mask='[0-2]password[A-C]'
     echo "====> mask T1 C: 7 lines, 7 special characters, quotation marks"
-    $JTR_BIN --stdout --mask="ab[£öçüàñẽ]" --internal-codepage=ISO-8859-1
+    $JTR_BIN --stdout --mask="ab[£öçüàñÉ]" --internal-codepage=ISO-8859-1
     echo "====> mask T1 E: 3 lines, 1 special character, vertical bar"
     $JTR_BIN --stdout --mask='ab[ö|c]' --internal-codepage=ISO-8859-1
     echo "====> mask T1 F: 8 lines, 5 special characters, vertical bar"
