@@ -18,7 +18,8 @@ matrix:
   - env: REPO=claudioandre/john   NAME=ubuntu.devel        DOCKERFILE=Dockerfile.UbuntuDevel
   - env: REPO=claudioandre/john   NAME=ubuntu.rolling      DOCKERFILE=Dockerfile.UbuntuRolling
   - env: REPO=claudioandre/john   NAME=centos.6            DOCKERFILE=Dockerfile.CentOS6
-  - env: REPO=claudioandre/john   NAME=v1.9.0J2            DOCKERFILE=Dockerfile   BIN_VERSION=yes BUILD_RELEASE=no
+ #- env: REPO=claudioandre/john     NAME=v1.9.0J2            DOCKERFILE=Dockerfile   BIN_VERSION=yes BUILD_RELEASE=no
+  - env: REPO=ghcr.io/openwall/john NAME=v1.9.0J2            DOCKERFILE=Dockerfile   BIN_VERSION=yes BUILD_RELEASE=no
 
 script:
   - export log_message=$(git log -n 1)
@@ -60,6 +61,7 @@ after_success:
   - docker tag "$REPO:$NAME" "$REPO:"$NAME"_J$TRAVIS_JOB_NUMBER"
   - docker images
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - echo $PAT | docker login ghcr.io --username claudioandre-br --password-stdin
 
   # Do not push, if requested
   - 'if [[ "$log_message" != *"[dont push]"* ]]; then
