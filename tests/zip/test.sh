@@ -24,13 +24,18 @@ for i in `seq 1 100`; do
     echo '' >> guess.txt
 done
 wget https://openwall.info/wiki/_media/john/zip_sample_files.tar
-mkdir examples/
+mkdir -p examples/
 tar -xvf zip_sample_files.tar --directory examples/
 echo "Running JtR"
 
 echo ""; echo "==> B1 AES"
 $Zip2John "AES-B1-2K(w{6f#@rXMd%S9.zip" > aes.hash
-for mask in $(cat mask.txt); do $JtR aes.hash --pot=a1.pot --mask="$mask"; done
+for mask in $(head -2 mask.txt | tail -1); do $JtR aes.hash --pot=a1.pot --mask="$mask"; done
+
+echo ""; echo "==> BSDtar"
+$Zip2John with_*.zip > checksum.hash
+for mask in $(tail -2 mask.txt | tail -1); do $JtR checksum.hash --pot=a1.pot --mask="$mask"; done
+
 
 echo ""; echo "==> Unknown Password"
 $Zip2John "hello-world-module.tar.xz.zip" > unknown.hash
@@ -46,6 +51,7 @@ $JtR examples.hash --pot=a1.pot --max-run-time=600 --format=pkzip
 echo ""
 echo "--------------------------------- Result ---------------------------------"
 $JtR --pot=a1.pot --show aes.hash
+$JtR --pot=a1.pot --show checksum.hash
 $JtR --pot=a1.pot --show unknown.hash
 $JtR --pot=a1.pot --show examples.hash
 
