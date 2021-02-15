@@ -336,8 +336,8 @@ function sha256(){
     echo 'Running SHA256crypt cracking tests...'
     do_Test "SHA256crypt_tst.in" "-form:SHA256crypt-opencl" "-wo:pw.dic --rules --skip"                                    1500
     do_Test "SHA256crypt_tst.in" "-form:SHA256crypt-opencl" "-wo:pw.dic --rules=all -dev:$Dev_Fast"                        1500
-    do_Test "alltests.in"      "-form=SHA256crypt-opencl" "-incremental -max-run=50 -fork=2 -dev:$Dev_Fast,$Dev_1"            2
-    do_Test "alltests.in"      "-form=SHA256crypt-opencl" "-incremental -max-run=40 -fork=2 -dev:$Dev_Fast,$Dev_3"            2
+    do_Test "alltests.in"      "-form=SHA256crypt-opencl" "-incremental -min-len=0 -max-run=50 -fork=2 -dev:$Dev_Fast,$Dev_1"            2
+    do_Test "alltests.in"      "-form=SHA256crypt-opencl" "-incremental -min-len=0 -max-run=40 -fork=2 -dev:$Dev_Fast,$Dev_3"            2
 
     do_Test "alltests.in"      "-form=SHA256crypt-opencl" "-mask:?l -min-len=0 -max-len=4"           1
     do_Test "alltests.in"      "-form=SHA256crypt-opencl" "-mask:?d -min-len=0 -max-len=4"           1 "_GPU_MASK_CAND=0"
@@ -348,8 +348,8 @@ function sha512(){
     echo 'Running SHA512crypt cracking tests...'
     do_Test "SHA512crypt_tst.in" "-form:SHA512crypt-opencl" "-wo:pw.dic --rules --skip"                                    1500
     do_Test "SHA512crypt_tst.in" "-form:SHA512crypt-opencl" "-wo:pw.dic --rules=all -dev:$Dev_Fast"                        1500
-    do_Test "alltests.in"      "-form=SHA512crypt-opencl" "-incremental -max-run=50 -fork=2 -dev:$Dev_Fast,$Dev_1"            1
-    do_Test "alltests.in"      "-form=SHA512crypt-opencl" "-incremental -max-run=40 -fork=2 -dev:$Dev_Fast,$Dev_1"            1
+    do_Test "alltests.in"      "-form=SHA512crypt-opencl" "-incremental -min-len=0 -max-run=50 -fork=2 -dev:$Dev_Fast,$Dev_1"            1
+    do_Test "alltests.in"      "-form=SHA512crypt-opencl" "-incremental -min-len=0 -max-run=40 -fork=2 -dev:$Dev_Fast,$Dev_1"            1
 
     do_Test "alltests.in"      "-form=SHA512crypt-opencl" "-mask:?l -min-len=0 -max-len=4"           1
     do_Test "alltests.in"      "-form=SHA512crypt-opencl" "-mask:?d -min-len=0 -max-len=4"           1 "_GPU_MASK_CAND=0"
