@@ -234,13 +234,13 @@ elif [[ "$TEST" == *"OpenCL;"* ]]; then
     # Run docker
     docker run --cap-add SYS_PTRACE -v "$HOME":/root -v "$(pwd)":/cwd claudioandre/john:ubuntu.opencl sh -c "$docker_command"
 
-elif [[ "$TEST" == *"centos6;"* ]]; then
+elif [[ "$TEST" == *"centos7;"* ]]; then
     # Stable environment (compiler/OS)
     # Build the docker command line
     do_Build_Docker_Command_Image
 
     # Run docker
-    docker run -v "$HOME":/root -v "$(pwd)":/cwd claudioandre/john:centos.6 sh -c "$docker_command"
+    docker run -v "$HOME":/root -v "$(pwd)":/cwd claudioandre/john:centos.7 sh -c "$docker_command"
 
 elif [[ "$TEST" == *"snap;"* ]]; then
     # Prepare environment

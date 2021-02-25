@@ -14,8 +14,8 @@ stages:
 jobs:
   include:
   #Test JtR using a stable distro (OS and compiler)
-  - env: TEST="centos6;gcc;" BUILD_OPTS="--enable-werror"
-    name: "CentOS 6 with GCC"
+  - env: TEST="centos7;gcc;" BUILD_OPTS="--enable-werror"
+    name: "CentOS 7 with GCC"
     stage: stable
   - env: TEST="ubuntu12;usual;" BUILD_OPTS="--enable-werror"
     stage: stable
