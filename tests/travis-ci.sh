@@ -217,14 +217,14 @@ elif [[ "$TEST" == *"fresh;"* ]]; then
     do_Build_Docker_Command_Image
 
     # Run docker
-    docker run --cap-add SYS_PTRACE -v "$HOME":/root -v "$(pwd)":/cwd claudioandre/john:ubuntu.devel sh -c "$docker_command"
+    docker run --cap-add SYS_PTRACE --privileged -v "$HOME":/root -v "$(pwd)":/cwd claudioandre/john:ubuntu.devel sh -c "$docker_command"
 
 elif [[ "$TEST" == *"experimental;"* ]]; then
     # Build the docker command line
     do_Build_Docker_Command
 
      # Run docker
-     docker run --cap-add SYS_PTRACE -v "$HOME":/root -v "$(pwd)":/cwd ubuntu:devel sh -c "$docker_command"
+     docker run --cap-add SYS_PTRACE --privileged -v "$HOME":/root -v "$(pwd)":/cwd ubuntu:devel sh -c "$docker_command"
 
 elif [[ "$TEST" == *"OpenCL;"* ]]; then
     # What is working for OpenCL
