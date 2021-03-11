@@ -205,6 +205,31 @@ elif [[ "$TEST" == *"MacOS;"* ]]; then
     # Run the test: --test-full=0
     ../.travis/CI-tests.sh
 
+    if [[ "$TRAVIS_OSX_IMAGE" == "xcode12.2" ]]; then
+        #Files MacX64_1_JtR.7z  and MacX64_2_buildlog.txt
+        brew install inetutils p7zip
+
+        echo "machine ftp.drivehq.com login claudioandre_br password $FTP_SECRET" > "$HOME"/.netrc
+        chmod 0600 ~/.netrc
+
+        ftp ftp.drivehq.com << EOF
+ ls -l
+ quit
+EOF
+
+        wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/clean_package.sh
+        source ./clean_package.sh
+
+        7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on MacX64_1_JtR.7z "$TRAVIS_BUILD_DIR"
+        sha256sum MacX64_1_JtR.7z
+
+        ftp ftp.drivehq.com << EOF
+ put MacX64_1_JtR.7z
+ ls -l
+ quit
+EOF
+    fi
+
 elif [[ "$TEST" == *"ztex;"* ]]; then
     # Build the docker command line
     do_Build_Docker_Command_Image
