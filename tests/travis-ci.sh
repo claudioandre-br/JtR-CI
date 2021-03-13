@@ -220,8 +220,12 @@ EOF
         wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/clean_package.sh
         source ./clean_package.sh
 
+        rm -rf "$TRAVIS_BUILD_DIR"/.git
+        rm -rf "$TRAVIS_BUILD_DIR"/src
+
         7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on MacX64_1_JtR.7z "$TRAVIS_BUILD_DIR"
         sha256sum MacX64_1_JtR.7z
+ls -l *.7z
 
         ftp ftp.drivehq.com << EOF
  put MacX64_1_JtR.7z
