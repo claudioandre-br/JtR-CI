@@ -214,28 +214,16 @@ if [[ -z "${TEST##*MY_FULL*}" ]]; then
     echo "$ JtR -test-full=1 @@ "
 
     # Check if all formats passes self-test
-    $JTR_BIN -test-full=10 --format=raw-sha256-opencl
-    $JTR_BIN -test-full=10 --format=raw-sha512-opencl
-    $JTR_BIN -test-full=10 --format=xsha512-opencl
-    $JTR_BIN -test-full=10 --format=sha256crypt-opencl
-    $JTR_BIN -test-full=10 --format=sha512crypt-opencl
-
-    $JTR_BIN -test-full=10 --format=sha256crypt-opencl --mask
-    $JTR_BIN -test-full=10 --format=sha512crypt-opencl --mask
-    $JTR_BIN -test-full=10 --format=raw-sha256-opencl --mask
-    $JTR_BIN -test-full=10 --format=raw-sha512-opencl --mask
-    $JTR_BIN -test-full=10 --format=xsha512-opencl    --mask
-
-    $JTR_BIN -test-full=10 --format=sha256crypt-opencl --mask=?w?l?d?a?1
-    $JTR_BIN -test-full=10 --format=sha512crypt-opencl --mask=?w?l?d?a?1
-    $JTR_BIN -test-full=10 --format=raw-sha256-opencl --mask=?w?l?d?a?1
-    $JTR_BIN -test-full=10 --format=raw-sha512-opencl --mask=?w?l?d?a?1
-    $JTR_BIN -test-full=10 --format=xsha512-opencl    --mask=?w?l?d?a?1
-    total=$((total + 15))
+    $JTR_BIN -test-full=1 --format=raw-sha256-opencl
+    $JTR_BIN -test-full=1 --format=raw-sha512-opencl
+    $JTR_BIN -test-full=1 --format=xsha512-opencl
+    $JTR_BIN -test-full=1 --format=sha256crypt-opencl
+    $JTR_BIN -test-full=1 --format=sha512crypt-opencl
+    total=$((total + 5))
 
     echo "------------------------- test full --------------------------"
     echo "$ JtR -test-full=1 --format=cpu"
-    $JTR_BIN -test-full=3 --format=cpu
+    $JTR_BIN -test-full=1 --format=cpu
     total=$((total + 1))
 fi
 
