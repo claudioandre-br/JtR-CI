@@ -13,8 +13,8 @@
 # Directory names and folders
 APPVEYOR_64bits="" # Disabled: I'm using Azure packages
 APPVEYOR_32bits="" # Disabled for '-dev' releases
-FLATPAK="1087130555"
-AZURE_ID="296"
+FLATPAK="1136686443"
+AZURE_ID="301"
 
 # AppVeyor (Windows 64 and 32 bits) ############################################
 # I am no longer using the AppVeyor package
@@ -31,7 +31,7 @@ wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/artifacts/downloa
 wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/raw                    -O flatpak_2_buildlog.txt
 
 # Azure Windows package
-wget https://dev.azure.com/claudioandre-br/40224313-b91e-465d-852b-fc4ea516f33e/_apis/build/builds/$AZURE_ID/logs/133 -O winX64_2_buildlog.txt
+wget https://dev.azure.com/claudioandre-br/40224313-b91e-465d-852b-fc4ea516f33e/_apis/build/builds/$AZURE_ID/logs/124 -O winX64_2_buildlog.txt
 
 if [[ "$1" == "LOG_FILES"  ]]; then
     # Download log files, to commit them in the git repo
@@ -57,13 +57,20 @@ fi
 #wget https://ci.appveyor.com/api/buildjobs/dq1hp9jbkmyo0sc4/artifacts/optional.zip   -O winX32_optional.zip
 ################################################################################
 
+# Mac Experimental #############################################################
+# wget https://www.drivehq.com/file/DFPublishFile.aspx/FileID7940025352/Keytseyh9kd91bb/MacX64_1_JtR.7z  -O MacX64_1_JtR-experimental.7z
+
+LOG_FILE="0-Created_$(date +%Y-%m-%d).txt"
+
+# Save a note to inform the "Build Date"
+echo "The release date is $(date). I'm Azure on behalf of Claudio." >  $LOG_FILE
+echo "=================================================================================" >> $LOG_FILE
+
 unzip flatpak_1_JtR.zip
-sha256sum *.zip
-sha256sum *.7z
-sha256sum john.flatpak
+sha256sum *.zip | tee --append $LOG_FILE
+sha256sum *.7z  | tee --append $LOG_FILE
+sha256sum john.flatpak | tee --append $LOG_FILE
 
 # Keep only the zipped file
 rm -f john.flatpak
 
-# Save a note to inform the "Build Date"
-echo "The release date is $(date). I'm Azure on behalf of Claudio." > 0-Created_$(date +%Y-%m-%d).txt
