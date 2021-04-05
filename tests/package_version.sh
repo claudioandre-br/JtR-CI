@@ -46,4 +46,10 @@ case "$arch" in
         ;;
 esac
 # View package version
-echo "1.9J2+$git_tag$text"
+echo "1.9J2+$git_tag$text"   #TODO: edit before release (JUMBO_RELEASE)
+
+# Release example
+# 1.9J2-07f7216a
+
+# Develepment example (post Jumbo 2)
+# 1.9J2+c9825e6S
