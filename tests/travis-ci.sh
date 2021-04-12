@@ -81,7 +81,8 @@ function do_TS_Setup(){
     cd .. || exit 1
     git clone --depth 1 https://github.com/magnumripper/jtrTestSuite.git tests
     cd tests || exit 1
-    #export PERL_MM_USE_DEFAULT=1
+
+    export PERL_MM_USE_DEFAULT=1
     (echo y;echo o conf prerequisites_policy follow;echo o conf commit)|cpan
     cpan install Digest::MD5
 
