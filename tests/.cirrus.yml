@@ -44,3 +44,26 @@ freebsd12_task:
         check_script:
                 - cd run
                 - ./john --test-full=0
+freebsd13_task:
+        freebsd_instance:
+                image_family: freebsd-13-0-snap
+        install_script: pkg install -y devel/gmake wget perl5
+
+        info_script:
+                - uname -a
+                - echo '--------------------------------'
+                - cc --version
+                - echo '--------------------------------'
+                - cc -dM -E -x c /dev/null
+                - echo '--------------------------------'
+
+        build_script:
+                - cd src
+                - ./configure --enable-werror
+                - gmake -sj4
+                - echo '--------------------------------'
+                - ../run/john --list=build-info
+
+        check_script:
+                - cd run
+                - ./john --test-full=0
