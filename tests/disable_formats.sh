@@ -57,6 +57,7 @@ echo 'pbkdf2-hmac-md5-opencl = Y' >> ../run/john-local.conf  # TS
 echo 'ssh-opencl = Y' >> ../run/john-local.conf  # TS, after 1a06dc4deeca5064e690f89724eb3a05469fd162
 
 echo 'bf-opencl = Y' >> ../run/john-local.conf
+echo 'DES-opencl = Y' >> ../run/john-local.conf
 echo 'gpg-opencl = Y' >> ../run/john-local.conf
 echo 'krb5pa-md5-opencl = Y' >> ../run/john-local.conf
 echo 'mscash2-opencl = Y' >> ../run/john-local.conf
@@ -105,6 +106,8 @@ rm -rf opencl_rar_fmt_plug.c racf_fmt_plug.c opencl_wpapsk_fmt_plug.c \
        opencl_mscash_fmt_plug.c opencl_mscash2_fmt_plug.c \
        opencl_nt_fmt_plug.c  opencl_ntlmv2_fmt_plug.c \
        opencl_rawsha512_fmt_plug.c opencl_xsha512_fmt_plug.c \
+       opencl_DES_fmt_plug.c opencl_DES_bs_plug.c \
+       opencl_DES_bs_b_plug.c opencl_DES_bs_f_plug.c opencl_DES_bs_h_plug.c \
        opencl_krb5pa-md5_fmt_plug.c
 
 # TS --internal
