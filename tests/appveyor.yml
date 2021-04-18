@@ -21,14 +21,6 @@ environment:
     BUILD_FOLDER: C:\projects\JohnTheRipper\src
 
   matrix:
-    # CygWin 64bits build on Windows Server 2016
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      arch: x86_64
-      bits: 64
-      doing: test
-      test: yes
-      location: cygwin64
-
     # CygWin 64bits build on Windows Server 2019
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       arch: x86_64

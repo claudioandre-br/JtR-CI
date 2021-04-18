@@ -30,18 +30,6 @@ stages:
     steps:
       - template: .azure/windows-ci.yml
 
-  - job: Ubuntu_1604
-    displayName: Ubuntu 16.04
-    pool:
-      vmImage: 'ubuntu-16.04'
-
-    variables:
-      TARGET_ARCH: "NIX"
-      EXTRA: "full;extra;crack;"
-
-    steps:
-      - template: .azure/linux-ci.yml
-
   - job: Ubuntu_1804
     displayName: Ubuntu 18.04
     container:
