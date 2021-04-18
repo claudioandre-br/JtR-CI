@@ -69,14 +69,8 @@ workflows:
       - linux-Fedora
       - wine-64bits
       - make-check
-      - fuzzing:
-          type: approval
       - testing:
           type: approval
-
-    #  - afl-fuzz:
-    #      requires:
-    #        - fuzzing
       - compare-simd:
           requires:
             - testing
