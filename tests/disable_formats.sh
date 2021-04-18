@@ -57,7 +57,6 @@ echo 'pbkdf2-hmac-md5-opencl = Y' >> ../run/john-local.conf  # TS
 echo 'ssh-opencl = Y' >> ../run/john-local.conf  # TS, after 1a06dc4deeca5064e690f89724eb3a05469fd162
 
 echo 'bf-opencl = Y' >> ../run/john-local.conf
-echo 'DES-opencl = Y' >> ../run/john-local.conf
 echo 'gpg-opencl = Y' >> ../run/john-local.conf
 echo 'krb5pa-md5-opencl = Y' >> ../run/john-local.conf
 echo 'mscash2-opencl = Y' >> ../run/john-local.conf
@@ -102,6 +101,7 @@ echo 'pgpdisk-opencl = Y' >> ../run/john-local.conf #FAILED (cmp_all(49)) Intel 
 #        opencl_DES_fmt_plug.c
 
 # TS OpenCL
+# OpenCL descrypt builds for all 4096 salts, it is unusable inside CI
 rm -rf opencl_rar_fmt_plug.c racf_fmt_plug.c opencl_wpapsk_fmt_plug.c \
        opencl_mscash_fmt_plug.c opencl_mscash2_fmt_plug.c \
        opencl_nt_fmt_plug.c  opencl_ntlmv2_fmt_plug.c \
