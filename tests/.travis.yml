@@ -53,8 +53,6 @@ jobs:
     stage: test                          # TEST="fresh;ASAN;EXTRAS;clang;"
   - env: TEST="fresh;EXTRAS;gcc;"
     stage: test
-  - env: TEST="ztex;ASAN;clang;"         BUILD_OPTS="--enable-ztex"  FUZZ="ztex"
-    stage: test
   - env: TEST="experimental;"
     stage: test
   ##############################################################################
