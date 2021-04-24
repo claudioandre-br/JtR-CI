@@ -66,7 +66,7 @@ LOG_FILE="0-Created_$(date +%Y-%m-%d).txt"
 echo "The release date is $(date). I'm Azure on behalf of Claudio." >  $LOG_FILE
 echo "=================================================================================" >> $LOG_FILE
 
-echo -e "HEAD is at $(git ls-remote -q git@github.com:openwall/john.git HEAD | cut -c 1-40)\n" >> $LOG_FILE
+echo -e "HEAD is at $(git ls-remote -q https://github.com/openwall/john.git HEAD | cut -c 1-40)\n" >> $LOG_FILE
 
 echo "=================================================================================" >> $LOG_FILE
 
