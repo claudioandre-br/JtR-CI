@@ -14,7 +14,7 @@
 APPVEYOR_64bits="" # Disabled: I'm using Azure packages
 APPVEYOR_32bits="" # Disabled for '-dev' releases
 FLATPAK="1207046569"
-AZURE_ID="311"
+AZURE_ID="312"
 
 # AppVeyor (Windows 64 and 32 bits) ############################################
 # I am no longer using the AppVeyor package
