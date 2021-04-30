@@ -17,11 +17,7 @@ FLATPAK="1207046569"
 FLATPAK_TEST="1207046570"
 AZURE_ID="312"
 
-# AppVeyor (Windows 64 and 32 bits) ############################################
-# I am no longer using the AppVeyor package
-# wget https://ci.appveyor.com/api/buildjobs/$APPVEYOR_64bits/artifacts/win_x64.7z      -O winX64_1_JtR.7z
-# wget https://ci.appveyor.com/api/buildjobs/$APPVEYOR_64bits/log                       -O winX64_2_buildlog.txt
-
+# AppVeyor (32 bits) ###########################################################
 if [[ -n "$APPVEYOR_32bits"  ]]; then
     wget https://ci.appveyor.com/api/buildjobs/$APPVEYOR_32bits/artifacts/win_x32.7z  -O winX32_1_JtR.7z
     wget https://ci.appveyor.com/api/buildjobs/$APPVEYOR_32bits/log                   -O winX32_2_buildlog.txt
@@ -52,14 +48,6 @@ if [[ "$1" == "LOG_FILES"  ]]; then
     # GitHub (Linux Docker image)
     wget https://api.travis-ci.org/v3/job/605181618/log.txt                     -O docker_buildlog.txt
 fi
-
-# Deprecated ###################################################################
-#wget https://ci.appveyor.com/api/buildjobs/6xi3fnryax6hkvk9/artifacts/optional.7z    -O winX64_3_optional.7z
-#wget https://ci.appveyor.com/api/buildjobs/dq1hp9jbkmyo0sc4/artifacts/optional.zip   -O winX32_optional.zip
-################################################################################
-
-# Mac Experimental #############################################################
-# wget https://www.drivehq.com/file/DFPublishFile.aspx/FileID7940025352/Keytseyh9kd91bb/MacX64_1_JtR.7z  -O MacX64_1_JtR-experimental.7z
 
 LOG_FILE="0-Created_$(date +%Y-%m-%d).txt"
 
