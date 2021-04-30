@@ -14,6 +14,7 @@
 APPVEYOR_64bits="" # Disabled: I'm using Azure packages
 APPVEYOR_32bits="" # Disabled for '-dev' releases
 FLATPAK="1207046569"
+FLATPAK_TEST="1207046570"
 AZURE_ID="312"
 
 # AppVeyor (Windows 64 and 32 bits) ############################################
@@ -46,7 +47,7 @@ if [[ "$1" == "LOG_FILES"  ]]; then
     wget https://launchpad.net/~claudioandre.br/+snap/john-the-ripper/+build/557705/+files/buildlog_snap_ubuntu_xenial_s390x_john-the-ripper_BUILDING.txt.gz
 
     # GitLab (Linux Flatpak app)
-    wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/339563802/raw         -O flatpak_3_testlog.txt
+    wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/FLATPAK_TEST/raw      -O flatpak_3_testlog.txt
 
     # GitHub (Linux Docker image)
     wget https://api.travis-ci.org/v3/job/605181618/log.txt                     -O docker_buildlog.txt
@@ -62,13 +63,20 @@ fi
 
 LOG_FILE="0-Created_$(date +%Y-%m-%d).txt"
 
-# Save a note to inform the "Build Date"
+# Save a note to inform the "Build Date" and packages version
+wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/FLATPAK_TEST/raw         -O /tmp/flatpak_3_testlog.txt
+
+GIT_TEXT=$(git ls-remote -q https://github.com/openwall/john.git HEAD | cut -c 1-40)
+WIN_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' winX64_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
+FLATPAK_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' /tmp/flatpak_3_testlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
+
 echo "The release date is $(date). I'm Azure on behalf of Claudio." >  $LOG_FILE
 echo "=================================================================================" >> $LOG_FILE
+echo "Git bleeding repository is at: $GIT_TEXT" >> $LOG_FILE
+echo "Windows is at: $WIN_TEXT" >> $LOG_FILE
+echo "Flatpak is at: $FLATPAK_TEXT" >> $LOG_FILE
 
-echo -e "HEAD is at $(git ls-remote -q https://github.com/openwall/john.git HEAD | cut -c 1-40)\n" >> $LOG_FILE
-
-echo "=================================================================================" >> $LOG_FILE
+echo -e "\n=================================================================================" >> $LOG_FILE
 
 unzip flatpak_1_JtR.zip
 sha256sum *.zip | tee --append $LOG_FILE
