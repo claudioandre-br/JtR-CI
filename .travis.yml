@@ -46,14 +46,14 @@ script:
 
   # Test the JtR Docker Image
   - 'if [[ "$log_message" == *"[test image]"* && "$log_message" == *"[$NAME]"* ]]; then
-       docker run claudioandre/john:v1.9.0J2 best    --list=build-info;
-       docker run claudioandre/john:v1.9.0J2 best    --test=10 --format=SHA512crypt;
-       docker run claudioandre/john:v1.9.0J2 sse2    --test=10 --format=SHA512crypt;
-       docker run claudioandre/john:v1.9.0J2 ssse3   --test=10 --format=SHA512crypt;
-       docker run claudioandre/john:v1.9.0J2 sse4.1  --test=10 --format=SHA512crypt;
-       docker run claudioandre/john:v1.9.0J2 avx     --test=10 --format=SHA512crypt;
-       docker run claudioandre/john:v1.9.0J2 sse4.2-no-omp  --test=10 --format=SHA512crypt;
-       docker run claudioandre/john:v1.9.0J2 avx-no-omp     --test=10 --format=SHA512crypt;
+       docker run $REPO:$NAME best    --list=build-info;
+       docker run $REPO:$NAME best    --test=10 --format=SHA512crypt;
+       docker run $REPO:$NAME sse2    --test=10 --format=SHA512crypt;
+       docker run $REPO:$NAME ssse3   --test=10 --format=SHA512crypt;
+       docker run $REPO:$NAME sse4.1  --test=10 --format=SHA512crypt;
+       docker run $REPO:$NAME avx     --test=10 --format=SHA512crypt;
+       docker run $REPO:$NAME sse4.2-no-omp  --test=10 --format=SHA512crypt;
+       docker run $REPO:$NAME avx-no-omp     --test=10 --format=SHA512crypt;
      fi
     '
 
