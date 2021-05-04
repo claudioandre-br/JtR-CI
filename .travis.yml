@@ -13,7 +13,7 @@ env:
 matrix:
   include:
   - env: REPO=claudioandre/john   NAME=fedora.34           DOCKERFILE=Dockerfile.FLatest
-  - env: REPO=claudioandre/john   NAME=fedora.33.flatpak   DOCKERFILE=Dockerfile.flatpak.package
+  - env: REPO=claudioandre/john   NAME=fedora.34.flatpak   DOCKERFILE=Dockerfile.flatpak.package
   - env: REPO=claudioandre/john   NAME=ubuntu.opencl       DOCKERFILE=Dockerfile.OpenCL
   - env: REPO=claudioandre/john   NAME=ubuntu.devel        DOCKERFILE=Dockerfile.UbuntuDevel
   - env: REPO=claudioandre/john   NAME=ubuntu.rolling      DOCKERFILE=Dockerfile.UbuntuRolling
