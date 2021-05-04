@@ -9,8 +9,8 @@
 # http://www.gnu.org/licenses/gpl-2.0.html
 ######################################################################
 
-FROM fedora:latest
-LABEL maintainer Claudio André (c) 2017-2019 1.0.Latest
+FROM fedora:34
+LABEL maintainer Claudio André (c) 2017-2021 1.0.Latest
 LABEL software CI for John the Ripper
 
 RUN dnf -y -q update && \
