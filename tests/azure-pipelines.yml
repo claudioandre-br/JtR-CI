@@ -47,7 +47,7 @@ stages:
   jobs:
   - job: cracking
     container:
-      image: claudioandre/john:fedora.30
+      image: claudioandre/john:fedora.34
       options: --user=root
     variables:
       TARGET_ARCH: "NIX"
