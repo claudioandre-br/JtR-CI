@@ -52,7 +52,7 @@ stages:
     variables:
       TARGET_ARCH: "NIX"
       EXTRA: "full;extra;crack;"
-      BUILD_OPTS: "--enable-werror"
+      BUILD_OPTS: "" # Can't use --enable-werror, gcc emits warnings
 
     steps:
       - template: .azure/linux-ci.yml
