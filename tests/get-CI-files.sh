@@ -13,8 +13,8 @@
 # Directory names and folders
 APPVEYOR_64bits="" # Disabled: I'm using Azure packages
 APPVEYOR_32bits="" # Disabled for '-dev' releases
-FLATPAK="1207046569"
-FLATPAK_TEST="1207046570"
+FLATPAK="1235499906"
+FLATPAK_TEST="1235499910"
 AZURE_ID="312"
 
 # AppVeyor (32 bits) ###########################################################
@@ -52,7 +52,7 @@ fi
 LOG_FILE="0-Created_$(date +%Y-%m-%d).txt"
 
 # Save a note to inform the "Build Date" and packages version
-wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/FLATPAK_TEST/raw         -O /tmp/flatpak_3_testlog.txt
+wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK_TEST/raw         -O /tmp/flatpak_3_testlog.txt
 
 GIT_TEXT=$(git ls-remote -q https://github.com/openwall/john.git HEAD | cut -c 1-40)
 WIN_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' winX64_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
