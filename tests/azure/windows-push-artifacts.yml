@@ -20,10 +20,10 @@ steps:
         targetPath: "c:\\win_x$(Bits).7z"
         artifactName: "win_x$(Bits).7z"
 
-    # - task: PublishPipelineArtifact@0
-    #   inputs:
-    #     targetPath: "c:\\optional.7z"
-    #     artifactName: "optional.7z"
+    - task: PublishPipelineArtifact@0
+      inputs:
+        targetPath: "c:\\Build._ID"
+        artifactName: "Build._ID"
 
     - task: PublishPipelineArtifact@0
       inputs:

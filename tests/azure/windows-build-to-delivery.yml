@@ -141,6 +141,11 @@ steps:
         ./john --list=build-info
       displayName: 'Build JtR'
 
+    - powershell: |
+        "$env:BUILD_BUILDID" | Out-File -FilePath C:\Build._ID -Append
+
+      displayName: 'Save the Buid ID value'
+
     - script: |
         powershell -command 'Write-Host "---------------------------------------------------------"'
         powershell -command 'Write-Host "==  Enable ASLR and DEP for the Windows binary of JtR  ==" -ForegroundColor White'

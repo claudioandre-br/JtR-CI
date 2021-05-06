@@ -15,7 +15,9 @@ APPVEYOR_64bits="" # Disabled: I'm using Azure packages
 APPVEYOR_32bits="" # Disabled for '-dev' releases
 FLATPAK="1235499906"
 FLATPAK_TEST="1235499910"
-AZURE_ID="312"
+
+# Get the build id from the building environment
+AZURE_ID=`cat Build._ID`
 
 # AppVeyor (32 bits) ###########################################################
 if [[ -n "$APPVEYOR_32bits"  ]]; then
@@ -72,5 +74,4 @@ sha256sum *.7z  | tee --append $LOG_FILE
 sha256sum john.flatpak | tee --append $LOG_FILE
 
 # Keep only the zipped file
-rm -f john.flatpak
-
+rm -f john.flatpak Build._ID
