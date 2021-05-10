@@ -1,6 +1,6 @@
 #!/bin/bash
 ######################################################################
-# Copyright (c) 2019 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2021 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -10,12 +10,17 @@
 # http://www.gnu.org/licenses/gpl-2.0.html
 ######################################################################
 
-# Directory names and folders
+# AppVeyor build IDs
 APPVEYOR_64bits="" # Disabled: I'm using Azure packages
-APPVEYOR_32bits="" # Disabled for '-dev' releases
-FLATPAK="1235499906"
-FLATPAK_TEST="1235499910"
+APPVEYOR_32bits="2wle5u9x24vv5lit" # Disabled for '-dev' releases
 
+# Flatpak build IDs
+FLATPAK="1253772881"
+FLATPAK_TEST="1253772886"
+# Get pipeline 297118338 info https://gitlab.com/api/v4/projects/12573246/pipelines/297118338
+# Get jobs info               https://gitlab.com/api/v4/projects/12573246/pipelines/297118338/jobs
+
+# Azure build ID
 # Get the build id from the building environment
 AZURE_ID=`cat Build._ID`
 
@@ -26,14 +31,13 @@ if [[ -n "$APPVEYOR_32bits"  ]]; then
 fi
 
 # GitLab (Linux Flatpak app) ###################################################
+# The FLATPAK_TEST is used to retrieve package version information
 wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/artifacts/download     -O flatpak_1_JtR.zip
 wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/raw                    -O flatpak_2_buildlog.txt
+wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK_TEST/raw               -O /tmp/flatpak_3_testlog.txt
 
 # Azure Windows package log
-wget https://dev.azure.com/claudioandre-br/40224313-b91e-465d-852b-fc4ea516f33e/_apis/build/builds/$AZURE_ID/logs/115 -O winX64_2_buildlog.txt
-
-# For information about "Build Date" and flatpak version
-wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK_TEST/raw         -O /tmp/flatpak_3_testlog.txt
+wget https://dev.azure.com/claudioandre-br/40224313-b91e-465d-852b-fc4ea516f33e/_apis/build/builds/$AZURE_ID/logs/117 -O winX64_2_buildlog.txt
 
 # The release log file information
 LOG_FILE="0-Created_$(date +%Y-%m-%d).txt"
