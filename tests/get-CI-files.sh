@@ -22,7 +22,7 @@ FLATPAK_TEST="1253772886"
 
 # Azure build ID
 # Get the build id from the building environment
-AZURE_ID=320
+AZURE_ID=`cat Build._ID | iconv -f UTF16 -t ASCII`
 
 # AppVeyor (32 bits) ###########################################################
 if [[ -n "$APPVEYOR_32bits"  ]]; then
