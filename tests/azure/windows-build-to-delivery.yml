@@ -142,7 +142,7 @@ steps:
       displayName: 'Build JtR'
 
     - powershell: |
-        "$env:BUILD_BUILDID" | Out-File -FilePath C:\Build._ID -Append
+        "$env:BUILD_BUILDID" | Out-File -FilePath C:\Build._ID -Encoding ASCII -Append
 
       displayName: 'Save the Buid ID value'
 
