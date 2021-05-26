@@ -44,6 +44,9 @@ total=1
 error=0
 
 echo "---------------------------- TESTING -----------------------------"
+echo $JTR_BIN
+echo "$JTR_BIN --list=build-info"
+
 $JTR_BIN --list=build-info
 
 echo '$NT$066ddfd4ef0e9cd7c256fe77191ef43c' > ~/tests.in

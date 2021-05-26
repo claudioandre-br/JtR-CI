@@ -199,7 +199,7 @@ jobs:
     - unzip flatpak_1_JtR.zip
     - sudo apt-get install -y flatpak
     - sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    - sudo flatpak install -y flathub org.freedesktop.Platform//18.08
+    - sudo flatpak install -y flathub org.freedesktop.Platform//20.08
 
     # Install flatpak package
     - sudo flatpak install --user -y --bundle john.flatpak
