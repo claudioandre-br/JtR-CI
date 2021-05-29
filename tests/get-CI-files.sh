@@ -12,17 +12,17 @@
 
 # AppVeyor build IDs
 APPVEYOR_64bits="" # Disabled: I'm using Azure packages
-APPVEYOR_32bits="2wle5u9x24vv5lit" # Disabled for '-dev' releases
+APPVEYOR_32bits="" # Disabled for '-dev' releases
 
 # Flatpak build IDs
-FLATPAK="1253772881"
-FLATPAK_TEST="1253772886"
+FLATPAK="1303211846"
+FLATPAK_TEST="1303211850"
 # Get pipeline 297118338 info https://gitlab.com/api/v4/projects/12573246/pipelines/297118338
 # Get jobs info               https://gitlab.com/api/v4/projects/12573246/pipelines/297118338/jobs
 
 # Azure build ID
 # Get the build id from the building environment
-AZURE_ID=`cat Build._ID | iconv -f UTF16 -t ASCII`
+AZURE_ID=`cat Build._ID | tr -d '\r'`
 
 # AppVeyor (32 bits) ###########################################################
 if [[ -n "$APPVEYOR_32bits"  ]]; then
