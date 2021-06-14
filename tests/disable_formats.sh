@@ -114,4 +114,6 @@ rm -rf opencl_rar_fmt_plug.c racf_fmt_plug.c opencl_wpapsk_fmt_plug.c \
 rm -rf adxcrypt_fmt_plug.c pbkdf2-hmac-md4_fmt_plug.c \
        pbkdf2-hmac-md5_fmt_plug.c phpassMD5_fmt_plug.c opencl_keepass_fmt_plug.c \
        opencl_pbkdf2_hmac_md4_fmt_plug.c opencl_pbkdf2_hmac_md5_fmt_plug.c \
-       opencl_bitlocker_fmt_plug.c opencl_bf_fmt_plug.c opencl_o5logon_fmt_plug.c
+       opencl_bitlocker_fmt_plug.c opencl_bf_fmt_plug.c opencl_o5logon_fmt_plug.c \
+       opencl_rawsha1_fmt_plug.c opencl_rawmd4_fmt_plug.c opencl_rawmd5_fmt_plug.c \
+       opencl_mysqlsha1_fmt_plug.c
