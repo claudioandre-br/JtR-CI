@@ -31,17 +31,6 @@ jobs:
           ASAN: "--enable-asan"
           OMP_NUM_THREADS: 3
 
-  afl-fuzz:
-    <<: *common_linux
-    docker:
-      - image: ghcr.io/claudioandre-br/john-ci:ubuntu.opencl
-        environment:
-          TARGET_ARCH: "NIX"
-          EXTRA: "AFL_FUZZ"
-          BUILD_OPTS: "--enable-fuzz --disable-native-tests"
-          CC: "afl-clang-fast"
-          OMP_NUM_THREADS: 2
-
   wine-64bits:
     <<: *common_linux
     docker:
@@ -74,17 +63,3 @@ workflows:
       - compare-simd:
           requires:
             - testing
-
-
-################################################################################
-#                             LIST OF KNOWN ISSUES
-#
-# Fedora can't run afl
-# - it has a buggy dependency on a clang version that is not installable.
-#
-# The "zzuf-fuzz:" fails on Fedora 30 and Ubuntu 18.04 with:
-#   zzuf[s=4,r=0.004]: signal 9 (memory exceeded?)
-#   Exited with code 1
-#
-# I also tested it using a machine with 7GB of total memory with no luck.
-################################################################################
