@@ -100,7 +100,7 @@ stages:
   jobs:
   - job: zzuf
     container:
-      image: ghcr.io/claudioandre-br/john-ci:ubuntu.opencl_J558.3
+      image: claudioandre/john:ubuntu.opencl_J558.3
 
     variables:
       TARGET_ARCH: "NIX"
