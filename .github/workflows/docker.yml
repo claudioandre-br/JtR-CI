@@ -15,7 +15,7 @@ on:
     branches: [ images ]
 
 env:
-  REPO: ghcr.io/${{ github.repository }}/john-ci
+  REPO: ghcr.io/${{ github.repository_owner }}/john-ci
 
 jobs:
   push_to_registry:
@@ -58,7 +58,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          file: ${{ matrix.dockerfile }}
+          file: ../../tests/Dockerfiles/${{ matrix.dockerfile }}
           tags: |
             ${{ env.REPO }}:${{ matrix.image-tag }}
             ${{ env.REPO }}:${{ matrix.image-tag }}J${{ github.run_number }}
