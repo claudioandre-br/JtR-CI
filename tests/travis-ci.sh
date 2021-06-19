@@ -211,14 +211,14 @@ elif [[ "$TEST" == *"ztex;"* ]]; then
     do_Build_Docker_Command_Image
 
     # Run docker
-    docker run --cap-add SYS_PTRACE -v "$HOME":/root -v "$(pwd)":/cwd claudioandre/john:ubuntu.rolling sh -c "$docker_command"
+    docker run --cap-add SYS_PTRACE -v "$HOME":/root -v "$(pwd)":/cwd ghcr.io/claudioandre-br/john-ci:ubuntu.rolling sh -c "$docker_command"
 
 elif [[ "$TEST" == *"fresh;"* ]]; then
     # Build the docker command line
     do_Build_Docker_Command_Image
 
     # Run docker
-    docker run --cap-add SYS_PTRACE --privileged -v "$HOME":/root -v "$(pwd)":/cwd claudioandre/john:ubuntu.devel sh -c "$docker_command"
+    docker run --cap-add SYS_PTRACE --privileged -v "$HOME":/root -v "$(pwd)":/cwd ghcr.io/claudioandre-br/john-ci:ubuntu.devel sh -c "$docker_command"
 
 elif [[ "$TEST" == *"experimental;"* ]]; then
     # Build the docker command line
@@ -233,7 +233,7 @@ elif [[ "$TEST" == *"OpenCL;"* ]]; then
     do_Build_Docker_Command_Image
 
     # Run docker
-    docker run --cap-add SYS_PTRACE -v "$HOME":/root -v "$(pwd)":/cwd claudioandre/john:ubuntu.opencl sh -c "$docker_command"
+    docker run --cap-add SYS_PTRACE -v "$HOME":/root -v "$(pwd)":/cwd ghcr.io/claudioandre-br/john-ci:ubuntu.opencl sh -c "$docker_command"
 
 elif [[ "$TEST" == *"centos7;"* ]]; then
     # Stable environment (compiler/OS)
@@ -241,7 +241,7 @@ elif [[ "$TEST" == *"centos7;"* ]]; then
     do_Build_Docker_Command_Image
 
     # Run docker
-    docker run -v "$HOME":/root -v "$(pwd)":/cwd claudioandre/john:centos.7 sh -c "$docker_command"
+    docker run -v "$HOME":/root -v "$(pwd)":/cwd ghcr.io/claudioandre-br/john-ci:centos.7 sh -c "$docker_command"
 
 elif [[ "$TEST" == *"snap;"* ]]; then
     # Prepare environment

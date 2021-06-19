@@ -33,7 +33,7 @@ stages:
   - job: Ubuntu_1804
     displayName: Ubuntu 18.04
     container:
-      image: claudioandre/john:ubuntu.opencl
+      image: ghcr.io/claudioandre-br/john-ci:ubuntu.opencl
     variables:
       TARGET_ARCH: "NIX"
       EXTRA: "full;extra;crack;"
@@ -47,7 +47,7 @@ stages:
   jobs:
   - job: cracking
     container:
-      image: claudioandre/john:fedora.34
+      image: ghcr.io/claudioandre-br/john-ci:fedora.34
       options: --user=root
     variables:
       TARGET_ARCH: "NIX"
@@ -66,7 +66,7 @@ stages:
     displayName: Intel OpenCL CPU
     timeoutInMinutes: 0
     container:
-      image: claudioandre/john:opencl
+      image: ghcr.io/claudioandre-br/john-ci:opencl
 
     variables:
       TARGET_ARCH: "NIX"
@@ -100,7 +100,7 @@ stages:
   jobs:
   - job: zzuf
     container:
-      image: claudioandre/john:ubuntu.opencl_J558.3
+      image: ghcr.io/claudioandre-br/john-ci:ubuntu.opencl_J558.3
 
     variables:
       TARGET_ARCH: "NIX"
@@ -114,7 +114,7 @@ stages:
   # - job: afl
   #   timeoutInMinutes: 0
   #   container:
-  #     image: claudioandre/john:ubuntu.opencl
+  #     image: ghcr.io/claudioandre-br/john-ci:ubuntu.opencl
 
   #   variables:
   #     TARGET_ARCH: "NIX"
@@ -128,7 +128,7 @@ stages:
   # Runs "--fuzz"
   - job: internal
     container:
-      image: claudioandre/john:ubuntu.opencl
+      image: ghcr.io/claudioandre-br/john-ci:ubuntu.opencl
 
     variables:
       TARGET_ARCH: "NIX"
@@ -141,7 +141,7 @@ stages:
   # Runs "--test-full=1"
   - job: full
     container:
-      image: claudioandre/john:ubuntu.opencl
+      image: ghcr.io/claudioandre-br/john-ci:ubuntu.opencl
 
     variables:
       TARGET_ARCH: "NIX"
