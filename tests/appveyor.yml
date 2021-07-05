@@ -30,13 +30,6 @@ environment:
       location: cygwin64
     #  cygwin: install (not needed after Dec 2019)
 
-    # CygWin 64bits build
-    - arch: x86_64
-      bits: 64
-      doing: deploy
-      test: yes
-      location: cygwin64
-
 install:
   - echo '--------------------------------'
   - systeminfo | findstr /C:"OS"
