@@ -31,16 +31,6 @@ jobs:
           ASAN: "--enable-asan"
           OMP_NUM_THREADS: 3
 
-  wine-64bits:
-    <<: *common_linux
-    docker:
-      - image: ghcr.io/claudioandre-br/john-ci:fedora.34
-        environment:
-          TARGET_ARCH: "x86_64"
-          EXTRA: "full;extra;"
-          WINE: "wine"
-          OMP_NUM_THREADS: 3
-
   compare-simd:
     <<: *common_linux
     docker:
