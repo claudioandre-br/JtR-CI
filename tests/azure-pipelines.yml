@@ -37,7 +37,16 @@ stages:
     variables:
       TARGET_ARCH: "NIX"
       EXTRA: "full;extra;crack;"
+    steps:
+      - template: .azure/linux-ci.yml
 
+  - job: CentOS_7
+    displayName: CentOS 7
+    container:
+      image: ghcr.io/claudioandre-br/john-ci:centos.7
+    variables:
+      TARGET_ARCH: "NIX"
+      EXTRA: "full;extra;crack;"
     steps:
       - template: .azure/linux-ci.yml
 
@@ -66,7 +75,7 @@ stages:
     displayName: Intel OpenCL CPU
     timeoutInMinutes: 0
     container:
-      image: ghcr.io/claudioandre-br/john-ci:opencl
+      image: claudioandre/john:opencl
 
     variables:
       TARGET_ARCH: "NIX"
