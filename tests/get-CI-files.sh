@@ -37,7 +37,7 @@ wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/raw              
 wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK_TEST/raw               -O /tmp/flatpak_3_testlog.txt
 
 # Azure Windows package log
-wget https://dev.azure.com/claudioandre-br/40224313-b91e-465d-852b-fc4ea516f33e/_apis/build/builds/$AZURE_ID/logs/117 -O winX64_2_buildlog.txt
+wget https://dev.azure.com/claudioandre-br/40224313-b91e-465d-852b-fc4ea516f33e/_apis/build/builds/$AZURE_ID/logs/128 -O winX64_2_buildlog.txt
 
 # The release log file information
 LOG_FILE="Created-on_$(date +%Y-%m-%d).txt"
