@@ -31,8 +31,7 @@ environment:
     #  cygwin: install (not needed after Dec 2019)
 
     # CygWin 32bits build
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-      arch: x86
+    - arch: x86
       bits: 32
       doing: deploy
       test: package

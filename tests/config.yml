@@ -46,7 +46,6 @@ workflows:
   build:
     jobs:
       - linux-Fedora
-      - wine-64bits
       - make-check
       - testing:
           type: approval
