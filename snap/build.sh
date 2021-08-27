@@ -29,16 +29,18 @@ OTHER_NO_OPENMP="$SYSTEM_WIDE --disable-openmp"
 git clone --depth 10 https://github.com/openwall/john.git tmp
 cp -r tmp/. .
 
+# We are in packages folder, change to JtR folder
+cd src
+
 # Uncomment for a release
-_JUMBO_RELEASE="a16c8a76259ab870c07e5123c237b1900402d9a6"
+#_JUMBO_RELEASE="a16c8a76259ab870c07e5123c237b1900402d9a6"
 
 # Make it a reproducible build
 if [[ -n "$_JUMBO_RELEASE" ]]; then
+    echo "Deploying the release $_JUMBO_RELEASE"
+    git pull --unshallow
     git checkout "$_JUMBO_RELEASE"
 fi
-
-# We are in packages folder, change to JtR folder
-cd src
 
 wget https://raw.githubusercontent.com/openwall/john-packages/master/patches/0001-Handle-self-confined-system-wide-build.patch
 patch < 0001-Handle-self-confined-system-wide-build.patch
@@ -81,6 +83,8 @@ if [[ "$arch" == "x86_64" || "$arch" == "i686" ]]; then
         ./configure $X86_REGULAR   --enable-simd=avx512f  CPPFLAGS="-D_SNAP -D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-avx512f-non-omp\\\"\" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\"\\\"john-avx2\\\"\"" && do_build ../run/john-avx512f
         ./configure $X86_NO_OPENMP --enable-simd=avx512bw CPPFLAGS="-D_SNAP -D_BOXED" && do_build ../run/john-avx512bw-non-omp
         ./configure $X86_REGULAR   --enable-simd=avx512bw CPPFLAGS="-D_SNAP -D_BOXED -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\"\\\"john-avx512bw-non-omp\\\"\" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\"\\\"john-avx512f\\\"\"" && do_build
+    else
+        mv ../run/john-avx2 ../run/john
     fi
 
 else
