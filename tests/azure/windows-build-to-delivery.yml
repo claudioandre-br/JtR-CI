@@ -17,11 +17,22 @@ steps:
             # Use upstream source code
             cd $env:PROJ_FOLDER
             Remove-Item ./JtR -Force -Recurse -ErrorAction SilentlyContinue
-            git clone -q --depth 1 https://github.com/magnumripper/JohnTheRipper.git JtR
+            git clone -q --depth 1 https://github.com/openwall/john.git JtR
         }
         cd $env:BUILD_FOLDER
         git describe --dirty=+ --always
         echo '--------------------------------'
+
+        # $JUMBO_RELEASE = "a16c8a76259ab870c07e5123c237b1900402d9a6"
+
+        # Make it a reproducible build
+        if ($JUMBO_RELEASE) {
+            Write-Host "--------------------------------------------------------"
+            Write-Host "   =====  Deploying the release $JUMBO_RELEASE  =====   " -ForegroundColor White
+            Write-Host "--------------------------------------------------------"
+            git pull --unshallow
+            git checkout $JUMBO_RELEASE
+        }
 
         #  Windows 2012 does not have Chocolatey installed
         if ($env:SYSTEM_PHASENAME -eq "Windows_2012") {
@@ -31,6 +42,9 @@ steps:
 
         # If needed (CygWin is not installed) or as a workaround (CygWin update is required)
         if ($env:Cygwin -eq "install") {
+            Write-Host "--------------------------------------------------------"
+            Write-Host "             =====  Installing CygWin  =====            " -ForegroundColor White
+            Write-Host "--------------------------------------------------------"
             choco install -y cygwin cyg-get
             cyg-get libssl-devel libbz2-devel libgmp-devel zlib-devel gcc-core libOpenCL-devel libcrypt-devel make wget rebase perl
         }
