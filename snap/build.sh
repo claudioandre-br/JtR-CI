@@ -26,11 +26,11 @@ OTHER_REGULAR="$SYSTEM_WIDE"
 OTHER_NO_OPENMP="$SYSTEM_WIDE --disable-openmp"
 
 # Get JtR source code and adjust it to create a SNAP package
-git clone --depth 10 https://github.com/magnumripper/JohnTheRipper.git tmp
+git clone --depth 10 https://github.com/openwall/john.git tmp
 cp -r tmp/. .
 
 # Uncomment for a release
-# _JUMBO_RELEASE="528d06304c300d60d18c656575e56e04a45ac80d"
+_JUMBO_RELEASE="a16c8a76259ab870c07e5123c237b1900402d9a6"
 
 # Make it a reproducible build
 if [[ -n "$_JUMBO_RELEASE" ]]; then
