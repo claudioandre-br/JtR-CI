@@ -15,8 +15,8 @@ APPVEYOR_64bits="" # Disabled: I'm using Azure packages
 APPVEYOR_32bits="" # Disabled for '-dev' releases
 
 # Flatpak build IDs
-FLATPAK="1521028171"
-FLATPAK_TEST="1521028172"
+FLATPAK="1580288122"
+FLATPAK_TEST="1580288123"
 # Get pipeline 297118338 info https://gitlab.com/api/v4/projects/12573246/pipelines/297118338
 # Get jobs info               https://gitlab.com/api/v4/projects/12573246/pipelines/297118338/jobs
 
@@ -61,6 +61,12 @@ unzip flatpak_1_JtR.zip
 sha256sum *.zip | tee --append $LOG_FILE
 sha256sum *.7z  | tee --append $LOG_FILE
 sha256sum john.flatpak | tee --append $LOG_FILE
+
+echo -e "\n=================================================================================" >> $LOG_FILE
+echo -e "== Values for confirmation" >> $LOG_FILE
+grep -woE  '*.{64}  john.flatpak' flatpak_2_buildlog.txt                      >> $LOG_FILE
+grep -woE  '*.{64}       C:\\win_x64.7z' winX64_2_buildlog.txt                >> $LOG_FILE
+grep -woE  '*.{64}       D:\\a\\1\\JtR\\run\\john.exe' winX64_2_buildlog.txt  >> $LOG_FILE
 
 # Keep only the files that are going to be used by the release
 rm -f john.flatpak Build._ID
