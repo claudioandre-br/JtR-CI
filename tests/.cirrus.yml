@@ -1,6 +1,6 @@
 freebsd11_task:
         freebsd_instance:
-                image_family: freebsd-11-3-snap
+                image_family: freebsd-11-4-snap
         install_script: pkg install -y devel/gmake perl5
 
         info_script:
@@ -23,7 +23,7 @@ freebsd11_task:
                 - ./john --test-full=0
 freebsd12_task:
         freebsd_instance:
-                image_family: freebsd-12-1-snap
+                image_family: freebsd-12-2-snap
         install_script: pkg install -y devel/gmake wget perl5
 
         info_script:
@@ -59,7 +59,7 @@ freebsd13_task:
 
         build_script:
                 - cd src
-                - ./configure --enable-werror
+                - ./configure
                 - gmake -sj4
                 - echo '--------------------------------'
                 - ../run/john --list=build-info
