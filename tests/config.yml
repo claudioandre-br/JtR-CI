@@ -2,7 +2,7 @@ version: 2
 jobs:
   common_linux: &common_linux
     docker:
-      - image: ghcr.io/claudioandre-br/john-ci:fedora.32
+      - image: ghcr.io/claudioandre-br/john-ci:fedora.34
     steps:
       - checkout
       - run:
@@ -15,7 +15,7 @@ jobs:
   linux-Fedora:
     <<: *common_linux
     docker:
-      - image: ghcr.io/claudioandre-br/john-ci:fedora.32
+      - image: ghcr.io/claudioandre-br/john-ci:fedora.34
         environment:
           TARGET_ARCH: "NIX"
           EXTRA: "full;extra;crack;"
@@ -24,7 +24,7 @@ jobs:
   make-check:
     <<: *common_linux
     docker:
-      - image: ghcr.io/claudioandre-br/john-ci:fedora.32
+      - image: ghcr.io/claudioandre-br/john-ci:fedora.34
         environment:
           TARGET_ARCH: "NIX"
           EXTRA: "CHECK;"
