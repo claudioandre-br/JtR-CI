@@ -15,8 +15,8 @@ APPVEYOR_64bits="" # Disabled: I'm using Azure packages
 APPVEYOR_32bits="" # Disabled for '-dev' releases
 
 # Flatpak build IDs
-FLATPAK="1580288122"
-FLATPAK_TEST="1580288123"
+FLATPAK="1634646862"
+FLATPAK_TEST="1634646866"
 # Get pipeline 297118338 info https://gitlab.com/api/v4/projects/12573246/pipelines/297118338
 # Get jobs info               https://gitlab.com/api/v4/projects/12573246/pipelines/297118338/jobs
 
