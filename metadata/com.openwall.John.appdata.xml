@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (c) 2019 Claudio André <claudioandre.br at gmail.com> -->
+<!-- Copyright (c) 2019-2021 Claudio André <claudioandre.br at gmail.com> -->
 <component type="console-application">
   <id>com.openwall.John</id>
   <metadata_license>GFDL-1.3</metadata_license>
@@ -22,7 +22,7 @@
        as PDF and Microsoft Office's - and these are just some examples.
 
        Read more at:
-       - github.com/magnumripper/JohnTheRipper
+       - github.com/openwall/john
 
        This version integrates lots of contributed patches, including GPU support,
        dynamic expressions, has fallback for CPU SIMD extensions and for OMP,
@@ -41,7 +41,7 @@
   </screenshots>
 
   <url type="homepage">https://www.openwall.com/john/</url>
-  <url type="bugtracker">https://github.com/magnumripper/JohnTheRipper/issues</url>
+  <url type="bugtracker">https://github.com/openwall/john/issues</url>
   <url type="donation">https://www.zerodayclothing.com/openwall_store.php</url>
 
   <developer_name>Openwall and others</developer_name>
@@ -101,7 +101,7 @@
           <location>https://github.com/openwall/john-packages/releases/download/1.9.0-jumbo-1/x64_win.zip</location>
         </artifact>
         <artifact type="source">
-          <location>https://github.com/magnumripper/JohnTheRipper/archive/1.9.0-Jumbo-1.zip</location>
+          <location>https://github.com/openwall/john/archive/1.9.0-Jumbo-1.zip</location>
         </artifact>
       </artifacts>
     </release>
