@@ -31,6 +31,44 @@ jobs:
           ASAN: "--enable-asan"
           OMP_NUM_THREADS: 3
 
+  no-omp:
+    <<: *common_linux
+    docker:
+      - image: ghcr.io/claudioandre-br/john-ci:fedora.34
+        environment:
+          TARGET_ARCH: "NIX"
+          EXTRA: "full;extra;crack;"
+          BUILD_OPTS: "--disable-openmp"
+
+  no-simd:
+    <<: *common_linux
+    docker:
+      - image: ghcr.io/claudioandre-br/john-ci:fedora.34
+        environment:
+          TARGET_ARCH: "NIX"
+          EXTRA: "full;extra;crack;"
+          BUILD_OPTS: "--disable-simd"
+          OMP_NUM_THREADS: 2
+
+  no-simd-omp:
+    <<: *common_linux
+    docker:
+      - image: ghcr.io/claudioandre-br/john-ci:fedora.34
+        environment:
+          EXTRA: "full;extra;crack;"
+          TARGET_ARCH: "NIX"
+          BUILD_OPTS: "--disable-simd --disable-openmp"
+
+  omp-fast-formats:
+    <<: *common_linux
+    docker:
+      - image: ghcr.io/claudioandre-br/john-ci:fedora.34
+        environment:
+          TARGET_ARCH: "NIX"
+          EXTRA: "full;extra;crack;"
+          BUILD_OPTS: "--enable-openmp-for-fast-formats --enable-simd=avx2"
+          OMP_NUM_THREADS: 2
+
   compare-simd:
     <<: *common_linux
     docker:
@@ -52,3 +90,11 @@ workflows:
       - compare-simd:
           requires:
             - testing
+      - no-omp
+      - no-simd-omp:
+          requires:
+            - no-omp
+      - no-simd
+      - omp-fast-formats:
+          requires:
+            - linux-Fedora
