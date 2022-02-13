@@ -21,6 +21,15 @@ stages:
     steps:
       - template: .azure/windows-ci.yml
 
+  - job: Windows_2022
+    displayName: Windows 2022
+    pool:
+      vmImage: 'windows-2022'
+    variables:
+      - template: .azure/windows-variables.yml
+    steps:
+      - template: .azure/windows-ci.yml
+
   - job: Ubuntu_1804
     displayName: Ubuntu 18.04
     container:
@@ -183,6 +192,22 @@ stages:
     displayName: Windows 2019
     pool:
       vmImage: 'windows-2019'
+    variables:
+      - template: .azure/windows-variables.yml
+    steps:
+      - checkout: none
+      - template: .azure/windows-pull-artifacts.yml
+
+      - template: .azure/windows-testing.yml
+        parameters:
+          fullTest: 'yes'
+          johnBinary: 'john'
+          johnDirectory: $(System.ArtifactsDirectory)\JtR\run
+
+  - job: Windows_2022
+    displayName: Windows 2022
+    pool:
+      vmImage: 'windows-2022'
     variables:
       - template: .azure/windows-variables.yml
     steps:
