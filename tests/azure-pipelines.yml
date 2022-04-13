@@ -32,6 +32,8 @@ stages:
 
   - job: Ubuntu_1804
     displayName: Ubuntu 18.04
+    pool:
+      vmImage: 'ubuntu-latest'
     container:
       image: ghcr.io/claudioandre-br/john-ci:ubuntu.opencl
     variables:
@@ -42,6 +44,8 @@ stages:
 
   - job: CentOS_7
     displayName: CentOS 7
+    pool:
+      vmImage: 'ubuntu-latest'
     container:
       image: ghcr.io/claudioandre-br/john-ci:centos.7
     variables:
@@ -55,6 +59,8 @@ stages:
   dependsOn: basic
   jobs:
   - job: cracking
+    pool:
+      vmImage: 'ubuntu-latest'
     container:
       image: ghcr.io/claudioandre-br/john-ci:fedora.35
       options: --user=root
@@ -74,6 +80,8 @@ stages:
   - job: intel_opencl
     displayName: Intel OpenCL CPU
     timeoutInMinutes: 0
+    pool:
+      vmImage: 'ubuntu-latest'
     container:
       image: claudioandre/john:opencl
 
@@ -108,6 +116,8 @@ stages:
   dependsOn: functional
   jobs:
   - job: zzuf
+    pool:
+      vmImage: 'ubuntu-latest'
     container:
       image: claudioandre/john:ubuntu.opencl_J558.3
 
@@ -136,6 +146,8 @@ stages:
 
   # Runs "--fuzz"
   - job: internal
+    pool:
+      vmImage: 'ubuntu-latest'
     container:
       image: ghcr.io/claudioandre-br/john-ci:ubuntu.opencl
 
@@ -149,6 +161,8 @@ stages:
 
   # Runs "--test-full=1"
   - job: full
+    pool:
+      vmImage: 'ubuntu-latest'
     container:
       image: ghcr.io/claudioandre-br/john-ci:ubuntu.opencl
 
