@@ -1,10 +1,10 @@
 name: john-the-ripper
-version: bleeding       #TODO: edit before release (JUMBO_RELEASE)
+version: v1-rolling       #TODO: edit before release (JUMBO_RELEASE)
 version-script: |
   ./package_version.sh
 
 confinement: strict
-grade: devel            #TODO: [stable or devel] edit before release (JUMBO_RELEASE)
+grade: stable            #TODO: [stable or devel] edit before release (JUMBO_RELEASE)
 assumes: [ snapd2.38 ]
 base: core18
 

@@ -4,7 +4,7 @@
     "runtime-version": "20.08",
     "sdk": "org.freedesktop.Sdk",
     "command": "john",
-    "tags": [ "edge" ],
+    "tags": [ "v1-rolling" ],
     "finish-args": [
         "--filesystem=home"
     ],
