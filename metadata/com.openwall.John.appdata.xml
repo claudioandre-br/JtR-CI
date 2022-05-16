@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (c) 2019-2021 Claudio André <claudioandre.br at gmail.com> -->
+<!-- Copyright (c) 2019-2022 Claudio André <claudioandre.br at gmail.com> -->
 <component type="console-application">
   <id>com.openwall.John</id>
   <metadata_license>GFDL-1.3</metadata_license>
@@ -72,7 +72,7 @@
       <description>
         <p>
           We've just released John the Ripper 1.9.0-jumbo-1, available from the
-          usual place: https://www.openwall.com/john/
+          usual place.
 
           This is a major release (after almost 6 years since the 1.8.0 core
           release).
