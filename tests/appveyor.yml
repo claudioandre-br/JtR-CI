@@ -67,6 +67,16 @@ install:
   - git apply 0001.patch
   # 1. Remove peflags from the default target on Windows
 
+  # download installer 32 bits and 64 bits
+  - ps: |
+    New-Item -Path C:\cygwin -ItemType Directory -Force
+    $exePath = "C:\cygwin\setup-x86.exe"
+    (New-Object Net.WebClient).DownloadFile('https://cygwin.com/setup-x86.exe', $exePath)
+
+    New-Item -Path C:\cygwin64 -ItemType Directory -Force
+    $exePath = "C:\cygwin64\setup-x86_64.exe"
+    (New-Object Net.WebClient).DownloadFile('https://cygwin.com/setup-x86_64.exe', $exePath)
+
   - ps: |
       $posixBuildFolder = $env:BUILD_FOLDER -Replace '\\', '/'
 
