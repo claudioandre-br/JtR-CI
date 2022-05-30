@@ -2,7 +2,7 @@ version: 2
 jobs:
   common_linux: &common_linux
     docker:
-      - image: ghcr.io/claudioandre-br/john-ci:fedora.35
+      - image: ghcr.io/claudioandre-br/john-ci:fedora.36
     steps:
       - checkout
       - run:
@@ -15,7 +15,7 @@ jobs:
   linux-Fedora:
     <<: *common_linux
     docker:
-      - image: ghcr.io/claudioandre-br/john-ci:fedora.35
+      - image: ghcr.io/claudioandre-br/john-ci:fedora.36
         environment:
           TARGET_ARCH: "NIX"
           EXTRA: "full;extra;crack;"
@@ -24,7 +24,7 @@ jobs:
   make-check:
     <<: *common_linux
     docker:
-      - image: ghcr.io/claudioandre-br/john-ci:fedora.35
+      - image: ghcr.io/claudioandre-br/john-ci:fedora.36
         environment:
           TARGET_ARCH: "NIX"
           EXTRA: "CHECK;"
@@ -34,7 +34,7 @@ jobs:
   no-omp:
     <<: *common_linux
     docker:
-      - image: ghcr.io/claudioandre-br/john-ci:fedora.35
+      - image: ghcr.io/claudioandre-br/john-ci:fedora.36
         environment:
           TARGET_ARCH: "NIX"
           EXTRA: "full;extra;crack;"
@@ -43,7 +43,7 @@ jobs:
   no-simd:
     <<: *common_linux
     docker:
-      - image: ghcr.io/claudioandre-br/john-ci:fedora.35
+      - image: ghcr.io/claudioandre-br/john-ci:fedora.36
         environment:
           TARGET_ARCH: "NIX"
           EXTRA: "full;extra;crack;"
@@ -53,7 +53,7 @@ jobs:
   no-simd-omp:
     <<: *common_linux
     docker:
-      - image: ghcr.io/claudioandre-br/john-ci:fedora.35
+      - image: ghcr.io/claudioandre-br/john-ci:fedora.36
         environment:
           EXTRA: "full;extra;crack;"
           TARGET_ARCH: "NIX"
@@ -62,7 +62,7 @@ jobs:
   omp-fast-formats:
     <<: *common_linux
     docker:
-      - image: ghcr.io/claudioandre-br/john-ci:fedora.35
+      - image: ghcr.io/claudioandre-br/john-ci:fedora.36
         environment:
           TARGET_ARCH: "NIX"
           EXTRA: "full;extra;crack;"
