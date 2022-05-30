@@ -1,5 +1,5 @@
 ######################################################################
-# Copyright (c) 2019 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2022 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -9,8 +9,8 @@
 # http://www.gnu.org/licenses/gpl-2.0.html
 ######################################################################
 
-FROM fedora:35
-LABEL maintainer Claudio André (c) 2017-2021 1.0.Latest
+FROM fedora:36
+LABEL maintainer Claudio André (c) 2017-2022 1.0.Latest
 LABEL software CI for John the Ripper
 
 RUN dnf -y -q update && \
