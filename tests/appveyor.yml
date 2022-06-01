@@ -30,13 +30,6 @@ environment:
       location: cygwin64
     #  cygwin: install (not needed after Dec 2019)
 
-    # CygWin 32bits build
-    - arch: x86
-      bits: 32
-      doing: deploy
-      test: package
-      location: cygwin
-
 install:
   - echo '--------------------------------'
   - systeminfo | findstr /C:"OS"
@@ -67,12 +60,8 @@ install:
   - git apply 0001.patch
   # 1. Remove peflags from the default target on Windows
 
-  # download installer 32 bits and 64 bits
+  # download 64 bits installer
   - ps: |
-      New-Item -Path C:\cygwin -ItemType Directory -Force
-      $exePath = "C:\cygwin\setup-x86.exe"
-      (New-Object Net.WebClient).DownloadFile('https://cygwin.com/setup-x86.exe', $exePath)
-
       New-Item -Path C:\cygwin64 -ItemType Directory -Force
       $exePath = "C:\cygwin64\setup-x86_64.exe"
       (New-Object Net.WebClient).DownloadFile('https://cygwin.com/setup-x86_64.exe', $exePath)
