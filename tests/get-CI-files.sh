@@ -24,6 +24,15 @@ FLATPAK_TEST="2548426503"
 # Get the build id from the building environment
 AZURE_ID=`cat Build._ID | tr -d '\r'`
 
+FLATPAK=$(curl -s https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/ | \
+  grep -o 'build-link">#[0-9]*' | grep -o '[0-9]*' | \
+  sed -n '2p')
+FLATPAK_TEST=$(curl -s https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/ | \
+  grep -o 'build-link">#[0-9]*' | grep -o '[0-9]*' | \
+  sed -n '1p')
+
+echo "Deploy de: '$FLATPAK' e '$FLATPAK_TEST'."
+
 # AppVeyor (32 bits) ###########################################################
 if [[ -n "$APPVEYOR_32bits"  ]]; then
     wget https://ci.appveyor.com/api/buildjobs/$APPVEYOR_32bits/artifacts/win_x32.7z  -O winX32_1_JtR.7z
