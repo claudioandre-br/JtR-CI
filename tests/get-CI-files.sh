@@ -15,8 +15,8 @@ APPVEYOR_64bits="" # Disabled: I'm using Azure packages
 APPVEYOR_32bits="" # Disabled for '-dev' releases
 
 # Flatpak build IDs
-FLATPAK="2548426502"
-FLATPAK_TEST="2548426503"
+FLATPAK="2704261405"
+FLATPAK_TEST="2704261406"
 # Get pipeline 297118338 info https://gitlab.com/api/v4/projects/12573246/pipelines/297118338
 # Get jobs info               https://gitlab.com/api/v4/projects/12573246/pipelines/297118338/jobs
 
@@ -24,12 +24,12 @@ FLATPAK_TEST="2548426503"
 # Get the build id from the building environment
 AZURE_ID=`cat Build._ID | tr -d '\r'`
 
-FLATPAK=$(curl -s https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/ | \
-  grep -o 'build-link">#[0-9]*' | grep -o '[0-9]*' | \
-  sed -n '2p')
-FLATPAK_TEST=$(curl -s https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/ | \
-  grep -o 'build-link">#[0-9]*' | grep -o '[0-9]*' | \
-  sed -n '1p')
+# FLATPAK=$(curl -s https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/ | \
+#   grep -o 'build-link">#[0-9]*' | grep -o '[0-9]*' | \
+#   sed -n '2p')
+# FLATPAK_TEST=$(curl -s https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/ | \
+#   grep -o 'build-link">#[0-9]*' | grep -o '[0-9]*' | \
+#   sed -n '1p')
 
 echo "Deploy de: '$FLATPAK' e '$FLATPAK_TEST'."
 
