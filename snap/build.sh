@@ -45,6 +45,12 @@ fi
 wget https://raw.githubusercontent.com/openwall/john-packages/master/patches/0001-Handle-self-confined-system-wide-build.patch
 patch < 0001-Handle-self-confined-system-wide-build.patch
 
+wget https://raw.githubusercontent.com/claudioandre-br/JohnTheRipper/bleeding-jumbo/be.patch; _BE_TEST=$?
+
+if [[ "$_BE_TEST" == 0 ]]; then
+    git apply be.patch
+fi
+
 # Set package version
 git rev-parse --short HEAD 2>/dev/null > ../../../../My_VERSION.TXT
 
