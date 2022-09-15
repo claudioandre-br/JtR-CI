@@ -48,6 +48,7 @@ patch < 0001-Handle-self-confined-system-wide-build.patch
 wget https://raw.githubusercontent.com/claudioandre-br/JohnTheRipper/bleeding-jumbo/be.patch; _BE_TEST=$?
 
 if [[ "$_BE_TEST" == 0 ]]; then
+    echo "Applying a patch be.patch from claudioandre-br/JohnTheRipper/bleeding-jumbo"
     git apply be.patch
 fi
 
