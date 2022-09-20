@@ -106,7 +106,7 @@
       </artifacts>
     </release>
 
-    <release type="stable" version="v1-rolling" date="2022-05-13" urgency="high">
+    <release type="stable" version="rolling-2210" date="2022-10-01" urgency="high">
       <description>
         <p>
           This is a rolling release based on John the Ripper 1.9.0-jumbo-1+.
@@ -119,7 +119,7 @@
 
       <artifacts>
         <artifact type="binary" platform="x86_64-linux-gnu">
-          <location>https://github.com/openwall/john-packages/releases/download/v1-rolling/flatpak_1_JtR.zip</location>
+          <location>https://github.com/openwall/john-packages/releases/download/rolling/flatpak_1_JtR.zip</location>
         </artifact>
         <artifact type="binary" platform="flatpak">
           <location>https://flathub.org/apps/detais/com.openwall.John</location>
@@ -128,10 +128,10 @@
           <location>https://snapcraft.io/john-the-ripper</location>
         </artifact>
         <artifact type="binary" platform="win64">
-          <location>https://github.com/openwall/john-packages/releases/download/v1-rolling/winX64_1_JtR.7z</location>
+          <location>https://github.com/openwall/john-packages/releases/download/rolling/winX64_1_JtR.7z</location>
         </artifact>
         <artifact type="source">
-          <location>https://github.com/openwall/john/commit/52a9bedb58ecc2685518523549ff699a07d3abb9</location>
+          <location>https://github.com/openwall/john/commit/8998390b651f4a7e744758a1c41eb3068dc5084f</location>
         </artifact>
       </artifacts>
     </release>

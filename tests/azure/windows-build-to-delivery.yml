@@ -23,7 +23,7 @@ steps:
         git describe --dirty=+ --always
         echo '--------------------------------'
 
-        # $JUMBO_RELEASE = "52a9bedb58ecc2685518523549ff699a07d3abb9"
+        # $JUMBO_RELEASE = "8998390b651f4a7e744758a1c41eb3068dc5084f"
 
         # Make it a reproducible build
         if ($JUMBO_RELEASE) {
