@@ -12,6 +12,15 @@ jobs:
           name: Testing JtR
           command: .ci/tests-ci.sh $TARGET_ARCH TEST
 
+  linux-Ubuntu-Dev:
+    <<: *common_linux
+    docker:
+      - image: ghcr.io/claudioandre-br/john-ci:ubuntu.devel
+        environment:
+          TARGET_ARCH: "NIX"
+          EXTRA: "full;extra;crack;"
+          OMP_NUM_THREADS: 2
+
   linux-Fedora:
     <<: *common_linux
     docker:
