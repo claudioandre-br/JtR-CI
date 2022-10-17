@@ -1,5 +1,5 @@
 name: john-the-ripper
-version: rolling-2210       #TODO: edit before release (JUMBO_RELEASE)
+version: bleeding       #TODO: edit before release (JUMBO_RELEASE)
 version-script: |
   ./package_version.sh
 
