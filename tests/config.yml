@@ -92,6 +92,7 @@ workflows:
   version: 2
   build:
     jobs:
+      - linux-Ubuntu-Dev
       - linux-Fedora
       - make-check
       - testing:
