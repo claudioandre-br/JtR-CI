@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ######################################################################
-# Copyright (c) 2019 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2022 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -46,7 +46,8 @@ case "$arch" in
         ;;
 esac
 # View package version
-echo "1.9J1+$git_tag$text"   #TODO: edit before release (JUMBO_RELEASE)
+echo "1.9J1+$git_tag"   #TODO: edit before release (JUMBO_RELEASE)
+#echo "roll+$git_tag"   #TODO: edit before release (JUMBO_RELEASE)
 
 # Release example
 # 1.9J2-07f7216a
