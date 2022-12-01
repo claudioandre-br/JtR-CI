@@ -9,7 +9,7 @@
 # http://www.gnu.org/licenses/gpl-2.0.html
 ######################################################################
 
-FROM fedora:36
+FROM fedora:37
 LABEL maintainer Claudio André (c) 2017-2022 1.0.Latest
 LABEL software CI for John the Ripper
 

@@ -9,7 +9,7 @@
 # http://www.gnu.org/licenses/gpl-2.0.html
 ######################################################################
 
-FROM fedora:36
+FROM fedora:37
 LABEL maintainer Claudio André (c) 2017-2022 1.1.Flatpak
 LABEL software Flatpak related CI for John the Ripper
 

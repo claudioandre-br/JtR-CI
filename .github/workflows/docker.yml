@@ -26,9 +26,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - image-tag: fedora.36
+          - image-tag: fedora.37
             dockerfile: Dockerfile.FLatest
-          - image-tag: fedora.36.flatpak
+          - image-tag: fedora.37.flatpak
             dockerfile: Dockerfile.flatpak.package
           - image-tag: ubuntu.opencl
             dockerfile: Dockerfile.OpenCL
