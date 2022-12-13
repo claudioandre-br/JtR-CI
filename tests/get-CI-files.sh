@@ -16,7 +16,7 @@ APPVEYOR_32bits="" # Disabled for '-dev' releases
 
 # Flatpak build IDs
 FLATPAK="3183179329"
-FLATPAK_TEST="3183179331"
+# FLATPAK_TEST=""
 # Get pipeline 297118338 info https://gitlab.com/api/v4/projects/12573246/pipelines/297118338
 # Get jobs info               https://gitlab.com/api/v4/projects/12573246/pipelines/297118338/jobs
 
@@ -43,7 +43,7 @@ fi
 # The FLATPAK_TEST is used to retrieve package version information
 wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/artifacts/download     -O flatpak_1_JtR.zip
 wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/raw                    -O flatpak_2_buildlog.txt
-wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK_TEST/raw               -O /tmp/flatpak_3_testlog.txt
+# wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK_TEST/raw               -O /tmp/flatpak_3_testlog.txt
 
 # Azure Windows package log
 wget https://dev.azure.com/claudioandre-br/40224313-b91e-465d-852b-fc4ea516f33e/_apis/build/builds/$AZURE_ID/logs/128 -O winX64_2_buildlog.txt
@@ -53,8 +53,8 @@ LOG_FILE="Created-on_$(date +%Y-%m-%d).txt"
 
 GIT_TEXT=$(git ls-remote -q https://github.com/openwall/john.git HEAD | cut -c 1-40)
 WIN_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' winX64_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
-FLATPAK_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' /tmp/flatpak_3_testlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
-
+# FLATPAK_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' /tmp/flatpak_3_testlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
+FLATPAK_TEXT=$(grep -m1 '1.9J1+' /tmp/flatpak_2_buildlog.txt)
 
 # Create the contents of the log file
 echo "The release date is $(date). I'm Azure on behalf of Claudio." >  $LOG_FILE
