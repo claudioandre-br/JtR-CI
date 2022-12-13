@@ -1,5 +1,5 @@
 # Fedora docker image.
-image: ghcr.io/claudioandre-br/john-ci:fedora.35.flatpak
+image: ghcr.io/claudioandre-br/john-ci:fedora.37.flatpak
 
 services:
   - docker:dind
@@ -33,11 +33,12 @@ deploy:
     # - wget https://gitlab.com/claudioandre-br/packages/-/jobs/189386446/artifacts/raw/john.flatpak
 
     # Install flatpak package
-    - flatpak install --user -y --bundle john.flatpak
+    # - flatpak install --user -y --bundle john.flatpak
 
     # Do some testing
-    - flatpak run com.openwall.John
-    - flatpak run com.openwall.John --list=build-info
+    # CANNOT run flatpak inside Docker since Fedora 36.
+    # - flatpak run com.openwall.John
+    # - flatpak run com.openwall.John --list=build-info
     - export TEST=';full;extra;' # Controls how the test will happen
     - export arch=$(uname -m)
     - export JTR_BIN='flatpak run com.openwall.John'
@@ -45,4 +46,4 @@ deploy:
     - cd flatpak
 
     # Adjust the testing environment, import and run some testing
-    - ../tests/run_tests.sh
+    # - ../tests/run_tests.sh
