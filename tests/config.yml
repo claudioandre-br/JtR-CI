@@ -88,6 +88,29 @@ jobs:
           EXTRA: "SIMD"
           OMP_NUM_THREADS: 2
 
+  flatpak:
+    machine:
+      image: ubuntu-2204:current
+    environment:
+      OMP_NUM_THREADS: 2
+      TEST: ";full;extra;"
+      arch: "x86_64"
+      JTR_BIN: "flatpak run com.openwall.John"
+      JTR_CL: "flatpak run com.openwall.John"
+
+    steps:
+      - run: env
+      - run: sudo apt-get update && sudo apt-get install -y flatpak
+      - run: wget https://github.com/openwall/john-packages/releases/download/jumbo-dev/flatpak_1_JtR.zip
+      - run: unzip flatpak_1_JtR.zip && ls -l
+      - run: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+      - run: flatpak install -y flathub org.freedesktop.Platform//22.08
+      - run: flatpak install --user -y --bundle john.flatpak
+      - run: flatpak run com.openwall.John
+      - run: flatpak run com.openwall.John --list=build-info
+      - run: pwd && ls -l && ../tests/run_tests.sh
+      - run: cowsay Continuous Integration Rocks!
+
 workflows:
   version: 2
   build:
@@ -95,11 +118,14 @@ workflows:
       - linux-Ubuntu-Dev
       - linux-Fedora
       - make-check
-      - testing:
+      - extras:
           type: approval
       - compare-simd:
           requires:
-            - testing
+            - extras
+      - flatpak:
+          requires:
+            - extras
       - no-omp
       - no-simd-omp:
           requires:
