@@ -54,7 +54,7 @@ LOG_FILE="Created-on_$(date +%Y-%m-%d).txt"
 GIT_TEXT=$(git ls-remote -q https://github.com/openwall/john.git HEAD | cut -c 1-40)
 WIN_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' winX64_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
 # FLATPAK_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' /tmp/flatpak_3_testlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
-FLATPAK_TEXT=$(grep -m1 '1.9J1+' /tmp/flatpak_2_buildlog.txt)
+FLATPAK_TEXT=$(grep -m1 '1.9J1+' flatpak_2_buildlog.txt)
 
 # Create the contents of the log file
 echo "The release date is $(date). I'm Azure on behalf of Claudio." >  $LOG_FILE
