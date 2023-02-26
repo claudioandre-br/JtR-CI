@@ -22,7 +22,9 @@ FLATPAK="3815018528"
 
 # Azure build ID
 # Get the build id from the building environment
-AZURE_ID=`cat Build._ID | tr -d '\r'`
+AZURE_JOB=`cat Build._ID | tr -d '\r'`
+AZURE_PAGE="128"
+AZURE_UID="40224313-b91e-465d-852b-fc4ea516f33e"
 
 # FLATPAK=$(curl -s https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/ | \
 #   grep -o 'build-link">#[0-9]*' | grep -o '[0-9]*' | \
@@ -46,7 +48,7 @@ wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/raw              
 # wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK_TEST/raw               -O /tmp/flatpak_3_testlog.txt
 
 # Azure Windows package log
-wget https://dev.azure.com/claudioandre-br/40224313-b91e-465d-852b-fc4ea516f33e/_apis/build/builds/$AZURE_ID/logs/128 -O winX64_2_buildlog.txt
+wget https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_JOB/logs/$AZURE_PAGE -O winX64_2_buildlog.txt
 
 # The release log file information
 LOG_FILE="Created-on_$(date +%Y-%m-%d).txt"
