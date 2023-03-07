@@ -1,6 +1,6 @@
 #!/bin/bash
 ######################################################################
-# Copyright (c) 2019-2021 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2023 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -15,7 +15,7 @@ APPVEYOR_64bits="" # Disabled: I'm using Azure packages
 APPVEYOR_32bits="" # Disabled for '-dev' releases
 
 # Flatpak build IDs
-FLATPAK="3815018528"
+# FLATPAK=""
 # FLATPAK_TEST=""
 # Get pipeline 297118338 info https://gitlab.com/api/v4/projects/12573246/pipelines/297118338
 # Get jobs info               https://gitlab.com/api/v4/projects/12573246/pipelines/297118338/jobs
@@ -25,6 +25,11 @@ FLATPAK="3815018528"
 AZURE_JOB=`cat Build._ID | tr -d '\r'`
 AZURE_PAGE="128"
 AZURE_UID="40224313-b91e-465d-852b-fc4ea516f33e"
+
+GITLAB_JOB=$(curl -s https://gitlab.com/api/v4/projects/12573246/pipelines/ | \
+   grep -o -m1 '{"id":[0-9]*' | grep -o '[0-9]*'| head -1)
+FLATPAK=$(curl -s https://gitlab.com/api/v4/projects/12573246/pipelines/$GITLAB_JOB/jobs | \
+   grep -o -m1 '{"id":[0-9]*,"status":"success"' | grep -o '[0-9]*' | sed -n '2p')
 
 # FLATPAK=$(curl -s https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/ | \
 #   grep -o 'build-link">#[0-9]*' | grep -o '[0-9]*' | \
