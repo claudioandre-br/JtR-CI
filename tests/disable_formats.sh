@@ -23,7 +23,7 @@ echo 'pbkdf2-hmac-md4 = Y' >> ../run/john-local.conf
 echo 'pbkdf2-hmac-md5 = Y' >> ../run/john-local.conf
 echo 'OpenBSD-SoftRAID = Y' >> ../run/john-local.conf
 echo 'dpapimk = Y' >> ../run/john-local.conf
-#echo 'mscash2 = Y' >> ../run/john-local.conf # (find out where it fails)
+#echo 'mscash2 = Y' >> ../run/john-local.conf # (find out if it fails)
 echo 'timeroast = Y' >> ../run/john-local.conf # fails on BE
 echo 'iwork = Y' >> ../run/john-local.conf
 echo 'ethereum = Y' >> ../run/john-local.conf
@@ -61,7 +61,7 @@ echo 'bf-opencl = Y' >> ../run/john-local.conf
 echo 'gpg-opencl = Y' >> ../run/john-local.conf
 echo 'krb5pa-md5-opencl = Y' >> ../run/john-local.conf
 echo 'mscash2-opencl = Y' >> ../run/john-local.conf
-echo 'nt-opencl = Y' >> ../run/john-local.conf
+#echo 'nt-opencl = Y' >> ../run/john-local.conf # (find out if it fails)
 echo 'ntlmv2-opencl = Y' >> ../run/john-local.conf
 echo 'o5logon-opencl = Y' >> ../run/john-local.conf
 echo 'rawmd5-opencl = Y' >> ../run/john-local.conf
@@ -105,7 +105,7 @@ echo 'pgpdisk-opencl = Y' >> ../run/john-local.conf #FAILED (cmp_all(49)) Intel 
 # OpenCL descrypt builds for all 4096 salts, it is unusable inside CI
 rm -rf opencl_rar_fmt_plug.c racf_fmt_plug.c opencl_wpapsk_fmt_plug.c \
        opencl_mscash_fmt_plug.c opencl_mscash2_fmt_plug.c \
-       opencl_nt_fmt_plug.c  opencl_ntlmv2_fmt_plug.c \
+       opencl_ntlmv2_fmt_plug.c \
        opencl_rawsha512_fmt_plug.c opencl_xsha512_fmt_plug.c \
        opencl_DES_fmt_plug.c opencl_DES_bs_plug.c \
        opencl_DES_bs_b_plug.c opencl_DES_bs_f_plug.c opencl_DES_bs_h_plug.c \
