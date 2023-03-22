@@ -1,5 +1,5 @@
 ######################################################################
-# Copyright (c) 2019 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2023 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -10,7 +10,7 @@
 ######################################################################
 
 FROM centos:centos7
-LABEL maintainer Claudio André (c) 2021 1.0.CentOS7
+LABEL maintainer Claudio André (c) 2019-2023 1.0.CentOS7
 LABEL software CI for John the Ripper
 
 RUN yum -y -q update && \

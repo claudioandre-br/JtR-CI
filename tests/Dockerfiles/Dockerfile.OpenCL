@@ -1,5 +1,5 @@
 ######################################################################
-# Copyright (c) 2019 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2017-2023 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -10,7 +10,7 @@
 ######################################################################
 
 FROM ubuntu:18.04
-LABEL maintainer Claudio André (c) 2017-2019 1.0.OpenCL
+LABEL maintainer Claudio André (c) 2017-2023 1.0.OpenCL
 LABEL software CI for John the Ripper
 
 RUN apt-get update -qq && \
