@@ -1,5 +1,5 @@
 name: john-the-ripper
-version: bleeding       #TODO: edit before release (JUMBO_RELEASE)
+version: rolling-2304       #TODO: edit before release (JUMBO_RELEASE)
 version-script: |
   ./package_version.sh
 
@@ -9,7 +9,7 @@ assumes: [ snapd2.38 ]
 base: core18
 
 license: GPL-2.0
-#title: John the Ripper Community Edition
+title: John the Ripper Community Edition
 summary: John the Ripper "Jumbo" password cracker
 description: |
   John the Ripper is a fast password cracker, currently available for many flavors

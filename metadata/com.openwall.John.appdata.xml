@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (c) 2019-2022 Claudio André <claudioandre.br at gmail.com> -->
+<!-- Copyright (c) 2019-2023 Claudio André <claudioandre.br at gmail.com> -->
 <component type="console-application">
   <id>com.openwall.John</id>
   <metadata_license>GFDL-1.3</metadata_license>
@@ -106,7 +106,7 @@
       </artifacts>
     </release>
 
-    <release type="stable" version="bleeding" date="2022-10-01" urgency="high">
+    <release type="stable" version="rolling-2304" date="2023-04-05" urgency="high">
       <description>
         <p>
           This is a rolling release based on John the Ripper 1.9.0-jumbo-1+.
@@ -119,7 +119,7 @@
 
       <artifacts>
         <artifact type="binary" platform="x86_64-linux-gnu">
-          <location>https://github.com/openwall/john-packages/releases/download/rolling/flatpak_1_JtR.zip</location>
+          <location>https://github.com/openwall/john-packages/releases/download/rolling-2304/flatpak_1_JtR.zip</location>
         </artifact>
         <artifact type="binary" platform="flatpak">
           <location>https://flathub.org/apps/detais/com.openwall.John</location>
@@ -128,10 +128,10 @@
           <location>https://snapcraft.io/john-the-ripper</location>
         </artifact>
         <artifact type="binary" platform="win64">
-          <location>https://github.com/openwall/john-packages/releases/download/rolling/winX64_1_JtR.7z</location>
+          <location>https://github.com/openwall/john-packages/releases/download/rolling-2304/winX64_1_JtR.7z</location>
         </artifact>
         <artifact type="source">
-          <location>https://github.com/openwall/john/commit/8998390b651f4a7e744758a1c41eb3068dc5084f</location>
+          <location>https://github.com/openwall/john/commit/15b3b7c25fc8ac34f2504d53f0c94bbf4ec12596</location>
         </artifact>
       </artifacts>
     </release>

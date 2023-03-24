@@ -1,29 +1,6 @@
-freebsd14_task:
-        freebsd_instance:
-                image_family: freebsd-14-0-snap
-        install_script: pkg install -y devel/gmake wget perl5
-
-        info_script:
-                - uname -a
-                - echo '--------------------------------'
-                - cc --version
-                - echo '--------------------------------'
-                - cc -dM -E -x c /dev/null
-                - echo '--------------------------------'
-
-        build_script:
-                - cd src
-                - ./configure
-                - gmake -sj4
-                - echo '--------------------------------'
-                - ../run/john --list=build-info
-
-        check_script:
-                - cd run
-                - ./john --test-full=0
 freebsd12_task:
         freebsd_instance:
-                image_family: freebsd-12-2-snap
+                image_family: freebsd-12-4-snap
         install_script: pkg install -y devel/gmake wget perl5
 
         info_script:
@@ -46,7 +23,30 @@ freebsd12_task:
                 - ./john --test-full=0
 freebsd13_task:
         freebsd_instance:
-                image_family: freebsd-13-0-snap
+                image_family: freebsd-13-2-snap
+        install_script: pkg install -y devel/gmake wget perl5
+
+        info_script:
+                - uname -a
+                - echo '--------------------------------'
+                - cc --version
+                - echo '--------------------------------'
+                - cc -dM -E -x c /dev/null
+                - echo '--------------------------------'
+
+        build_script:
+                - cd src
+                - ./configure
+                - gmake -sj4
+                - echo '--------------------------------'
+                - ../run/john --list=build-info
+
+        check_script:
+                - cd run
+                - ./john --test-full=0
+freebsd14_task:
+        freebsd_instance:
+                image_family: freebsd-14-0-snap
         install_script: pkg install -y devel/gmake wget perl5
 
         info_script:

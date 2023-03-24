@@ -46,7 +46,7 @@ case "$arch" in
         ;;
 esac
 # View package version
-echo "1.9J1+$git_tag"   #TODO: edit before release (JUMBO_RELEASE)
+echo "roll+$git_tag"   #TODO: edit before release (JUMBO_RELEASE)
 #echo "roll+$git_tag"   #TODO: edit before release (JUMBO_RELEASE)
 
 # Release example
