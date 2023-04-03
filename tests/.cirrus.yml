@@ -13,7 +13,7 @@ freebsd12_task:
 
         build_script:
                 - cd src
-                - ./configure --enable-werror
+                - ./configure #--enable-werror (since rolling-2304)
                 - gmake -sj4
                 - echo '--------------------------------'
                 - ../run/john --list=build-info
