@@ -4,7 +4,7 @@
     "runtime-version": "22.08",
     "sdk": "org.freedesktop.Sdk",
     "command": "john",
-    "tags": [ "rolling-2304" ],
+    "tags": [ "bleeding" ],
     "finish-args": [
         "--filesystem=home"
     ],
