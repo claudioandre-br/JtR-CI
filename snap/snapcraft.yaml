@@ -4,7 +4,7 @@ version-script: |
   ./package_version.sh
 
 confinement: strict
-grade: stable            #TODO: [stable or devel] edit before release (JUMBO_RELEASE)
+grade: stable               #TODO: [stable or devel] edit before release (JUMBO_RELEASE)
 assumes: [ snapd2.38 ]
 base: core18
 
