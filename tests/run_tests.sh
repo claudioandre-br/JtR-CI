@@ -108,6 +108,11 @@ if [[ -z "${TEST##*extra*}" ]]; then
     $JTR_BIN ~/tests.in --format=sha512crypt --mask=jo?l[n-q]
     report "--format=sha512crypt --mask=jo?l[n-q]"
 
+    echo "====> T13: fallback"
+    export OMP_NUM_THREADS=1
+    $JTR_BIN --list=build-info
+    report "$JTR_BIN --list=build-info"
+
     echo "------------------------------------------------------------------"
     $JTR_BIN -test=0 --format=sha1crypt --verb=5 --tune=report
     report "--format=sha1crypt --verb=5 --tune=report"
