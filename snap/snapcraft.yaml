@@ -9,7 +9,7 @@ assumes: [ snapd2.38 ]
 base: core18
 
 license: GPL-2.0
-title: John the Ripper Community Edition
+title: John the Ripper CE Auditing Tool
 summary: John the Ripper "Jumbo" password cracker
 description: |
   John the Ripper is a fast password cracker, currently available for many flavors

@@ -120,6 +120,7 @@ steps:
 
         # Save information about how the binaries were built
         shell "echo '[Build Configuration]' > ../run/Defaults"
+        shell "echo 'System Wide Build=No' >> ../run/Defaults"
         shell "echo 'OpenMP=No' >> ../run/Defaults"
         shell "echo 'OpenCL=Yes' >> ../run/Defaults"
         shell "echo 'Generic crypt(3) format=Yes' >> ../run/Defaults"
