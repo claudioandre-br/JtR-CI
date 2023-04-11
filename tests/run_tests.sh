@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ######################################################################
-# Copyright (c) 2019 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2023 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -236,26 +236,16 @@ if [[ -z "${TEST##*MY_FULL*}" ]]; then
 fi
 
 if [[ -z "${TEST##*SIMD*}" ]]; then
-    /john/run/john-sse2            --test=10 --format=SHA512crypt
-    /john/run/john-sse2-no-omp     --test=10 --format=SHA512crypt
-    /john/run/john-ssse3           --test=10 --format=SHA512crypt
-    /john/run/john-ssse3-no-omp    --test=10 --format=SHA512crypt
-    /john/run/john-sse4.1          --test=10 --format=SHA512crypt
-    /john/run/john-sse4.1-no-omp   --test=10 --format=SHA512crypt
-    /john/run/john-sse4.2          --test=10 --format=SHA512crypt
-    /john/run/john-sse4.2-no-omp   --test=10 --format=SHA512crypt
-    /john/run/john-avx             --test=10 --format=SHA512crypt
-    /john/run/john-avx-no-omp      --test=10 --format=SHA512crypt
-    # /john/run/john-xop             --test=10 --format=SHA512crypt
-    # /john/run/john-xop-no-omp      --test=10 --format=SHA512crypt
-    /john/run/john-avx2            --test=10 --format=SHA512crypt
-    /john/run/john-avx2-no-omp     --test=10 --format=SHA512crypt
-    /john/run/john-avx512f         --test=10 --format=SHA512crypt
-    /john/run/john-avx512f-no-omp  --test=10 --format=SHA512crypt
-    /john/run/john-avx512bw        --test=10 --format=SHA512crypt
-    /john/run/john-avx512bw-no-omp --test=10 --format=SHA512crypt
-    # /john/run/john-ztex            --test=10 --format=SHA512crypt I don't build zTex
-    # /john/run/john-ztex-no-omp     --test=10 --format=SHA512crypt I don't build zTex
+    /john/run/john-sse2-omp      --test=10 --format=SHA512crypt
+    /john/run/john-sse2          --test=10 --format=SHA512crypt
+    /john/run/john-avx-omp       --test=10 --format=SHA512crypt
+    /john/run/john-avx           --test=10 --format=SHA512crypt
+    /john/run/john-avx2-omp      --test=10 --format=SHA512crypt
+    /john/run/john-avx2          --test=10 --format=SHA512crypt
+    /john/run/john-avx512f-omp   --test=10 --format=SHA512crypt
+    /john/run/john-avx512f       --test=10 --format=SHA512crypt
+    /john/run/john-avx512bw-omp  --test=10 --format=SHA512crypt
+    /john/run/john-avx512bw      --test=10 --format=SHA512crypt
 
     total=$((total + 18))
 fi
