@@ -103,7 +103,7 @@ steps:
         shell "./configure $EXE_NORMAL --enable-simd=avx512f  CPPFLAGS='-fno-asynchronous-unwind-tables -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx512f\\\`"\`"  -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2-omp\\\`"\`" '    && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx512f-omp"
         shell "./configure $EXE_NO_OMP --enable-simd=avx512bw CPPFLAGS='-fno-asynchronous-unwind-tables '                                                                                                                                          && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx512bw"
         shell "./configure $EXE_NORMAL --enable-simd=avx512bw CPPFLAGS='-fno-asynchronous-unwind-tables -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx512bw\\\`"\`" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx512f-omp\\\`"\`" ' && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx512bw-omp"
-        $EXE_NAME = "john-avx512bw.exe"
+        $EXE_NAME = "john-avx512bw-omp.exe"
 
         # Configure OpenCL ICD
         shell "mkdir -p ../etc/OpenCL/vendors"
