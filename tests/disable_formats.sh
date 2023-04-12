@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ######################################################################
-# Copyright (c) 2019 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2023 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -23,7 +23,6 @@ echo 'pbkdf2-hmac-md4 = Y' >> ../run/john-local.conf
 echo 'pbkdf2-hmac-md5 = Y' >> ../run/john-local.conf
 echo 'OpenBSD-SoftRAID = Y' >> ../run/john-local.conf
 echo 'dpapimk = Y' >> ../run/john-local.conf
-#echo 'mscash2 = Y' >> ../run/john-local.conf # (find out if it fails)
 echo 'timeroast = Y' >> ../run/john-local.conf # fails on BE
 echo 'iwork = Y' >> ../run/john-local.conf
 echo 'ethereum = Y' >> ../run/john-local.conf
@@ -61,21 +60,21 @@ echo 'bf-opencl = Y' >> ../run/john-local.conf
 echo 'gpg-opencl = Y' >> ../run/john-local.conf
 echo 'krb5pa-md5-opencl = Y' >> ../run/john-local.conf
 echo 'mscash2-opencl = Y' >> ../run/john-local.conf
-#echo 'nt-opencl = Y' >> ../run/john-local.conf # (find out if it fails)
-echo 'ntlmv2-opencl = Y' >> ../run/john-local.conf
 echo 'o5logon-opencl = Y' >> ../run/john-local.conf
-echo 'rawmd5-opencl = Y' >> ../run/john-local.conf
-echo 'rawmd4-opencl = Y' >> ../run/john-local.conf
 echo 'raw-SHA512-free-opencl = Y' >> ../run/john-local.conf  # Inefficient
 echo 'xsha512-free-opencl = Y' >> ../run/john-local.conf     # Inefficient
-echo 'mysqlsha1-opencl = Y' >> ../run/john-local.conf
 echo 'mscash-opencl = Y' >> ../run/john-local.conf
-echo 'sl3-opencl = Y' >> ../run/john-local.conf
-echo 'rawsha1-opencl = Y' >> ../run/john-local.conf
 echo 'salted_sha-opencl = Y' >> ../run/john-local.conf
-echo 'bitlocker-opencl = Y' >> ../run/john-local.conf
+echo 'bitlocker-opencl = Y' >> ../run/john-local.conf # Very slow format
 echo 'keepass-opencl = Y' >> ../run/john-local.conf
 echo 'pgpdisk-opencl = Y' >> ../run/john-local.conf #FAILED (cmp_all(49)) Intel OpenCL CPU
+# echo 'nt-opencl = Y' >> ../run/john-local.conf Check if c5b84c8a fixed the issue
+# echo 'ntlmv2-opencl = Y' >> ../run/john-local.conf Check if c5b84c8a fixed the issue
+# echo 'rawmd5-opencl = Y' >> ../run/john-local.conf Check if c5b84c8a fixed the issue
+# echo 'rawmd4-opencl = Y' >> ../run/john-local.conf Check if c5b84c8a fixed the issue
+# echo 'mysqlsha1-opencl = Y' >> ../run/john-local.conf Check if c5b84c8a fixed the issue
+# echo 'sl3-opencl = Y' >> ../run/john-local.conf  Check if c5b84c8a fixed the issue
+# echo 'rawsha1-opencl = Y' >> ../run/john-local.conf Check if c5b84c8a fixed the issue
 
 # Kernel <lotus5> was successfully vectorized (8)
 # Done.
@@ -88,28 +87,15 @@ echo 'pgpdisk-opencl = Y' >> ../run/john-local.conf #FAILED (cmp_all(49)) Intel 
 # Fuzzing: as400-ssha1, AS400-SaltedSHA1 [?] in UTF-8 mode... Segmentation fault
 # Fuzzing: AxCrypt [PBKDF2-SHA512/SHA1 AES 32/64]... Segmentation fault
 
-#
-
-#    ## Delete files instead. We no longer can disable a format ##
-# rm -rf opencl_rar_fmt_plug.c racf_fmt_plug.c opencl_wpapsk_fmt_plug.c opencl_ssh_fmt_plug.c \
-#        pbkdf2-hmac-md4_fmt_plug.c  pbkdf2-hmac-md5_fmt_plug.c opencl_bf_fmt_plug.c \
-#        opencl_gpg_fmt_plug.c opencl_krb5pa-md5_fmt_plug.c opencl_mscash2_fmt_plug.c \
-#        opencl_nt_fmt_plug.c  opencl_ntlmv2_fmt_plug.c opencl_rawmd4_fmt_plug.c \
-#        opencl_rawmd5_fmt_plug.c opencl_rawsha512_fmt_plug.c opencl_xsha512_fmt_plug.c \
-#        opencl_mysqlsha1_fmt_plug.c opencl_mscash_fmt_plug.c opencl_sl3_fmt_plug.c \
-#        opencl_rawsha1_fmt_plug.c opencl_salted_sha_fmt_plug.c opencl_bitlocker_fmt_plug.c \
-#        opencl_keepass_fmt_plug.c opencl_pgpdisk_fmt_plug.c \
-#        opencl_DES_fmt_plug.c
-
 # TS OpenCL
 # OpenCL descrypt builds for all 4096 salts, it is unusable inside CI
 rm -rf opencl_rar_fmt_plug.c racf_fmt_plug.c opencl_wpapsk_fmt_plug.c \
        opencl_mscash_fmt_plug.c opencl_mscash2_fmt_plug.c \
-       opencl_ntlmv2_fmt_plug.c \
        opencl_rawsha512_fmt_plug.c opencl_xsha512_fmt_plug.c \
        opencl_DES_fmt_plug.c opencl_DES_bs_plug.c \
        opencl_DES_bs_b_plug.c opencl_DES_bs_f_plug.c opencl_DES_bs_h_plug.c \
        opencl_krb5pa-md5_fmt_plug.c opencl_nt_fmt_plug.c
+       #opencl_ntlmv2_fmt_plug.c \
 
 # TS --internal
 rm -rf adxcrypt_fmt_plug.c pbkdf2-hmac-md4_fmt_plug.c \
