@@ -47,7 +47,7 @@ if [[ $2 == "BUILD" ]]; then
 
     if [[ $TARGET_ARCH == "x86_64" || $TARGET_ARCH == *"NIX"* || $TARGET_ARCH == *"MacOS"* ]]; then
         # Build
-        make -sj4
+        make -sj $(nproc)
 
         echo
         echo '-- Build Info --'

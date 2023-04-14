@@ -20,9 +20,9 @@ function do_build () {
     set -e
 
     if [[ -n "$1" ]]; then
-        make -s clean && make -sj4 && mv ../run/john "$1"
+        make -s clean && make -sj $(nproc) && mv ../run/john "$1"
     else
-        make -s clean && make -sj4
+        make -s clean && make -sj $(nproc)
     fi
     set +e
 }
