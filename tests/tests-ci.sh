@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 ######################################################################
-# Copyright (c) 2019 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2023 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -10,23 +10,6 @@
 # the Free Software Foundation, as expressed in version 2, seen at
 # http://www.gnu.org/licenses/gpl-2.0.html
 ######################################################################
-
-function do_Copy_Dlls(){
-    echo
-    echo '-- Copying Dlls --'
-
-    basepath="/usr/$TARGET_ARCH-w64-mingw32/sys-root/mingw/bin"
-
-    cp "$basepath"/libgomp-1.dll ../run
-    cp "$basepath"/libgmp-10.dll ../run
-    cp "$basepath"/libbz2-1.dll ../run
-    cp "$basepath"/libwinpthread-1.dll ../run
-    cp "$basepath"/zlib1.dll ../run
-    cp "$basepath"/libcrypto-1*.dll ../run
-    cp "$basepath"/libssl-1*.dll ../run
-    cp "$basepath"/libgcc_s_seh-1.dll ../run
-    echo '-- Done --'
-}
 
 # ----------- BUILD -----------
 cd src
@@ -52,20 +35,17 @@ source show_info.sh
 # Build and testing
 if [[ $2 == "BUILD" ]]; then
 
-    if [[ -n $WINE ]]; then
-        do_Copy_Dlls
-        export WINEDEBUG=-all
-    fi
-
-    if [[ $TARGET_ARCH == "x86_64" ]]; then
-        ./configure --host=x86_64-w64-mingw32 --build=x86_64-redhat-linux-gnu --target=x86_64-w64-mingw64 CPPFLAGS="-g -gdwarf-2"
+    if [[ $TARGET_ARCH == *"MacOS"* ]]; then
+        brew update
+        brew install openssl libpcap libomp gmp
+        ./configure --enable-werror $ASAN $BUILD_OPTS LDFLAGS="-L/usr/local/opt/libomp/lib -lomp" CPPFLAGS="-I/usr/local/opt/libomp/include"
     fi
 
     if [[ $TARGET_ARCH == *"NIX"* || $TARGET_ARCH == *"ARM"* ]]; then
         ./configure $ASAN $BUILD_OPTS #TODO re-enable wError ./configure --enable-werror $ASAN $BUILD_OPTS
     fi
 
-    if [[ $TARGET_ARCH == "x86_64" || $TARGET_ARCH == *"NIX"* ]]; then
+    if [[ $TARGET_ARCH == "x86_64" || $TARGET_ARCH == *"NIX"* || $TARGET_ARCH == *"MacOS"* ]]; then
         # Build
         make -sj4
 
@@ -76,10 +56,6 @@ if [[ $2 == "BUILD" ]]; then
 
 elif [[ $2 == "TEST" ]]; then
 
-    if [[ -n $WINE ]]; then
-        do_Copy_Dlls
-        export WINEDEBUG=-all
-    fi
     # Required defines
     TEST=";$EXTRA;" # Controls how the test will happen
     arch=$(uname -m)
@@ -93,4 +69,3 @@ elif [[ $2 == "TEST" ]]; then
     wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
     source run_tests.sh
 fi
-

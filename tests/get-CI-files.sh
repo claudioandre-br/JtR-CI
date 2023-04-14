@@ -10,13 +10,7 @@
 # http://www.gnu.org/licenses/gpl-2.0.html
 ######################################################################
 
-# AppVeyor build IDs
-APPVEYOR_64bits="" # Disabled: I'm using Azure packages
-APPVEYOR_32bits="" # Disabled for '-dev' releases
-
 # Flatpak build IDs
-# FLATPAK=""
-# FLATPAK_TEST=""
 # Get pipeline 297118338 info https://gitlab.com/api/v4/projects/12573246/pipelines/297118338
 # Get jobs info               https://gitlab.com/api/v4/projects/12573246/pipelines/297118338/jobs
 
@@ -26,6 +20,15 @@ AZURE_JOB=`cat Build._ID | tr -d '\r'`
 AZURE_PAGE="128"
 AZURE_UID="40224313-b91e-465d-852b-fc4ea516f33e"
 
+# MacOS build IDs
+# MacOS Build
+# https://circleci.com/api/v2/project/github/claudioandre-br/JohnTheRipper/5599/artifacts
+MAC_JOB=5599
+MAC_PAK=$(curl -X GET "https://circleci.com/api/v2/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/artifacts" \
+      -H "Accept: application/json" | \
+      grep -oP '(?<="url":")[^"]*' )
+
+# Flatpak
 GITLAB_JOB=$(curl -s https://gitlab.com/api/v4/projects/12573246/pipelines/ | \
    grep -o -m1 '{"id":[0-9]*' | grep -o '[0-9]*'| head -1)
 FLATPAK=$(curl -s https://gitlab.com/api/v4/projects/12573246/pipelines/$GITLAB_JOB/jobs | \
@@ -54,6 +57,9 @@ wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/raw              
 
 # Azure Windows package log
 wget https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_JOB/logs/$AZURE_PAGE -O winX64_2_buildlog.txt
+
+# MacOS package
+wget $MAC_PAK -O macOS-X64_1_JtR.zip
 
 # The release log file information
 LOG_FILE="Created-on_$(date +%Y-%m-%d).txt"

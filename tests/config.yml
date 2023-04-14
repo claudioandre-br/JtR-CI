@@ -47,7 +47,7 @@ jobs:
         environment:
           TARGET_ARCH: "NIX"
           EXTRA: "full;extra;crack;"
-          BUILD_OPTS: "--disable-openmp" # disabled temporarily -enable-werror 
+          BUILD_OPTS: "--disable-openmp" # disabled temporarily -enable-werror
 
   no-simd:
     <<: *common_linux
@@ -75,7 +75,7 @@ jobs:
         environment:
           TARGET_ARCH: "NIX"
           EXTRA: "full;extra;crack;"
-          BUILD_OPTS: "--enable-openmp-for-fast-formats --enable-simd=avx2" # disabled temporarily -enable-werror 
+          BUILD_OPTS: "--enable-openmp-for-fast-formats --enable-simd=avx2" # disabled temporarily -enable-werror
           OMP_NUM_THREADS: 2
 
   compare-simd:
@@ -109,6 +109,35 @@ jobs:
       - run: wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
       - run: source run_tests.sh
 
+  Mac-OS:
+    macos:
+      xcode: 14.2.0
+    environment:
+      TARGET_ARCH : "MacOS"
+      EXTRA: "full;extra"
+      BUILD_OPTS: "--disable-native-tests --enable-simd=avx"
+      TEST : "MacOS;"
+      BASE : "Apple MacOS"
+
+    steps:
+      - checkout
+      - run:
+          name: Building JtR
+          command: .ci/tests-ci.sh $TARGET_ARCH BUILD
+      - run:
+          name: Testing JtR
+          command: .ci/tests-ci.sh $TARGET_ARCH TEST
+      - run:
+          name: Cleaning
+          command: rm -rf src .git .ci .circleci .azure .editorconfig .gitattributes .github .gitignore .mailmap .pre-commit.sh .travis .travis.yml && rm -rf run/ztex
+      - run:
+          name: Saving Artifact
+          command: zip -vr -9 ../JtR.zip ./
+
+      - store_artifacts:
+          path: ../JtR.zip
+          destination: JtR.zip
+
 workflows:
   version: 2
   build:
@@ -119,6 +148,9 @@ workflows:
       - extras:
           type: approval
       - compare-simd:
+          requires:
+            - extras
+      - Mac-OS:
           requires:
             - extras
       - flatpak:
