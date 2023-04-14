@@ -29,11 +29,11 @@ if [[ -z "$MUTE_SYS_INFO" ]]; then
     echo '--------------------------------'
     free || true
     echo '--------------------------------'
-    cat /etc/*-release
+    cat /etc/*-release || true
     echo '--------------------------------'
-    cat /proc/cpuinfo
+    cat /proc/cpuinfo || true
     echo '--------------------------------'
-    env
+    env || true
     echo '--------------------------------'
 
     if [[ -n "$TRAVIS_COMPILER" ]]; then
@@ -55,9 +55,9 @@ if [[ -z "$MUTE_SYS_INFO" ]]; then
     echo '--------------------------------'
 
     if [[ -x "$(command -v $TMP_CC)" ]]; then
-        "$TMP_CC" --version
+        "$TMP_CC" --version || true
         echo '--------------------------------'
-        "$TMP_CC" -dM -E -x c /dev/null
+        "$TMP_CC" -dM -E -x c /dev/null || true
         echo '--------------------------------'
     fi
 
