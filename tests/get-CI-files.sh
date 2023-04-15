@@ -23,8 +23,10 @@ AZURE_UID="40224313-b91e-465d-852b-fc4ea516f33e"
 # MacOS build IDs
 # MacOS Build
 # https://circleci.com/api/v2/project/github/claudioandre-br/JohnTheRipper/5599/artifacts
-MAC_JOB=5599
-MAC_PAK=$(curl -X GET "https://circleci.com/api/v2/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/artifacts" \
+MAC_JOB=$(curl -s https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper \ |
+      jq 'first(.[] | select(.workflows.job_name == "Mac-OS" and .status == "success")) | .build_num')
+
+MAC_PACKAGE=$(curl -X GET "https://circleci.com/api/v2/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/artifacts" \
       -H "Accept: application/json" | \
       grep -oP '(?<="url":")[^"]*' )
 
@@ -41,7 +43,7 @@ FLATPAK=$(curl -s https://gitlab.com/api/v4/projects/12573246/pipelines/$GITLAB_
 #   grep -o 'build-link">#[0-9]*' | grep -o '[0-9]*' | \
 #   sed -n '1p')
 
-echo "Deploy de: '$FLATPAK' e '$FLATPAK_TEST'."
+echo "Deploy de: '$FLATPAK' e '$MAC_JOB'."
 
 # AppVeyor (32 bits) ###########################################################
 if [[ -n "$APPVEYOR_32bits"  ]]; then
@@ -59,7 +61,8 @@ wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/raw              
 wget https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_JOB/logs/$AZURE_PAGE -O winX64_2_buildlog.txt
 
 # MacOS package
-wget $MAC_PAK -O macOS-X64_1_JtR.zip
+wget $MAC_PACKAGE -O macOS-X64_1_JtR-experimental.zip
+wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/102/0?file=true -O macOS_2_buildlog.txt
 
 # The release log file information
 LOG_FILE="Created-on_$(date +%Y-%m-%d).txt"

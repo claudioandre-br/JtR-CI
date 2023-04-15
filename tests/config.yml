@@ -133,7 +133,9 @@ jobs:
           command: rm -rf src .git .ci .circleci .azure .editorconfig .gitattributes .github .gitignore .mailmap .pre-commit.sh .travis .travis.yml && rm -rf run/ztex
       - run:
           name: Saving Artifact
-          command: zip -vr -9 ../JtR.zip ./
+          command: |
+            zip -vr -9 ../JtR.zip ./
+            sha256sum *.zip
 
       - store_artifacts:
           path: ../JtR.zip
