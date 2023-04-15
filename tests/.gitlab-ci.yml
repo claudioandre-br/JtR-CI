@@ -1,9 +1,6 @@
 # Fedora docker image.
 image: ghcr.io/claudioandre-br/john-ci:fedora.37.flatpak
 
-services:
-  - docker:dind
-
 build:
   stage: build
   artifacts:
