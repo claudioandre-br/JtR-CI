@@ -150,24 +150,30 @@ workflows:
   build:
     jobs:
       - linux-Ubuntu-Dev
-      - linux-Fedora
       - make-check
+      - no-simd
+
+      - no-omp
+      - no-simd-omp:
+          requires:
+            - no-omp
+
+      - linux-Fedora
+      - omp-fast-formats:
+          requires:
+            - linux-Fedora
+
+      - mac-package:
+          type: approval
+      - Mac-OS:
+          requires:
+            - mac-package
+
       - extras:
           type: approval
       - compare-simd:
           requires:
             - extras
-      - Mac-OS:
-          requires:
-            - extras
       - flatpak:
           requires:
             - extras
-      - no-omp
-      - no-simd-omp:
-          requires:
-            - no-omp
-      - no-simd
-      - omp-fast-formats:
-          requires:
-            - linux-Fedora
