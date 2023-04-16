@@ -73,10 +73,17 @@ if [[ -z "${TEST##*extra*}" ]]; then
     $JTR_BIN --stdout --mask='ab[ö,¿|\?,e|¡,!]' --internal-codepage=ISO-8859-1
     echo "====> mask T2: 2 lines, at the end"
     echo magnum | $JTR_BIN -stdout -stdin -mask='?w[01]'
-    echo "====> mask T3 A: 2 lines, at the end, encoding"
-    echo müller | iconv -f UTF-8 -t cp850 | $JTR_BIN -inp=cp850 -stdout -stdin -mask='?W[01]'
-    echo "====> mask T3 B: 3 lines, encoding"
-    $JTR_BIN -stdout --mask='ab[ö|c]' -target-enc=cp437
+
+    # Fails on Lauchpad, Ubuntu 22.
+    if [[ -z "$SNAP_REVISION" ]]; then
+        #   UnicodeDecodeError: 'utf-8' codec can't decode byte 0x9a in position 30: invalid start byte
+        echo "====> mask T3 A: 2 lines, at the end, encoding"
+        echo müller | iconv -f UTF-8 -t cp850 | $JTR_BIN -inp=cp850 -stdout -stdin -mask='?W[01]'
+
+        #   UnicodeDecodeError: 'utf-8' codec can't decode byte 0x94 in position 2: invalid start byte
+        echo "====> mask T3 B: 3 lines, encoding"
+        $JTR_BIN -stdout --mask='ab[ö|c]' -target-enc=cp437
+    fi
     echo
 
     echo "====> T4:"

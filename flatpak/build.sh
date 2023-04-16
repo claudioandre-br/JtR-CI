@@ -71,6 +71,7 @@ if [[ -z "$TASK" ]]; then
     echo "OpenMP, OpenCL=No" >> ../run/Defaults
     echo "Optional Libraries=Yes" >> ../run/Defaults
     echo "Regex, OpenMPI, Experimental Code, ZTEX=No" >> ../run/Defaults
+    echo "Version=$(../package_version.sh)" >> ../run/Defaults
 
 elif [[ "$TASK" == "test" ]]; then
     # "---------------------------- TESTING -----------------------------"
