@@ -9,7 +9,7 @@
 # http://www.gnu.org/licenses/gpl-2.0.html
 ######################################################################
 
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 LABEL maintainer Claudio André (c) 2017-2023 1.0.OpenCL
 LABEL software CI for John the Ripper
 
@@ -17,7 +17,7 @@ RUN apt-get update -qq && \
     apt-get install -y \
         build-essential libssl-dev yasm libgmp-dev libpcap-dev pkg-config debhelper libnet1-dev \
         libbz2-dev wget llvm libomp-dev zlib1g-dev git clang afl zzuf \
-        libpocl-dev ocl-icd-libopencl1 pocl-opencl-icd opencl-headers && \
+        libpocl-dev ocl-icd-opencl-dev ocl-icd-libopencl1 pocl-opencl-icd opencl-headers && \
     useradd -U -m JtR && \
     ln -s /usr/lib/x86_64-linux-gnu/libOpenCL.so.1 /usr/lib/x86_64-linux-gnu/libOpenCL.so
 
