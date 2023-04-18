@@ -30,8 +30,8 @@ stages:
     steps:
       - template: .azure/windows-ci.yml
 
-  - job: Ubuntu_1804
-    displayName: Ubuntu 18.04
+  - job: Pocl
+    displayName: Ubuntu 22 w/ OpenCL POCL
     pool:
       vmImage: 'ubuntu-latest'
     container:
