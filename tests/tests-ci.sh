@@ -37,7 +37,7 @@ if [[ $2 == "BUILD" ]]; then
 
     if [[ $TARGET_ARCH == *"MacOS"* ]]; then
         brew update
-        brew install openssl libpcap libomp gmp
+        brew install openssl libpcap libomp gmp coreutils
         ./configure --enable-werror $ASAN $BUILD_OPTS LDFLAGS="-L/usr/local/opt/libomp/lib -lomp" CPPFLAGS="-Xclang -fopenmp -I/usr/local/opt/libomp/include"
     fi
 
