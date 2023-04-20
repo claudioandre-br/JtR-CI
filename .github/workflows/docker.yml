@@ -1,5 +1,5 @@
 ######################################################################
-# Copyright (c) 2021 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2021-2023 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -26,9 +26,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - image-tag: fedora.37
+          - image-tag: fedora.latest
             dockerfile: Dockerfile.FLatest
-          - image-tag: fedora.37.flatpak
+          - image-tag: fedora.flatpak
             dockerfile: Dockerfile.flatpak.package
           - image-tag: ubuntu.opencl
             dockerfile: Dockerfile.OpenCL

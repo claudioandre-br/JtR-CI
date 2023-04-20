@@ -9,16 +9,13 @@
 # http://www.gnu.org/licenses/gpl-2.0.html
 ######################################################################
 
-FROM fedora:37
+FROM fedora:latest
 LABEL maintainer Claudio André (c) 2017-2023 1.0.Latest
 LABEL software CI for John the Ripper
 
 RUN dnf -y -q update && \
-    dnf -y  --skip-broken  install \
-        mingw32-gcc mingw64-gcc mingw32-gcc-c++ mingw64-gcc-c++ mingw32-libgomp mingw64-libgomp \
-        mingw32-openssl mingw64-openssl mingw32-gmp mingw64-gmp mingw32-bzip2 mingw64-bzip2 \
-        mingw32-wine-gecko mingw64-wine-gecko \
-        @development-tools wine openssl-devel gmp-devel libpcap-devel bzip2-devel wget \
+    dnf -y    install \
+        @development-tools openssl-devel gmp-devel libpcap-devel bzip2-devel wget \
         clang libasan libubsan libtsan american-fuzzy-lop zzuf pocl-devel \
         american-fuzzy-lop-clang-fast && \
     useradd -U -m JtR
