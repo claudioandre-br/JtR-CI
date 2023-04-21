@@ -55,14 +55,18 @@ if [[ -z "$TASK" ]]; then
         ./configure $X86_REGULAR   --enable-simd=avx512bw CPPFLAGS="-D_BOXED -DOMP_FALLBACK_BINARY=\"\\\"john-avx512bw\\\"\" -DCPU_FALLBACK_BINARY=\"\\\"john-avx512f-omp\\\"\"" && do_build ../run/john-avx512bw-omp
 
         #Create a 'john' executable
-        ln -s ../run/john-avx512bw-omp ../run/john
+        cd ../run
+        ln -s john-avx512bw-omp john
+        cd -
     else
         # Non X86 CPU (OMP fallback)
         ./configure $OTHER_NO_OPENMP   CPPFLAGS="-D_BOXED" && do_build "../run/john-$arch"
         ./configure $OTHER_REGULAR     CPPFLAGS="-D_BOXED -DOMP_FALLBACK_BINARY=\"\\\"john-$arch\\\"\"" && do_build ../run/john-omp
 
         #Create a 'john' executable
-        ln -s ../run/john-omp ../run/john
+        cd ../run
+        ln -s john-omp john
+        cd -
     fi
     # Save information about how the binaries were built
     echo "[Build Configuration]" > ../run/Defaults
