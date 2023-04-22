@@ -28,6 +28,10 @@ if [[ "$EXTRA" == "SIMD" ]]; then
     apt-get -y install wget
 fi
 
+if [[ $TARGET_ARCH == *"SOLARIS"* && $2 == "BUILD" ]]; then
+    pkg install --accept gcc
+fi
+
 TASK_RUNNING="$2"
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/show_info.sh
 source show_info.sh
@@ -35,10 +39,22 @@ source show_info.sh
 # Build and testing
 if [[ $2 == "BUILD" ]]; then
 
+    # Make it a reproducible build
+    if [[ -n "$_JUMBO_RELEASE" ]]; then
+        echo "Deploying the release $_JUMBO_RELEASE"
+        git pull --unshallow
+        git checkout "$_JUMBO_RELEASE"
+    fi
+
     if [[ $TARGET_ARCH == *"MacOS"* ]]; then
         brew update
         brew install openssl libpcap libomp gmp coreutils
         ./configure --enable-werror $ASAN $BUILD_OPTS LDFLAGS="-L/usr/local/opt/libomp/lib -lomp" CPPFLAGS="-Xclang -fopenmp -I/usr/local/opt/libomp/include"
+    fi
+
+    if [[ $TARGET_ARCH == *"SOLARIS"* ]]; then
+        ./configure $BUILD_OPTS
+        gmake -sj $(nproc)
     fi
 
     if [[ $TARGET_ARCH == *"NIX"* || $TARGET_ARCH == *"ARM"* ]]; then
@@ -49,10 +65,10 @@ if [[ $2 == "BUILD" ]]; then
         # Build
         make -sj $(nproc)
 
-        echo
-        echo '-- Build Info --'
-        $WINE $JTR --list=build-info
     fi
+    echo
+    echo '-- Build Info --'
+    $WINE $JTR --list=build-info
 
 elif [[ $2 == "TEST" ]]; then
 
