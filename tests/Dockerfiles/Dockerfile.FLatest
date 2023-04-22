@@ -17,7 +17,7 @@ RUN dnf -y -q update && \
     dnf -y    install \
         @development-tools openssl-devel gmp-devel libpcap-devel bzip2-devel wget \
         clang libasan libubsan libtsan american-fuzzy-lop zzuf pocl-devel \
-        american-fuzzy-lop-clang-fast && \
+        american-fuzzy-lop-clang && \
     useradd -U -m JtR
 
 USER JtR
