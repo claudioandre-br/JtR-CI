@@ -25,6 +25,7 @@ mkdir -p .azure/
 mkdir -p .ci/
 mkdir -p .circleci/
 mkdir -p .travis/
+mkdir -p .github/workflows
 
 # Script that disable formats
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/disable_formats.sh
@@ -60,6 +61,9 @@ wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/travi
 
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/tests-ci.sh   -P .ci/
 
+# GitHub Actions YAML file and scripts
+wget https://raw.githubusercontent.com/openwall/john-packages/main/deploy/Solaris-Delivery.yml        -O .github/workflows/main.yml
+
 chmod +x disable_formats.sh
 chmod +x .travis/CI-tests.sh
 chmod +x .travis/travis-ci.sh
@@ -73,6 +77,7 @@ git add .travis.yml
 git add .travis/
 git add appveyor.yml
 git add azure-pipelines.yml
+git add .github/workflows/main.yml
 
 # Ban all problematic formats (disable buggy formats)
 # If a formats fails its tests on super, I will burn it.
