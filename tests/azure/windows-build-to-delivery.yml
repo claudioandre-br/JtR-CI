@@ -34,12 +34,6 @@ steps:
             git checkout $JUMBO_RELEASE
         }
 
-        #  Windows 2012 does not have Chocolatey installed
-        if ($env:SYSTEM_PHASENAME -eq "Windows_2012") {
-            Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-            choco install -y 7zip.install
-        }
-
         # If needed (CygWin is not installed) or as a workaround (CygWin update is required)
         if ($env:Cygwin -eq "install") {
             Write-Host "--------------------------------------------------------"
@@ -93,16 +87,16 @@ steps:
 
         # CPU (OMP and extensions fallback)
         shell "./configure $EXE_NO_OMP --enable-simd=sse2                                                                                                                                                  && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-sse2"
-        shell "./configure $EXE_NORMAL --enable-simd=sse2  CPPFLAGS='-DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-sse2\\\`"\`" '                                                                      && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-sse2-omp"
+        shell "./configure $EXE_NORMAL --enable-simd=sse2  CPPFLAGS='-DOMP_FALLBACK_BINARY=\`"\\\`"john-sse2\\\`"\`" '                                                                      && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-sse2-omp"
         shell "./configure $EXE_NO_OMP --enable-simd=avx                                                                                                                                                   && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx"
-        shell "./configure $EXE_NORMAL --enable-simd=avx   CPPFLAGS='-DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx\\\`"\`"   -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-sse2-omp\\\`"\`" '  && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx-omp"
+        shell "./configure $EXE_NORMAL --enable-simd=avx   CPPFLAGS='-DOMP_FALLBACK_BINARY=\`"\\\`"john-avx\\\`"\`"   -DCPU_FALLBACK_BINARY=\`"\\\`"john-sse2-omp\\\`"\`" '  && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx-omp"
         shell "./configure $EXE_NO_OMP --enable-simd=avx2                                                                                                                                                  && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx2"
-        shell "./configure $EXE_NORMAL --enable-simd=avx2  CPPFLAGS='-DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`"  -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx-omp\\\`"\`" '   && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx2-omp"
+        shell "./configure $EXE_NORMAL --enable-simd=avx2  CPPFLAGS='-DOMP_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`"  -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx-omp\\\`"\`" '   && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx2-omp"
 
         shell "./configure $EXE_NO_OMP --enable-simd=avx512f  CPPFLAGS='-fno-asynchronous-unwind-tables '                                                                                                                                          && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx512f"
-        shell "./configure $EXE_NORMAL --enable-simd=avx512f  CPPFLAGS='-fno-asynchronous-unwind-tables -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx512f\\\`"\`"  -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2-omp\\\`"\`" '    && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx512f-omp"
+        shell "./configure $EXE_NORMAL --enable-simd=avx512f  CPPFLAGS='-fno-asynchronous-unwind-tables -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx512f\\\`"\`"  -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx2-omp\\\`"\`" '    && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx512f-omp"
         shell "./configure $EXE_NO_OMP --enable-simd=avx512bw CPPFLAGS='-fno-asynchronous-unwind-tables '                                                                                                                                          && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx512bw"
-        shell "./configure $EXE_NORMAL --enable-simd=avx512bw CPPFLAGS='-fno-asynchronous-unwind-tables -DOMP_FALLBACK -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx512bw\\\`"\`" -DCPU_FALLBACK -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx512f-omp\\\`"\`" ' && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx512bw-omp"
+        shell "./configure $EXE_NORMAL --enable-simd=avx512bw CPPFLAGS='-fno-asynchronous-unwind-tables -DOMP_FALLBACK_BINARY=\`"\\\`"john-avx512bw\\\`"\`" -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx512f-omp\\\`"\`" ' && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx512bw-omp"
         $EXE_NAME = "john-avx512bw-omp.exe"
 
         # Configure OpenCL ICD
@@ -147,10 +141,6 @@ steps:
         xcopy $cygwinFolder\cygOpenCL-1.dll     ..\run\
         xcopy $cygwinFolder\cyggcc_s-seh-1.dll  ..\run\
 
-        # Save CygWin Dlls
-        mkdir ..\lib
-        xcopy $cygwinFolder\*.dll               ..\lib\
-
         # The after_build ######################################################
         cd $env:JTR_FOLDER\run
 
@@ -159,7 +149,7 @@ steps:
       displayName: 'Build JtR'
 
     - powershell: |
-        "$env:BUILD_BUILDID" | Out-File -FilePath C:\Build._ID -Encoding ASCII -Append
+        "$env:BUILD_BUILDID" | Out-File -FilePath C:\Build._ID -NoNewline -Encoding ASCII -Append
 
       displayName: 'Save the Buid ID value'
 
@@ -205,15 +195,10 @@ steps:
         rmdir "%JTR_FOLDER%\.github"   /s /Q
         rmdir "%JTR_FOLDER%\.travis"   /s /Q
 
-        if exist "dir.txt" 7z a -tzip debug_logs.zip "dir.txt" > nul
         if exist "%JTR_FOLDER%\src\config.log" 7z a -tzip debug_logs.zip "%JTR_FOLDER%\src\config.log" > nul
         if exist "%JTR_FOLDER%\src\configure" 7z a -tzip debug_logs.zip "%JTR_FOLDER%\src\configure" > nul
         if exist "%JTR_FOLDER%\src\Makefile" 7z a -tzip debug_logs.zip "%JTR_FOLDER%\src\Makefile" > nul
         move debug_logs.zip c:\
-
-        REM # Save the DLLs zip file
-        if exist "%JTR_FOLDER%\lib" 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on "optional.7z" "%JTR_FOLDER%\lib"
-        move optional.7z c:\
 
         REM # Remove non distributable files
         rmdir "%JTR_FOLDER%\lib" /s /Q

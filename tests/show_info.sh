@@ -24,8 +24,7 @@ if [[ -z "$MUTE_SYS_INFO" ]]; then
     echo 'Build system information'
     echo '--------------------------------'
 
-    uname -m; id
-    uname -a
+    uname -m; id; uname -a; uname -mrsp
     echo '--------------------------------'
     free || true
     echo '--------------------------------'
