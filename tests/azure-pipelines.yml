@@ -119,7 +119,7 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     container:
-      image: claudioandre/john:ubuntu.opencl_J558.3
+      image: ghcr.io/claudioandre-br/john-ci:ubuntu.opencl
 
     variables:
       TARGET_ARCH: "NIX"
