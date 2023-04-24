@@ -1,5 +1,0 @@
-- run regular CI;
-  - check if CI is Ok;
-- run GitLab (build the Flatpak app);
-- run Launchpad (build the Snap app);
-- run Docker Action (build the Docker image).
