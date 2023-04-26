@@ -1,5 +1,5 @@
 # Fedora docker image.
-image: ghcr.io/claudioandre-br/john-ci:fedora.37.flatpak
+image: ghcr.io/claudioandre-br/john-ci:fedora.flatpak
 
 build:
   stage: build

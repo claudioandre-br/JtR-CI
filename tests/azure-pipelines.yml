@@ -62,7 +62,7 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     container:
-      image: ghcr.io/claudioandre-br/john-ci:fedora.37
+      image: ghcr.io/claudioandre-br/john-ci:fedora.latest
       options: --user=root
     variables:
       TARGET_ARCH: "NIX"
