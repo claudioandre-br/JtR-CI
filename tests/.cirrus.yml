@@ -61,9 +61,6 @@ freebsd_task:
     - run/john --list=build-info
 
   test_script:
-    - wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/tests-ci.sh -O .ci/tests-ci.sh
-    - chmod +x .ci/tests-ci.sh
-
     - .ci/tests-ci.sh $TARGET_ARCH TEST
 
 macos_task:
@@ -81,6 +78,7 @@ macos_task:
     EXTRA: "full;extra"
     TEST : "MacOS;"
     BASE : "Apple MacOS M1"
+    DEPLOY_PAK : "Yes"
 
   pkginstall_script:
     - brew update
@@ -108,12 +106,11 @@ macos_task:
     - run/john --list=build-info
 
   test_script:
-    - wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/tests-ci.sh -O .ci/tests-ci.sh
-    - chmod +x .ci/tests-ci.sh
-
     - .ci/tests-ci.sh $TARGET_ARCH TEST
 
-    - rm -rf src .git .ci .circleci .cirrus.yml .azure .editorconfig .gitattributes .github .gitignore .mailmap .pre-commit.sh .travis .travis.yml && rm -rf run/ztex
+    - wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/clean_package.sh -O .ci/clean_package.sh
+    - source .ci/clean_package.sh
+
     - zip -vr -9 ../JtR.zip ./
     - sha256sum ../*.zip || true
     - cp ../JtR.zip JtR.zip
