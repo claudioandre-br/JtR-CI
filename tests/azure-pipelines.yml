@@ -17,6 +17,9 @@
 # the Free Software Foundation, as expressed in version 2, seen at
 # http://www.gnu.org/licenses/gpl-2.0.html
 ###############################################################################
+# Azure DevOps CI configuration
+# More info at https://github.com/openwall/john-packages
+
 stages:
 - stage: basic
   displayName: Acceptance Test
