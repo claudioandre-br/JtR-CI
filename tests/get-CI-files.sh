@@ -1,5 +1,14 @@
 #!/bin/bash
-######################################################################
+###############################################################################
+#       _       _             _   _            _____  _
+#       | |     | |           | | | |          |  __ \(_)
+#       | | ___ | |__  _ __   | |_| |__   ___  | |__) |_ _ __  _ __   ___ _ __
+#   _   | |/ _ \| '_ \| '_ \  | __| '_ \ / _ \ |  _  /| | '_ \| '_ \ / _ \ '__|
+#  | |__| | (_) | | | | | | | | |_| | | |  __/ | | \ \| | |_) | |_) |  __/ |
+#   \____/ \___/|_| |_|_| |_|  \__|_| |_|\___| |_|  \_\_| .__/| .__/ \___|_|
+#                                                       | |   | |
+#                                                       |_|   |_|
+#
 # Copyright (c) 2019-2023 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
@@ -8,7 +17,9 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, as expressed in version 2, seen at
 # http://www.gnu.org/licenses/gpl-2.0.html
-######################################################################
+###############################################################################
+# Obtain packages for GitHub Release
+# More info at https://github.com/openwall/john-packages
 
 # Flatpak build IDs
 # Get pipeline 297118338 info https://gitlab.com/api/v4/projects/12573246/pipelines/297118338
@@ -61,9 +72,9 @@ wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/raw              
 wget https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_JOB/logs/$AZURE_PAGE -O winX64_2_buildlog.txt
 
 # MacOS package
-wget $MAC_PACKAGE -O macOS-X64_1_JtR-experimental.zip
+wget $MAC_PACKAGE                                                                                            -O macOS-X64_1_JtR-experimental.zip
 wget https://api.cirrus-ci.com/v1/artifact/github/claudioandre-br/JohnTheRipper/macOS%20M1/binaries/JtR.zip  -O macOS-ARM_1_JtR-experimental.zip
-wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/102/0?file=true -O macOS_2_buildlog.txt
+wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/102/0?file=true -O macOS-X64_2_buildlog.txt
 wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/105/0?file=true -O /tmp/macOS_3_buildlog.txt
 
 # The release log file information
