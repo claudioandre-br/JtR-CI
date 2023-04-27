@@ -62,6 +62,7 @@ wget https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_
 
 # MacOS package
 wget $MAC_PACKAGE -O macOS-X64_1_JtR-experimental.zip
+wget https://api.cirrus-ci.com/v1/artifact/github/claudioandre-br/JohnTheRipper/macOS%20M1/binaries/JtR.zip  -O macOS-ARM_1_JtR-experimental.zip
 wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/102/0?file=true -O macOS_2_buildlog.txt
 wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/105/0?file=true -O /tmp/macOS_3_buildlog.txt
 
