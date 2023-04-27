@@ -75,7 +75,11 @@ wget https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_
 wget $MAC_PACKAGE                                                                                            -O macOS-X64_1_JtR-experimental.zip
 wget https://api.cirrus-ci.com/v1/artifact/github/claudioandre-br/JohnTheRipper/macOS%20M1/binaries/JtR.zip  -O macOS-ARM_1_JtR-experimental.zip
 wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/102/0?file=true -O macOS-X64_2_buildlog.txt
-wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/105/0?file=true -O /tmp/macOS_3_buildlog.txt
+wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/105/0?file=true -O /tmp/macOS-X64_2_buildlog.txt
+
+CIRRUS_JOB_ID="5494890772037632"
+wget https://api.cirrus-ci.com/v1/task/$CIRRUS_JOB_ID/logs/test.log                                             -O macOS-ARM_2_buildlog.txt
+wget https://api.cirrus-ci.com/v1/task/$CIRRUS_JOB_ID/logs/test.log                                             -O /tmp/macOS-ARM_2_buildlog.txt
 
 # The release log file information
 LOG_FILE="Created-on_$(date +%Y-%m-%d).txt"
@@ -105,7 +109,8 @@ echo -e "== Values for confirmation" >> $LOG_FILE
 grep -woE  '*.{64}  john.flatpak' flatpak_2_buildlog.txt                      >> $LOG_FILE
 grep -woE  '*.{64}       C:\\win_x64.7z' winX64_2_buildlog.txt                >> $LOG_FILE
 grep -woE  '*.{64}       D:\\a\\1\\JtR\\run\\john.exe' winX64_2_buildlog.txt  >> $LOG_FILE
-grep -woE  '*.{64}  ../JtR.zip'   /tmp/macOS_3_buildlog.txt                   >> $LOG_FILE
+grep -woE  '*.{64}  ../JtR.zip'   /tmp/macOS-X64_2_buildlog.txt               >> $LOG_FILE
+grep -woE  '*.{64}  ../JtR.zip'   /tmp/macOS-ARM_2_buildlog.txt               >> $LOG_FILE
 
 # Keep only the files that are going to be used by the release
 rm -f john.flatpak Build._ID
