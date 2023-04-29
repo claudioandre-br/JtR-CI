@@ -57,9 +57,6 @@ freebsd_task:
     - ./configure "$BUILD_OPS"
     - gmake "$MAKE_FLAGS"
 
-  check_script:
-    - run/john --list=build-info
-
   test_script:
     - .ci/tests-ci.sh $TARGET_ARCH TEST
 
@@ -101,9 +98,6 @@ macos_task:
     # Format crash on M1
     - echo '[Local:Disabled:Formats]' >> ../run/john-local.conf
     - echo 'SunMD5 = Y' >> ../run/john-local.conf
-
-  check_script:
-    - run/john --list=build-info
 
   test_script:
     - .ci/tests-ci.sh $TARGET_ARCH TEST
