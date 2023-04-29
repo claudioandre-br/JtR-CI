@@ -70,6 +70,12 @@ if [[ -z "${TEST##*;full;*}" ]]; then
     report "-test-full=0 --format=cpu"
 fi
 
+if [[ -z "${TEST##*;full-no-omp;*}" ]]; then
+    echo "------------------------- test full no OpenMP ------------------------"
+    OMP_NUM_THREADS=1 $JTR_BIN -test-full=0 --format=cpu
+    report "OMP_NUM_THREADS=1 -test-full=0 --format=cpu"
+fi
+
 if [[ -z "${TEST##*extra*}" ]]; then
     echo "--------------------------- extras ---------------------------"
     echo "====> mask T1 A: 9 lines"
@@ -123,11 +129,7 @@ if [[ -z "${TEST##*extra*}" ]]; then
     $JTR_BIN ~/tests.in --format=sha512crypt --mask=jo?l[n-q]
     report "--format=sha512crypt --mask=jo?l[n-q]"
 
-    echo "====> T13: fallback"
-    export OMP_NUM_THREADS=1
-    $JTR_BIN --list=build-info
-    report "$JTR_BIN --list=build-info"
-
+    echo "====> T13: tune"
     echo "------------------------------------------------------------------"
     $JTR_BIN -test=0 --format=sha1crypt --verb=5 --tune=report
     report "--format=sha1crypt --verb=5 --tune=report"
@@ -137,6 +139,10 @@ if [[ -z "${TEST##*extra*}" ]]; then
     report "--format=sha512crypt --verb=5 --tune=report"
     echo "------------------------------------------------------------------"
     echo
+
+    echo "====> T14: fallback"
+    OMP_NUM_THREADS=1 $JTR_BIN --list=build-info
+    report "OMP_NUM_THREADS=1 $JTR_BIN --list=build-info"
 
     if [[ -n "$JTR_CL" ]]; then
         echo "====> T20:"
@@ -262,7 +268,7 @@ if [[ -z "${TEST##*SIMD*}" ]]; then
     /john/run/john-avx512bw-omp  --test=10 --format=SHA512crypt
     /john/run/john-avx512bw      --test=10 --format=SHA512crypt
 
-    total=$((total + 18))
+    total=$((total + 10))
 fi
 
 if [[ -z "${TEST##*OpenCL-full*}" ]]; then
