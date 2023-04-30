@@ -37,7 +37,7 @@ freebsd_task:
   env:
     CIRRUS_CLONE_DEPTH: "10"
     BUILD_OPS: ""
-    MAKE_FLAGS: "-sj $(nproc)"
+    MAKE_FLAGS: "-sj4"
     TARGET_ARCH : "FreeBSD"
     EXTRA: "full;extra"
     TEST : "FreeBSD;"
@@ -45,12 +45,10 @@ freebsd_task:
 
   pkginstall_script:
     - pkg update -f
-    - pkg install -y devel/gmake wget perl5
+    - pkg install -y devel/gmake wget perl5 bash
 
   info_script:
-    - wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/tests-ci.sh -O .ci/tests-ci.sh
-    - chmod +x .ci/tests-ci.sh
-    - .ci/tests-ci.sh $TARGET_ARCH INFO
+    - bash .ci/tests-ci.sh $TARGET_ARCH INFO
 
   build_script:
     - cd src
@@ -58,7 +56,7 @@ freebsd_task:
     - gmake "$MAKE_FLAGS"
 
   test_script:
-    - .ci/tests-ci.sh $TARGET_ARCH TEST
+    - bash .ci/tests-ci.sh $TARGET_ARCH TEST
 
 macos_task:
   name: macOS M1
