@@ -42,6 +42,7 @@ freebsd_task:
     EXTRA: "full;extra"
     TEST : "FreeBSD;"
     BASE : "Unix like FreeBSD"
+    IGNORE_OSVERSION: "yes" # debug: try to skip a FreeBSD version mismatch seeing in v. 14.
 
   pkginstall_script:
     - pkg update -f
