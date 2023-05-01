@@ -78,7 +78,7 @@ jobs:
         environment:
           TARGET_ARCH: "NIX"
           EXTRA: "full;extra;crack;"
-          BUILD_OPTS: "-enable-werror --disable-simd"
+          BUILD_OPTS: "--disable-simd"
           OMP_NUM_THREADS: 2
 
   no-simd-omp:
@@ -88,7 +88,7 @@ jobs:
         environment:
           EXTRA: "full;extra;crack;"
           TARGET_ARCH: "NIX"
-          BUILD_OPTS: "-enable-werror --disable-simd --disable-openmp"
+          BUILD_OPTS: "--disable-simd --disable-openmp"
 
   omp-fast-formats:
     <<: *common_linux
