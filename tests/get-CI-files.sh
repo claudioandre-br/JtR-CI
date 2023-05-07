@@ -31,9 +31,7 @@ AZURE_JOB=`cat Build._ID | tr -d '\r'`
 AZURE_PAGE="128"
 AZURE_UID="40224313-b91e-465d-852b-fc4ea516f33e"
 
-# MacOS build IDs
 # MacOS Build
-# https://circleci.com/api/v2/project/github/claudioandre-br/JohnTheRipper/5599/artifacts
 MAC_JOB=$(curl -s https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper \ |
       jq 'first(.[] | select(.workflows.job_name == "Mac-OS" and .status == "success")) | .build_num')
 
@@ -46,13 +44,6 @@ GITLAB_JOB=$(curl -s https://gitlab.com/api/v4/projects/12573246/pipelines/ | \
    grep -o -m1 '{"id":[0-9]*' | grep -o '[0-9]*'| head -1)
 FLATPAK=$(curl -s https://gitlab.com/api/v4/projects/12573246/pipelines/$GITLAB_JOB/jobs | \
    grep -o -m1 '{"id":[0-9]*,"status":"success"' | grep -o '[0-9]*' | sed -n '2p')
-
-# FLATPAK=$(curl -s https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/ | \
-#   grep -o 'build-link">#[0-9]*' | grep -o '[0-9]*' | \
-#   sed -n '2p')
-# FLATPAK_TEST=$(curl -s https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/ | \
-#   grep -o 'build-link">#[0-9]*' | grep -o '[0-9]*' | \
-#   sed -n '1p')
 
 echo "Deploy de: '$FLATPAK' e '$MAC_JOB'."
 
@@ -86,7 +77,6 @@ LOG_FILE="Created-on_$(date +%Y-%m-%d).txt"
 
 GIT_TEXT=$(git ls-remote -q https://github.com/openwall/john.git HEAD | cut -c 1-40)
 WIN_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' winX64_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
-# FLATPAK_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' /tmp/flatpak_3_testlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
 FLATPAK_TEXT=$(grep -m1 '1.9J1+' flatpak_2_buildlog.txt)
 
 # Create the contents of the log file
@@ -105,7 +95,7 @@ sha256sum *.7z  | tee --append $LOG_FILE
 sha256sum john.flatpak | tee --append $LOG_FILE
 
 echo -e "\n=================================================================================" >> $LOG_FILE
-echo -e "== Values for confirmation" >> $LOG_FILE
+echo -e "== Values obtained from the logs, for confirmation" >> $LOG_FILE
 grep -woE  '*.{64}  john.flatpak' flatpak_2_buildlog.txt                      >> $LOG_FILE
 grep -woE  '*.{64}       C:\\win_x64.7z' winX64_2_buildlog.txt                >> $LOG_FILE
 grep -woE  '*.{64}       D:\\a\\1\\JtR\\run\\john.exe' winX64_2_buildlog.txt  >> $LOG_FILE
