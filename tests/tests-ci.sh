@@ -71,9 +71,11 @@ if [[ $2 == "BUILD" ]]; then
     fi
 
     if [[ $TARGET_ARCH == "x86_64" || $TARGET_ARCH == *"NIX"* || $TARGET_ARCH == *"MacOS"* ]]; then
-        # Build
-        make -sj $(nproc)
-
+        if [[ -n "$MAKE_FLAGS" ]]; then
+            make "$MAKE_FLAGS"
+        else
+            make -sj $(nproc)
+        fi
     fi
     echo
     echo '-- Build Info --'
