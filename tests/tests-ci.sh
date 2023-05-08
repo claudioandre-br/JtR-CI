@@ -25,6 +25,7 @@ cd src
 
 # Setup testing environment
 JTR=../run/john
+arch=$(uname -m)
 
 # Control System Information presentation
 if [[ $2 == "TEST" ]]; then
@@ -45,6 +46,52 @@ TASK_RUNNING="$2"
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/show_info.sh
 source show_info.sh
 
+function do_build () {
+    set -e
+
+    if [[ -n "$MAKE_CMD" ]]; then
+        MAKE=$MAKE_CMD
+    else
+        MAKE=make
+    fi
+
+    if [[ -z "$MAKE_FLAGS" ]]; then
+        MAKE_FLAGS="-sj $(nproc)"
+    fi
+
+    if [[ -n "$1" ]]; then
+        $MAKE -s clean && $MAKE $MAKE_FLAGS && mv ../run/john "$1"
+    else
+        $MAKE -s clean && $MAKE $MAKE_FLAGS
+    fi
+    set +e
+}
+
+function do_release () {
+    set -e
+
+    #Create a 'john' executable
+    cd ../run
+    ln -s john-omp john
+    cd -
+
+    # Save information about how the binaries were built
+    echo "[Build Configuration]" > ../run/Defaults
+    echo "System Wide Build=No" >> ../run/Defaults
+    echo "Architecture=$arch" >> ../run/Defaults
+    echo "OpenMP=No" >> ../run/Defaults
+    echo "OpenCL=Yes" >> ../run/Defaults
+    echo "Optional Libraries=Yes" >> ../run/Defaults
+    echo "Regex, OpenMPI, Experimental Code, ZTEX=No" >> ../run/Defaults
+
+    # The script that computes the package version
+    wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/package_version.sh
+    chmod +x package_version.sh
+    echo "Version=$(./package_version.sh)" >> ../run/Defaults
+
+    set +e
+}
+
 # Build and testing
 if [[ $2 == "BUILD" ]]; then
 
@@ -56,26 +103,37 @@ if [[ $2 == "BUILD" ]]; then
     fi
 
     if [[ $TARGET_ARCH == *"MacOS"* ]]; then
+        SYSTEM_WIDE=''
+        REGULAR="$SYSTEM_WIDE $ASAN $BUILD_OPTS"
+        NO_OPENMP="--disable-openmp $SYSTEM_WIDE $ASAN $BUILD_OPTS"
+
         brew update
         brew install openssl libpcap libomp gmp coreutils
-        ./configure --enable-werror $ASAN $BUILD_OPTS LDFLAGS="-L/usr/local/opt/libomp/lib -lomp" CPPFLAGS="-Xclang -fopenmp -I/usr/local/opt/libomp/include"
+
+        if [[ $TARGET_ARCH == *"MacOS ARM"* ]]; then
+            brew link openssl --force
+        fi
+
+        if [[ $TARGET_ARCH == *"MacOS X86"* ]]; then
+            ./configure $NO_OPENMP && do_build "../run/john-$arch"
+            ./configure $REGULAR   LDFLAGS="-L/usr/local/opt/libomp/lib -lomp" CPPFLAGS="-Xclang -fopenmp -I/usr/local/opt/libomp/include -DOMP_FALLBACK_BINARY=\"\\\"john-$arch\\\"\" " && do_build ../run/john-omp
+
+        else
+            ./configure $NO_OPENMP LDFLAGS="-L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/gmp/lib" CPPFLAGS="-I/opt/homebrew/opt/openssl/include -I/opt/homebrew/opt/gmp/include"  && do_build "../run/john-$arch"
+            ./configure $REGULAR   LDFLAGS="-L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/libomp/lib -lomp -L/opt/homebrew/opt/gmp/lib" CPPFLAGS="-Xclang -fopenmp -I/opt/homebrew/opt/openssl/include -I/opt/homebrew/opt/libomp/include -I/opt/homebrew/opt/gmp/include -DOMP_FALLBACK_BINARY=\"\\\"john-$arch\\\"\" "  && do_build ../run/john-omp
+        fi
+        do_release
     fi
 
     if [[ $TARGET_ARCH == *"SOLARIS"* ]]; then
-        ./configure $BUILD_OPTS
-        gmake -sj $(nproc)
+        ./configure $ASAN $BUILD_OPTS
+        export MAKE_CMD=gmake
+        do_build
     fi
 
-    if [[ $TARGET_ARCH == *"NIX"* || $TARGET_ARCH == *"ARM"* ]]; then
-        ./configure $ASAN $BUILD_OPTS #TODO re-enable wError ./configure --enable-werror $ASAN $BUILD_OPTS
-    fi
-
-    if [[ $TARGET_ARCH == "x86_64" || $TARGET_ARCH == *"NIX"* || $TARGET_ARCH == *"MacOS"* ]]; then
-        if [[ -n "$MAKE_FLAGS" ]]; then
-            make "$MAKE_FLAGS"
-        else
-            make -sj $(nproc)
-        fi
+    if [[ $TARGET_ARCH == *"NIX"* ]]; then
+        ./configure $ASAN $BUILD_OPTS
+        do_build
     fi
     echo
     echo '-- Build Info --'

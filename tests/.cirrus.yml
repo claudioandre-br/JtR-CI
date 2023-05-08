@@ -70,16 +70,11 @@ macos_task:
     BUILD_OPS: "--build=aarch64-apple-darwin"
     CC : "clang"
     MAKE_FLAGS: "-sj4"
-    TARGET_ARCH : "MacOS"
+    TARGET_ARCH : "MacOS ARM"
     EXTRA: "full;extra"
     TEST : "MacOS;"
     BASE : "Apple MacOS M1"
     DEPLOY_PAK : "Yes"
-
-  pkginstall_script:
-    - brew update
-    - brew install openssl libpcap libomp gmp coreutils
-    - brew link openssl --force
 
   info_script:
     - git clone --depth 10 https://github.com/openwall/john.git ~/tmp
@@ -87,19 +82,17 @@ macos_task:
 
     - wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/tests-ci.sh -O .ci/tests-ci.sh
     - chmod +x .ci/tests-ci.sh
-    - .ci/tests-ci.sh $TARGET_ARCH INFO
+    - .ci/tests-ci.sh "$TARGET_ARCH" INFO
 
   build_script:
-    - cd src
-    - ./configure $BUILD_OPS LDFLAGS="-L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/libomp/lib -lomp -L/opt/homebrew/opt/gmp/lib" CPPFLAGS="-Xclang -fopenmp -I/opt/homebrew/opt/openssl/include -I/opt/homebrew/opt/libomp/include -I/opt/homebrew/opt/gmp/include"
-    - make "$MAKE_FLAGS"
+    - .ci/tests-ci.sh "$TARGET_ARCH" BUILD
 
     # Format crash on M1
-    - echo '[Local:Disabled:Formats]' >> ../run/john-local.conf
-    - echo 'SunMD5 = Y' >> ../run/john-local.conf
+    - echo '[Local:Disabled:Formats]' >> run/john-local.conf
+    - echo 'SunMD5 = Y' >> run/john-local.conf
 
   test_script:
-    - .ci/tests-ci.sh $TARGET_ARCH TEST
+    - .ci/tests-ci.sh "$TARGET_ARCH" TEST
 
     - wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/clean_package.sh -O .ci/clean_package.sh
     - source .ci/clean_package.sh

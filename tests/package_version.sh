@@ -10,7 +10,7 @@
 #                                                       | |   | |
 #                                                       |_|   |_|
 #
-# Copyright (c) 2019-2022 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2023 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -26,6 +26,9 @@
 #########################################################################
 
 # It might be outside a git repository. A git describe will not work.
+if [[ true ]]; then
+    git rev-parse --short=7 HEAD 2>/dev/null > My_VERSION.TXT
+fi
 git_tag=$(cat My_VERSION.TXT)
 
 # View package version

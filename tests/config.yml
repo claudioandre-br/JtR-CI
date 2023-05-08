@@ -144,7 +144,7 @@ jobs:
     macos:
       xcode: 14.2.0
     environment:
-      TARGET_ARCH : "MacOS"
+      TARGET_ARCH : "MacOS X86"
       EXTRA: "full;extra"
       BUILD_OPTS: "--disable-native-tests --enable-simd=avx"
       CC : "clang"
@@ -157,14 +157,16 @@ jobs:
           command: |
             git clone --depth 10 https://github.com/openwall/john.git ~/tmp
             cp -r ~/tmp/. .
+
             wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/tests-ci.sh -O .ci/tests-ci.sh
             chmod +x .ci/tests-ci.sh
+            .ci/tests-ci.sh "$TARGET_ARCH" INFO
       - run:
           name: Building JtR
-          command: .ci/tests-ci.sh $TARGET_ARCH BUILD
+          command: .ci/tests-ci.sh "$TARGET_ARCH" BUILD
       - run:
           name: Testing JtR
-          command: .ci/tests-ci.sh $TARGET_ARCH TEST
+          command: .ci/tests-ci.sh "$TARGET_ARCH" TEST
       - run:
           name: Cleaning
           command: rm -rf src .git .ci .circleci .azure .editorconfig .gitattributes .github .gitignore .mailmap .pre-commit.sh .travis .travis.yml && rm -rf run/ztex

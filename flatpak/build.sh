@@ -41,10 +41,8 @@ source ../show_info.sh
 source ../run_build.sh
 
 if [[ -z "$TASK" ]]; then
-    # Set package version
-    git rev-parse --short=7 HEAD 2>/dev/null > My_VERSION.TXT
-
     # The script that computes the package version
+    echo -n "Flatpak Commit is: "
     source ../package_version.sh
 
     echo ""
