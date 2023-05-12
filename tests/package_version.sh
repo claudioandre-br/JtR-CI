@@ -20,23 +20,16 @@
 # http://www.gnu.org/licenses/gpl-2.0.html
 ###############################################################################
 
-#########################################################################
-# Get the package version from git
-#
-#########################################################################
+git_tag=$(git rev-parse --short=7 HEAD 2>/dev/null)
+ID=$(curl -s https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/Release.ID 2>/dev/null)
 
-# It might be outside a git repository. A git describe will not work.
-if [[ true ]]; then
-    git rev-parse --short=7 HEAD 2>/dev/null > My_VERSION.TXT
+if [[ -z "$ID" ]]; then
+    ID="1.9J1+"
 fi
-git_tag=$(cat My_VERSION.TXT)
-
-# View package version
-echo "1.9J1+$git_tag"   #TODO: edit before release (JUMBO_RELEASE)
-#echo "roll+$git_tag"   #TODO: edit before release (JUMBO_RELEASE)
+echo "$ID$git_tag"
 
 # Release example
-# 1.9J2-07f7216a
+# 1.9J2-07f7216
 
 # Develepment example (post Jumbo 2)
-# 1.9J2+c9825e6S
+# 1.9J2+c9825e6
