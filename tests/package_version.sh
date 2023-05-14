@@ -23,7 +23,7 @@
 git_tag=$(git rev-parse --short=7 HEAD 2>/dev/null)
 ID=$(curl -s https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/Release.ID 2>/dev/null)
 
-if [[ -z "$ID" ]]; then
+if [[ -z "$ID" || "$ID" == "404: Not Found" ]]; then
     ID="1.9J1+"
 fi
 echo "$ID$git_tag"
