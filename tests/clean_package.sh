@@ -35,6 +35,6 @@ rm -rf ../run/ztex
 
 # Cleanup to deploy
 if [[ -n "$DEPLOY_PAK"  ]]; then
-    rm -rf src .git .ci .circleci .cirrus.yml .azure .editorconfig .gitattributes \
+    rm -rf src appveyor.yml azure-pipelines.yml .git .ci .circleci .cirrus.yml .azure .editorconfig .gitattributes \
           .github .gitignore .mailmap .pre-commit.sh .travis .travis.yml && rm -rf run/ztex
 fi

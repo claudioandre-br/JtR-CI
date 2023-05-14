@@ -43,7 +43,7 @@ MAC_PACKAGE=$(curl -X GET "https://circleci.com/api/v2/project/github/claudioand
 GITLAB_JOB=$(curl -s https://gitlab.com/api/v4/projects/12573246/pipelines/ | \
    grep -o -m1 '{"id":[0-9]*' | grep -o '[0-9]*'| head -1)
 FLATPAK=$(curl -s https://gitlab.com/api/v4/projects/12573246/pipelines/$GITLAB_JOB/jobs | \
-   grep -o -m1 '{"id":[0-9]*,"status":"success"' | grep -o '[0-9]*' | sed -n '2p')
+   grep -o -m1 '{"id":[0-9]*,"status":"success"' | grep -o '[0-9]*' | sed -n '1p')
 
 echo "Deploy de: '$FLATPAK' e '$MAC_JOB'."
 
@@ -100,7 +100,7 @@ grep -woE  '*.{64}  john.flatpak' flatpak_2_buildlog.txt                      >>
 grep -woE  '*.{64}       C:\\win_x64.7z' winX64_2_buildlog.txt                >> $LOG_FILE
 grep -woE  '*.{64}       D:\\a\\1\\JtR\\run\\john.exe' winX64_2_buildlog.txt  >> $LOG_FILE
 grep -woE  '*.{64}  ../JtR.zip'   /tmp/macOS-X64_2_buildlog.txt               >> $LOG_FILE
-grep -woE  '*.{64}  ../JtR.zip'   /tmp/macOS-ARM_2_buildlog.txt               >> $LOG_FILE
+grep -woE  --text '*.{64}  ../JtR.zip'   /tmp/macOS-ARM_2_buildlog.txt               >> $LOG_FILE
 
 # Keep only the files that are going to be used by the release
 rm -f john.flatpak Build._ID
