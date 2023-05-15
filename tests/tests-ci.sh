@@ -137,7 +137,7 @@ if [[ $2 == "BUILD" ]]; then
     fi
     echo
     echo '-- Build Info --'
-    $WINE $JTR --list=build-info
+    $WINE $JTR --list=build-info || true
 
 elif [[ $2 == "TEST" ]]; then
 
