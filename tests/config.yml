@@ -108,7 +108,8 @@ jobs:
         environment:
           TARGET_ARCH: "DOCKER"
           EXTRA: "SIMD"
-          OMP_NUM_THREADS: 2
+          OMP_NUM_THREADS: 4
+    resource_class: large
 
   flatpak:
     machine:

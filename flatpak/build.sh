@@ -42,7 +42,7 @@ source ../run_build.sh
 
 if [[ -z "$TASK" ]]; then
     # The script that computes the package version
-    echo -n "Flatpak Commit is: "
+    echo -n "Flatpak Commit "
     source ../package_version.sh
 
     echo ""
