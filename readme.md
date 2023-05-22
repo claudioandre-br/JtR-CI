@@ -10,7 +10,7 @@
 > John the Ripper password cracker
 
 [Openwall](http://openwall.com/) John the Ripper (JtR) is a fast password cracker,
-currently available for many flavors of Unix, Windows, DOS, and OpenVMS. Its primary
+currently available for many flavors of Unix and Windows. Its primary
 purpose is to detect weak Unix passwords. Besides several crypt(3) password hash
 types most commonly found on various Unix systems, supported out of the box are
 Windows LM hashes, plus lots of other hashes and ciphers.
