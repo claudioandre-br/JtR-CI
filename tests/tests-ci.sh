@@ -108,7 +108,7 @@ if [[ $2 == "BUILD" ]]; then
         NO_OPENMP="--disable-openmp $SYSTEM_WIDE $ASAN $BUILD_OPTS"
 
         brew update
-        brew install openssl libpcap libomp gmp coreutils
+        brew install openssl libpcap libomp gmp coreutils p7zip
 
         if [[ $TARGET_ARCH == *"MacOS ARM"* ]]; then
             brew link openssl --force
