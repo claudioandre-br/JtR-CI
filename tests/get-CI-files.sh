@@ -28,7 +28,7 @@
 # Azure build ID
 # Get the build id from the building environment
 AZURE_JOB=`cat Build._ID | tr -d '\r'`
-AZURE_PAGE="128"
+AZURE_PAGE="90"
 AZURE_UID="40224313-b91e-465d-852b-fc4ea516f33e"
 
 # MacOS Build
@@ -68,7 +68,7 @@ wget https://api.cirrus-ci.com/v1/artifact/github/claudioandre-br/JohnTheRipper/
 wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/102/0?file=true -O macOS-X64_2_buildlog.txt
 wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/105/0?file=true -O /tmp/macOS-X64_2_buildlog.txt
 
-CIRRUS_JOB_ID="6531165314613248"
+CIRRUS_JOB_ID="4602252518752256"
 wget https://api.cirrus-ci.com/v1/task/$CIRRUS_JOB_ID/logs/test.log                                             -O macOS-ARM_2_buildlog.txt
 wget https://api.cirrus-ci.com/v1/task/$CIRRUS_JOB_ID/logs/test.log                                             -O /tmp/macOS-ARM_2_buildlog.txt
 
