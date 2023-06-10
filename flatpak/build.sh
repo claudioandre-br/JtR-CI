@@ -19,6 +19,8 @@
 # the Free Software Foundation, as expressed in version 2, seen at
 # http://www.gnu.org/licenses/gpl-2.0.html
 ###############################################################################
+# Script to automate the build of john the ripper
+# More info at https://github.com/openwall/john-packages
 
 # Required defines
 TEST=';full;extra;' # Controls how the test will happen
