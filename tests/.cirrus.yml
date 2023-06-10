@@ -90,18 +90,14 @@ macos_task:
     # Format crash on M1
     - echo '[Local:Disabled:Formats]' >> run/john-local.conf
     - echo 'SunMD5 = Y' >> run/john-local.conf
-
-  test_script:
     - .ci/tests-ci.sh "$TARGET_ARCH" TEST
 
+  package_script:
     - wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/clean_package.sh -O .ci/clean_package.sh
     - source .ci/clean_package.sh
 
     - 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on JtR-macArm.7z ./
     - sha256sum JtR-macArm.7z || true
-
-  # Saving build artifacts.
-  # https://api.cirrus-ci.com/v1/artifact/github/claudioandre-br/JohnTheRipper/macOS%20M1/binaries/JtR-macArm.7z
 
   always:
     binaries_artifacts:

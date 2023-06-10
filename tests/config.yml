@@ -151,6 +151,7 @@ jobs:
       CC : "clang"
       TEST : "MacOS;"
       BASE : "Apple MacOS"
+      DEPLOY_PAK : "Yes"
 
     steps:
       - run:
@@ -164,16 +165,15 @@ jobs:
             .ci/tests-ci.sh "$TARGET_ARCH" INFO
       - run:
           name: Building JtR
-          command: .ci/tests-ci.sh "$TARGET_ARCH" BUILD
-      - run:
-          name: Testing JtR
-          command: .ci/tests-ci.sh "$TARGET_ARCH" TEST
-      - run:
-          name: Cleaning
-          command: rm -rf src .git .ci .circleci .azure .editorconfig .gitattributes .github .gitignore .mailmap .pre-commit.sh .travis .travis.yml && rm -rf run/ztex
+          command: |
+            .ci/tests-ci.sh "$TARGET_ARCH" BUILD
+            .ci/tests-ci.sh "$TARGET_ARCH" TEST
       - run:
           name: Saving package
           command: |
+            wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/clean_package.sh -O .ci/clean_package.sh
+            source .ci/clean_package.sh
+
             7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on JtR-macX86.7z ./
             sha256sum JtR-macX86.7z || true
 
