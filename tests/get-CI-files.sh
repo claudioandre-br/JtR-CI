@@ -65,8 +65,8 @@ wget https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_
 # MacOS package
 wget $MAC_PACKAGE                                                                                                  -O macOS-X64_1_JtR-experimental.7z
 wget https://api.cirrus-ci.com/v1/artifact/github/claudioandre-br/JohnTheRipper/macOS%20M1/binaries/JtR-macArm.7z  -O macOS-ARM_1_JtR-experimental.7z
-wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/102/0?file=true -O macOS-X64_2_buildlog.txt
-wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/105/0?file=true -O /tmp/macOS-X64_2_buildlog.txt
+wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/103/0?file=true -O macOS-X64_2_buildlog.txt      # Real log
+wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/105/0?file=true -O /tmp/macOS-X64_2_buildlog.txt # Checksum
 
 CIRRUS_JOB_ID="4602252518752256"
 wget https://api.cirrus-ci.com/v1/task/$CIRRUS_JOB_ID/logs/test.log                                             -O macOS-ARM_2_buildlog.txt
@@ -78,12 +78,16 @@ LOG_FILE="Created-on_$(date +%Y-%m-%d).txt"
 GIT_TEXT=$(git ls-remote -q https://github.com/openwall/john.git HEAD | cut -c 1-40)
 WIN_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' winX64_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
 FLATPAK_TEXT=$(grep -m1 'Flatpak Commit' flatpak_2_buildlog.txt)
+MAC1_TEXT=$(grep -m1 --text 'Version: 1.9.0-jumbo-1+bleeding' /tmp/macOS-ARM_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
+MAC2_TEXT=$(grep -m1 --text 'Version: 1.9.0-jumbo-1+bleeding' macOS-X64_2_buildlog.txt      | sed -e "s|.*Version: \(.*\).*|\1|")
 
 # Create the contents of the log file
 echo "The release date is $(date). I'm Azure on behalf of Claudio." >  $LOG_FILE
 echo "=================================================================================" >> $LOG_FILE
 echo "Git bleeding repository is at: $GIT_TEXT" >> $LOG_FILE
 echo "Windows is at: $WIN_TEXT" >> $LOG_FILE
+echo "Mac ARM is at: $MAC1_TEXT" >> $LOG_FILE
+echo "Mac X86 is at: $MAC2_TEXT" >> $LOG_FILE
 echo "Flatpak is at: $FLATPAK_TEXT" >> $LOG_FILE
 
 echo -e "\n=================================================================================" >> $LOG_FILE
