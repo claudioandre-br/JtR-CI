@@ -72,7 +72,7 @@ function do_release () {
 
     #Create a 'john' executable
     cd ../run
-    ln -s john-omp john
+    ln -s "$1" john
     cd -
 
     # Save information about how the binaries were built
@@ -115,14 +115,17 @@ if [[ $2 == "BUILD" ]]; then
         fi
 
         if [[ $TARGET_ARCH == *"MacOS X86"* ]]; then
-            ./configure $NO_OPENMP && do_build "../run/john-$arch"
-            ./configure $REGULAR   LDFLAGS="-L/usr/local/opt/libomp/lib -lomp" CPPFLAGS="-Xclang -fopenmp -I/usr/local/opt/libomp/include -DOMP_FALLBACK_BINARY=\"\\\"john-$arch\\\"\" " && do_build ../run/john-omp
-
+            ./configure $NO_OPENMP --enable-simd=avx && do_build ../run/john-avx
+            ./configure $REGULAR   --enable-simd=avx  LDFLAGS="-L/usr/local/opt/libomp/lib -lomp" CPPFLAGS="-Xclang -fopenmp -I/usr/local/opt/libomp/include -DOMP_FALLBACK_BINARY=\"\\\"john-avx\\\"\" " && do_build ../run/john-avx-omp
+            ./configure $NO_OPENMP --enable-simd=avx2 && do_build ../run/john-avx2
+            ./configure $REGULAR   --enable-simd=avx2 LDFLAGS="-L/usr/local/opt/libomp/lib -lomp" CPPFLAGS="-Xclang -fopenmp -I/usr/local/opt/libomp/include -DOMP_FALLBACK_BINARY=\"\\\"john-avx2\\\"\" -DCPU_FALLBACK_BINARY=\"\\\"john-avx-omp\\\"\" " && do_build ../run/john-avx2-omp
+            BINARY="john-avx2-omp"
         else
             ./configure $NO_OPENMP LDFLAGS="-L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/gmp/lib" CPPFLAGS="-I/opt/homebrew/opt/openssl/include -I/opt/homebrew/opt/gmp/include"  && do_build "../run/john-$arch"
             ./configure $REGULAR   LDFLAGS="-L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/libomp/lib -lomp -L/opt/homebrew/opt/gmp/lib" CPPFLAGS="-Xclang -fopenmp -I/opt/homebrew/opt/openssl/include -I/opt/homebrew/opt/libomp/include -I/opt/homebrew/opt/gmp/include -DOMP_FALLBACK_BINARY=\"\\\"john-$arch\\\"\" "  && do_build ../run/john-omp
+            BINARY="john-omp"
         fi
-        do_release
+        do_release $BINARY
     fi
 
     if [[ $TARGET_ARCH == *"SOLARIS"* ]]; then

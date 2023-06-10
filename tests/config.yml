@@ -147,7 +147,7 @@ jobs:
     environment:
       TARGET_ARCH : "MacOS X86"
       EXTRA: "full;extra"
-      BUILD_OPTS: "--disable-native-tests --enable-simd=avx"
+      BUILD_OPTS: "--disable-native-tests"
       CC : "clang"
       TEST : "MacOS;"
       BASE : "Apple MacOS"
