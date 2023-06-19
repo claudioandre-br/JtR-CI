@@ -107,6 +107,20 @@ if [[ $2 == "BUILD" ]]; then
         REGULAR="$SYSTEM_WIDE $ASAN $BUILD_OPTS"
         NO_OPENMP="--disable-openmp $SYSTEM_WIDE $ASAN $BUILD_OPTS"
 
+        #Libraries and Includes
+        if [[ $TARGET_ARCH == *"MacOS X86"* ]]; then
+            MAC_LOCAL_PATH="usr/local/opt"
+        else
+            MAC_LOCAL_PATH="opt/homebrew/opt"
+        fi
+        LDFLAGS_ssl="-L/$MAC_LOCAL_PATH/openssl/lib"
+        LDFLAGS_gmp="-L/$MAC_LOCAL_PATH/gmp/lib"
+        LDFLAGS_omp="-L/$MAC_LOCAL_PATH/libomp/lib -lomp"
+
+        CFLAGS_ssl="-I/$MAC_LOCAL_PATH/openssl/include"
+        CFLAGS_gmp="-I/$MAC_LOCAL_PATH/gmp/include"
+        CFLAGS_omp="-I/$MAC_LOCAL_PATH/libomp/include"
+
         brew update
         brew install openssl libpcap libomp gmp coreutils p7zip
 
@@ -116,13 +130,13 @@ if [[ $2 == "BUILD" ]]; then
 
         if [[ $TARGET_ARCH == *"MacOS X86"* ]]; then
             ./configure $NO_OPENMP --enable-simd=avx && do_build ../run/john-avx
-            ./configure $REGULAR   --enable-simd=avx  LDFLAGS="-L/usr/local/opt/libomp/lib -lomp" CPPFLAGS="-Xclang -fopenmp -I/usr/local/opt/libomp/include -DOMP_FALLBACK_BINARY=\"\\\"john-avx\\\"\" " && do_build ../run/john-avx-omp
+            ./configure $REGULAR   --enable-simd=avx  LDFLAGS="$LDFLAGS_omp" CPPFLAGS="-Xclang -fopenmp $CFLAGS_omp -DOMP_FALLBACK_BINARY=\"\\\"john-avx\\\"\" " && do_build ../run/john-avx-omp
             ./configure $NO_OPENMP --enable-simd=avx2 && do_build ../run/john-avx2
-            ./configure $REGULAR   --enable-simd=avx2 LDFLAGS="-L/usr/local/opt/libomp/lib -lomp" CPPFLAGS="-Xclang -fopenmp -I/usr/local/opt/libomp/include -DOMP_FALLBACK_BINARY=\"\\\"john-avx2\\\"\" -DCPU_FALLBACK_BINARY=\"\\\"john-avx-omp\\\"\" " && do_build ../run/john-avx2-omp
+            ./configure $REGULAR   --enable-simd=avx2 LDFLAGS="$LDFLAGS_omp" CPPFLAGS="-Xclang -fopenmp $CFLAGS_omp -DOMP_FALLBACK_BINARY=\"\\\"john-avx2\\\"\" -DCPU_FALLBACK_BINARY=\"\\\"john-avx-omp\\\"\" " && do_build ../run/john-avx2-omp
             BINARY="john-avx2-omp"
         else
-            ./configure $NO_OPENMP LDFLAGS="-L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/gmp/lib" CPPFLAGS="-I/opt/homebrew/opt/openssl/include -I/opt/homebrew/opt/gmp/include"  && do_build "../run/john-$arch"
-            ./configure $REGULAR   LDFLAGS="-L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/libomp/lib -lomp -L/opt/homebrew/opt/gmp/lib" CPPFLAGS="-Xclang -fopenmp -I/opt/homebrew/opt/openssl/include -I/opt/homebrew/opt/libomp/include -I/opt/homebrew/opt/gmp/include -DOMP_FALLBACK_BINARY=\"\\\"john-$arch\\\"\" "  && do_build ../run/john-omp
+            ./configure $NO_OPENMP LDFLAGS="$LDFLAGS_ssl $LDFLAGS_gmp" CPPFLAGS="$CFLAGS_ssl $CFLAGS_gmp"  && do_build "../run/john-$arch"
+            ./configure $REGULAR   LDFLAGS="$LDFLAGS_ssl $LDFLAGS_gmp $LDFLAGS_omp" CPPFLAGS="-Xclang -fopenmp $CFLAGS_ssl $CFLAGS_gmp $CFLAGS_omp -DOMP_FALLBACK_BINARY=\"\\\"john-$arch\\\"\" "  && do_build ../run/john-omp
             BINARY="john-omp"
         fi
         do_release $BINARY
