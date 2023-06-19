@@ -140,7 +140,7 @@ if [[ -z "${TEST##*extra*}" ]]; then
     echo "------------------------------------------------------------------"
     echo
 
-    echo "====> T14: fallback"
+    echo "====> T14: OMP fallback"
     OMP_NUM_THREADS=1 $JTR_BIN --list=build-info
     report "OMP_NUM_THREADS=1 $JTR_BIN --list=build-info"
 

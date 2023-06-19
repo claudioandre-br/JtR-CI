@@ -33,14 +33,25 @@ if [[ -z "$MUTE_SYS_INFO" ]]; then
     echo 'Build system information'
     echo '--------------------------------'
 
-    uname -m; id; uname -a; uname -mrsp
+    uname; uname -m; id; uname -a; uname -mrsp
     echo '--------------------------------'
-    free || true
-    echo '--------------------------------'
-    cat /etc/*-release || true
-    echo '--------------------------------'
-    cat /proc/cpuinfo || true
-    echo '--------------------------------'
+    HOST_OS=$(uname)
+
+    if [[ "$HOST_OS" == "Linux" ]]; then
+        free || true
+        echo '--------------------------------'
+    fi
+
+    if [[ "$HOST_OS" == "Linux" || "$HOST_OS" == "SunOS" ]]; then
+        cat /etc/*-release || true
+        echo '--------------------------------'
+    fi
+
+    if [[ "$HOST_OS" == "Linux" ]]; then
+        cat /proc/cpuinfo || true
+        echo '--------------------------------'
+    fi
+
     env || true
     echo '--------------------------------'
 
