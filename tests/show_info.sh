@@ -42,6 +42,11 @@ if [[ -z "$MUTE_SYS_INFO" ]]; then
         echo '--------------------------------'
     fi
 
+    if [[ "$HOST_OS" == "Darwin" ]]; then
+        sw_vers || true
+        echo '--------------------------------'
+    fi
+
     if [[ "$HOST_OS" == "Linux" || "$HOST_OS" == "SunOS" ]]; then
         cat /etc/*-release || true
         echo '--------------------------------'
