@@ -18,7 +18,7 @@
 # http://www.gnu.org/licenses/gpl-2.0.html
 ###############################################################################
 
-FROM ubuntu:23.04
+FROM ubuntu:latest
 LABEL maintainer Claudio André (c) 2017-2023 1.0.OpenCL
 LABEL software CI for John the Ripper
 

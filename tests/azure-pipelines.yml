@@ -91,7 +91,7 @@ stages:
   ##############################################################################
   - job: intel_opencl
     displayName: Intel OpenCL CPU
-    timeoutInMinutes: 0
+    timeoutInMinutes: "0"
     pool:
       vmImage: 'ubuntu-latest'
     container:
@@ -192,7 +192,7 @@ stages:
   jobs:
   - job: Windows_2019
     displayName: Windows 2019
-    timeoutInMinutes: 0
+    timeoutInMinutes: "0"
     pool:
       vmImage: 'windows-2019'
     variables:
