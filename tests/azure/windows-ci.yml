@@ -8,7 +8,7 @@
 #                                                       | |   | |
 #                                                       |_|   |_|
 #
-# Copyright (c) 2019 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2023 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -22,7 +22,7 @@ steps:
     - template: windows-system-info.yml
     - template: windows-build-and-test-steps.yml
 
-    - task: DownloadBuildArtifacts@0
+    - task: DownloadBuildArtifacts@1
       inputs:
         buildType: 'current'
         downloadType: 'single'

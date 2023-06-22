@@ -8,7 +8,7 @@
 #                                                       | |   | |
 #                                                       |_|   |_|
 #
-# Copyright (c) 2019 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2023 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -24,22 +24,22 @@ steps:
     # - PublishPipelineArtifact (targetPath)
     # - DownloadPipelineArtifact
     # ############################################################
-    - task: PublishPipelineArtifact@0
+    - task: PublishPipelineArtifact@1
       inputs:
         targetPath: "c:\\win_x$(Bits).7z"
         artifactName: "win_x$(Bits).7z"
 
-    - task: PublishPipelineArtifact@0
+    - task: PublishPipelineArtifact@1
       inputs:
         targetPath: "c:\\Build._ID"
         artifactName: "Build._ID"
 
-    - task: PublishPipelineArtifact@0
+    - task: PublishPipelineArtifact@1
       inputs:
         targetPath: "c:\\debug_logs.zip"
         artifactName: Logs
 
-    - task: PublishPipelineArtifact@0
+    - task: PublishPipelineArtifact@1
       inputs:
         targetPath: "c:\\checksums.txt"
         artifactName: Checksums
