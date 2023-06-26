@@ -235,7 +235,7 @@ jobs:
     - export JTR_CL='flatpak run com.openwall.John'
 
     # Adjust the testing environment, import and run some testing
-    - wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
+    - wget https://raw.githubusercontent.com/openwall/john-packages/main/tests/run_tests.sh
     - source run_tests.sh
   ##############################################################################
 

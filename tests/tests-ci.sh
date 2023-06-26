@@ -168,6 +168,6 @@ elif [[ $2 == "TEST" ]]; then
         JTR_BIN="/john/run/john-sse2"
     fi
 
-    wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/run_tests.sh
+    wget https://raw.githubusercontent.com/openwall/john-packages/main/tests/run_tests.sh
     source run_tests.sh
 fi
