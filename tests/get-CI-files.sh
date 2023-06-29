@@ -78,7 +78,7 @@ LOG_FILE="Created-on_$(date +%Y-%m-%d).txt"
 
 GIT_TEXT=$(git ls-remote -q https://github.com/openwall/john.git HEAD | cut -c 1-40)
 WIN_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' winX64_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
-FLATPAK_TEXT=$(grep -m1 'Flatpak Commit' flatpak_2_buildlog.txt)
+FLATPAK_TEXT=$(grep -m1 '1.9J1' flatpak_2_buildlog.txt)
 MAC1_TEXT=$(grep -m1 --text 'Version: 1.9.0-jumbo-1+bleeding' macOS-ARM_2_buildlog.txt   | sed -e "s|.*Version: \(.*\).*|\1|")
 MAC2_TEXT=$(grep -m1 --text 'Version: 1.9.0-jumbo-1+bleeding' macOS-X64_2_buildlog.txt   | sed -e "s|.*Version: \(.*\).*|\1|")
 
