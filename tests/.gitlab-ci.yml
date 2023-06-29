@@ -34,11 +34,20 @@ build:
 
   script:
     # Build and export the flatpak package
-    - cd flatpak
+    - wget https://github.com/openwall/john-packages/archive/refs/heads/main.zip -O main.zip
+    - unzip main.zip
+    - cp -r tests/ john-packages-main/deploy/
+
+    - cd john-packages-main/deploy/flatpak
+
     - flatpak-builder --repo=repo build com.openwall.John.json
     - flatpak build-bundle repo john.flatpak com.openwall.John
     - cp john.flatpak "$CI_PROJECT_DIR"
+
     - sha256sum john.flatpak
+
+    # Run an application sandbox without having to install it
+    # - flatpak-builder --run build com.openwall.John.json /app/bin/john
 
   environment:
     name: review/$CI_COMMIT_REF_NAME
