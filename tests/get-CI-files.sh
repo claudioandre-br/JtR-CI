@@ -31,7 +31,7 @@ AZURE_JOB=`cat Build._ID | tr -d '\r'`
 AZURE_PAGE="128"
 AZURE_UID="40224313-b91e-465d-852b-fc4ea516f33e"
 
-# MacOS Build
+# macOS Build
 MAC_JOB=$(curl -s https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper \ |
       jq 'first(.[] | select(.workflows.job_name == "Mac-OS" and .status == "success")) | .build_num')
 
@@ -62,7 +62,7 @@ wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/raw              
 # Azure Windows package log
 wget https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_JOB/logs/$AZURE_PAGE -O winX64_2_buildlog.txt
 
-# MacOS package
+# macOS package
 wget $MAC_PACKAGE                                                                                                  -O macOS-X64_1_JtR-experimental.7z
 wget https://api.cirrus-ci.com/v1/artifact/github/claudioandre-br/JohnTheRipper/macOS%20M1/binaries/JtR-macArm.7z  -O macOS-ARM_1_JtR-experimental.7z
 wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/102/0?file=true  -O macOS-X64_2_buildlog.txt      # Real log

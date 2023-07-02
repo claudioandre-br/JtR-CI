@@ -102,13 +102,13 @@ if [[ $2 == "BUILD" ]]; then
         git checkout "$_JUMBO_RELEASE"
     fi
 
-    if [[ $TARGET_ARCH == *"MacOS"* ]]; then
+    if [[ $TARGET_ARCH == *"macOS"* ]]; then
         SYSTEM_WIDE=''
         REGULAR="$SYSTEM_WIDE $ASAN $BUILD_OPTS"
         NO_OPENMP="--disable-openmp $SYSTEM_WIDE $ASAN $BUILD_OPTS"
 
         #Libraries and Includes
-        if [[ $TARGET_ARCH == *"MacOS X86"* ]]; then
+        if [[ $TARGET_ARCH == *"macOS X86"* ]]; then
             MAC_LOCAL_PATH="usr/local/opt"
         else
             MAC_LOCAL_PATH="opt/homebrew/opt"
@@ -124,11 +124,11 @@ if [[ $2 == "BUILD" ]]; then
         brew update
         brew install openssl libpcap libomp gmp coreutils p7zip
 
-        if [[ $TARGET_ARCH == *"MacOS ARM"* ]]; then
+        if [[ $TARGET_ARCH == *"macOS ARM"* ]]; then
             brew link openssl --force
         fi
 
-        if [[ $TARGET_ARCH == *"MacOS X86"* ]]; then
+        if [[ $TARGET_ARCH == *"macOS X86"* ]]; then
             ./configure $NO_OPENMP --enable-simd=avx && do_build ../run/john-avx
             ./configure $REGULAR   --enable-simd=avx  LDFLAGS="$LDFLAGS_omp" CPPFLAGS="-Xclang -fopenmp $CFLAGS_omp -DOMP_FALLBACK_BINARY=\"\\\"john-avx\\\"\" " && do_build ../run/john-avx-omp
             ./configure $NO_OPENMP --enable-simd=avx2 && do_build ../run/john-avx2

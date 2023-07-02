@@ -5,7 +5,7 @@ Deployment Process:
 - run optional CI:  
   - run the optional CI test;
   - run the optional Solaris CI test;
-  - run the optional MacOS CI test;
+  - run the optional macOS CI test;
   - run the optional Android CI test;
 - deploy:
   - run GitLab (build the Flatpak app);
@@ -16,6 +16,7 @@ Deployment Process:
 rm -f get_tests.sh; wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/get_tests.sh; chmod +x get_tests.sh ; ./get_tests.sh
 
 
+# Some testing
 john --list=build-info
 john-the-ripper -list=format-tests | cut -f3 > ~/alltests.in
 john-the-ripper -form=SHA512crypt ~/alltests.in
