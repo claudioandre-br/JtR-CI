@@ -85,7 +85,7 @@ function do_release () {
     echo "Regex, OpenMPI, Experimental Code, ZTEX=No" >> ../run/Defaults
 
     # The script that computes the package version
-    wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/package_version.sh
+    wget https://raw.githubusercontent.com/openwall/john-packages/main/tests/package_version.sh
     chmod +x package_version.sh
     echo "Version=$(./package_version.sh)" >> ../run/Defaults
 
