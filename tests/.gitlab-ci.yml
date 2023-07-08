@@ -34,11 +34,11 @@ build:
 
   script:
     # Build and export the flatpak package
-    - wget https://github.com/openwall/john-packages/archive/refs/heads/main.zip -O main.zip
+    - wget https://github.com/openwall/john-packages/archive/refs/heads/release.zip -O main.zip #TODO undo Me
     - unzip main.zip
-    - cp -r tests/ john-packages-main/deploy/
+    - cp -r tests/ john-packages-release/deploy/ #TODO undo Me
 
-    - cd john-packages-main/deploy/flatpak
+    - cd john-packages-release/deploy/flatpak #TODO undo Me
 
     - flatpak-builder --repo=repo build com.openwall.John.json
     - flatpak build-bundle repo john.flatpak com.openwall.John
