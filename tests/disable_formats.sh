@@ -63,7 +63,7 @@ echo 'wpapsk-pmk-opencl = Y' >> ../run/john-local.conf       #SLOW
 echo 'pbkdf2-hmac-md4-opencl = Y' >> ../run/john-local.conf  # TS
 echo 'pbkdf2-hmac-md5-opencl = Y' >> ../run/john-local.conf  # TS
 
-echo 'ZIP = Y' >> ../run/john-local.conf  # Fails in Circle, AddressSanitizer, issue 5304
+# Check if it is working now. echo 'ZIP = Y' >> ../run/john-local.conf  # Fails in Circle, AddressSanitizer, issue 5304
 
 echo 'ssh-opencl = Y' >> ../run/john-local.conf  # TS, after 1a06dc4deeca5064e690f89724eb3a05469fd162
 
