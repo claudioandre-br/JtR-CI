@@ -161,13 +161,13 @@ elif [[ $2 == "TEST" ]]; then
     # Required defines
     TEST=";$EXTRA;" # Controls how the test will happen
     arch=$(uname -m)
-    JTR_BIN="$WINE $JTR"
+    JTR_BIN=$(echo "$WINE $JTR" | sed -e 's/^[[:space:]]*//')
     JTR_CL=""
 
     if [[ $TARGET_ARCH == "DOCKER" ]]; then
         JTR_BIN="/john/run/john-sse2"
     fi
 
-    wget https://raw.githubusercontent.com/openwall/john-packages/release/tests/run_tests.sh
+    wget https://raw.githubusercontent.com/openwall/john-packages/release/tests/run_tests.sh -O run_tests.sh
     source run_tests.sh
 fi
