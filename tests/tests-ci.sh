@@ -161,7 +161,7 @@ elif [[ $2 == "TEST" ]]; then
     # Required defines
     TEST=";$EXTRA;" # Controls how the test will happen
     arch=$(uname -m)
-    JTR_BIN=$(echo "$WINE $JTR" | sed -e 's/^[[:space:]]*//')
+    JTR_BIN="$WINE$JTR"
     JTR_CL=""
 
     if [[ $TARGET_ARCH == "DOCKER" ]]; then
