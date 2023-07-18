@@ -15,6 +15,8 @@ purpose is to detect weak Unix passwords. Besides several crypt(3) password hash
 types most commonly found on various Unix systems, supported out of the box are
 Windows LM hashes, plus lots of other hashes and ciphers.
 
+[![Downloads](https://img.shields.io/badge/Download-Binary%20Packages-blue.svg)](https://github.com/openwall/john-packages)
+
 ## Extensive Continuous Integration
 
 > Used only for CI of John the Ripper Jumbo
