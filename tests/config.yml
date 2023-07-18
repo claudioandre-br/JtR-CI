@@ -118,7 +118,8 @@ jobs:
       OMP_NUM_THREADS: 2
       TEST: ";full;extra;"
       arch: "x86_64"
-      JTR_BIN: "flatpak run com.openwall.John"
+      JTR_BIN: "john"
+      FLATPAK: "true"
 
     steps:
       - run:
