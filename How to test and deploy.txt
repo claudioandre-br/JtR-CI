@@ -11,6 +11,7 @@ Deployment Process:
   - run GitLab (build the Flatpak app);
   - run Launchpad (build the Snap app);
   - run GitHub Action (build the Docker image).
+  - check if the Windows build log uses the code 128
 - create the Azure Release.
 
 rm -f get_tests.sh; wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/get_tests.sh; chmod +x get_tests.sh ; ./get_tests.sh

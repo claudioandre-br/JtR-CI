@@ -60,6 +60,14 @@ wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/raw              
 # wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK_TEST/raw               -O /tmp/flatpak_3_testlog.txt
 
 # Azure Windows package log
+TLOG1=$(curl -s https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_JOB/logs/ \ |
+  jq '.value[] | select(.id == 123) .lineCount')
+TLOG2=$(curl -s https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_JOB/logs/ \ |
+  jq '.value[] | select(.id == 128) .lineCount')
+
+if [[ $TLOG1 > $TLOG2 ]]; then
+      AZURE_PAGE="123"
+fi
 wget https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_JOB/logs/$AZURE_PAGE -O winX64_2_buildlog.txt
 
 # macOS package
