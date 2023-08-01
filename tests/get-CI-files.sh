@@ -47,12 +47,6 @@ FLATPAK=$(curl -s https://gitlab.com/api/v4/projects/12573246/pipelines/$GITLAB_
 
 echo "Deploy de: '$FLATPAK' e '$MAC_JOB'."
 
-# AppVeyor (32 bits) ###########################################################
-if [[ -n "$APPVEYOR_32bits"  ]]; then
-    wget https://ci.appveyor.com/api/buildjobs/$APPVEYOR_32bits/artifacts/win_x32.7z  -O winX32_1_JtR.7z
-    wget https://ci.appveyor.com/api/buildjobs/$APPVEYOR_32bits/log                   -O winX32_2_buildlog.txt
-fi
-
 # GitLab (Linux Flatpak app) ###################################################
 # The FLATPAK_TEST is used to retrieve package version information
 wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/artifacts/download     -O flatpak_1_JtR.zip
