@@ -20,11 +20,12 @@
 # Gitlab CI configuration
 # More info at https://github.com/openwall/john-packages
 
-# Fedora docker image.
-image: ghcr.io/claudioandre-br/john-ci:fedora.flatpak
-
-build:
+cpu-job:
   stage: build
+  tags:
+  - saas-linux-medium-amd64
+  image: ghcr.io/claudioandre-br/john-ci:fedora.flatpak
+
   artifacts:
     paths:
     - john.flatpak
@@ -38,7 +39,8 @@ build:
     - unzip main.zip
     - cp -r tests/ john-packages-release/deploy/ #TODO undo Me
 
-    - cd john-packages-release/deploy/flatpak #TODO undo Me
+    # To build the package, go to the place the recipe lives
+    - cd john-packages-release/deploy/flatpak
 
     - flatpak-builder --repo=repo build com.openwall.John.json
     - flatpak build-bundle repo john.flatpak com.openwall.John
@@ -46,32 +48,6 @@ build:
 
     - sha256sum john.flatpak
 
-    # Run an application sandbox without having to install it
-    # - flatpak-builder --run build com.openwall.John.json /app/bin/john
-
   environment:
     name: review/$CI_COMMIT_REF_NAME
     url: https://gitlab.com/$CI_PROJECT_PATH/-/jobs/$CI_JOB_ID/artifacts/raw/${BUNDLE}
-
-# deploy:
-#   stage: deploy
-
-#   script:
-#     # Test a previous package
-#     # - wget https://gitlab.com/claudioandre-br/packages/-/jobs/189386446/artifacts/raw/john.flatpak
-
-#     # Install flatpak package
-#     # - flatpak install --user -y --bundle john.flatpak
-
-#     # Do some testing
-#     # CANNOT run flatpak inside Docker since Fedora 36.
-#     # - flatpak run com.openwall.John
-#     # - flatpak run com.openwall.John --list=build-info
-#     - export TEST=';full;extra;' # Controls how the test will happen
-#     - export arch=$(uname -m)
-#     - export JTR_BIN='flatpak run com.openwall.John'
-#     - export JTR_CL='flatpak run com.openwall.John'
-#     - cd flatpak
-
-#     # Adjust the testing environment, import and run some testing
-#     # - ../tests/run_tests.sh
