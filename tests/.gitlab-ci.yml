@@ -51,3 +51,27 @@ cpu-job:
   environment:
     name: review/$CI_COMMIT_REF_NAME
     url: https://gitlab.com/$CI_PROJECT_PATH/-/jobs/$CI_JOB_ID/artifacts/raw/${BUNDLE}
+
+gpu-job:
+  stage: build
+  tags:
+    - saas-linux-medium-amd64 #-gpu-standard
+  image: nvidia/cuda:12.2.0-base-ubuntu22.04
+
+  variables:
+    TARGET_ARCH: "NIX"
+    EXTRA: "full;extra;crack;gpu"
+    BUILD_OPTS: "--enable-werror"
+    BASE : "NVIDIA OpenCL"
+
+  script:
+    - apt-get update -qq
+    - apt-get install -y build-essential libssl-dev yasm libgmp-dev libpcap-dev pkg-config debhelper libnet1-dev
+    - apt-get install -y libbz2-dev wget llvm libomp-dev zlib1g-dev git
+    - apt-get install -y libpocl-dev ocl-icd-opencl-dev ocl-icd-libopencl1 pocl-opencl-icd opencl-headers
+
+    - git clone --depth 10 https://github.com/openwall/john.git ~/tmp
+    - cp -r ~/tmp/. .
+
+    - tests/tests-ci.sh "$TARGET_ARCH" BUILD
+    # - tests/tests-ci.sh "$TARGET_ARCH" TEST
