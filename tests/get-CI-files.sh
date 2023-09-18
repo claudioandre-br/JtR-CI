@@ -65,8 +65,8 @@ fi
 wget https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_JOB/logs/$AZURE_PAGE -O winX64_2_buildlog.txt
 
 # macOS package
-wget $MAC_PACKAGE                                                                                                  -O macOS-X64_1_JtR-experimental.7z
-wget https://api.cirrus-ci.com/v1/artifact/github/claudioandre-br/JohnTheRipper/macOS%20M1/binaries/JtR-macArm.7z  -O macOS-ARM_1_JtR-experimental.7z
+wget $MAC_PACKAGE                                                                                                  -O macOS-X64_1_JtR.7z
+wget https://api.cirrus-ci.com/v1/artifact/github/claudioandre-br/JohnTheRipper/macOS%20M1/binaries/JtR-macArm.7z  -O macOS-ARM_1_JtR.7z
 wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/102/0?file=true  -O macOS-X64_2_buildlog.txt      # Real log
 wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/103/0?file=true  -O /tmp/macOS-X64_2_buildlog.txt # Checksum
 
