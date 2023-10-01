@@ -31,14 +31,6 @@ AZURE_JOB=$(cat Build._ID | tr -d '\r')
 AZURE_PAGE="128"
 AZURE_UID="40224313-b91e-465d-852b-fc4ea516f33e"
 
-# macOS Build
-MAC_JOB=$(curl -s https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper \ |
-      jq 'first(.[] | select(.workflows.job_name == "Mac-OS" and .status == "success")) | .build_num')
-
-MAC_PACKAGE=$(curl -X GET "https://circleci.com/api/v2/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/artifacts" \
-      -H "Accept: application/json" | \
-      grep -oP '(?<="url":")[^"]*' )
-
 # Flatpak
 GITLAB_JOB=$(curl -s https://gitlab.com/api/v4/projects/12573246/pipelines/ | \
    grep -o -m1 '{"id":[0-9]*' | grep -o '[0-9]*'| head -1)
@@ -46,7 +38,7 @@ FLATPAK=$(curl -s https://gitlab.com/api/v4/projects/12573246/pipelines/$GITLAB_
    grep -o -m1 '{"id":[0-9]*,"status":"success"' | grep -o '[0-9]*' | sed -n '1p')
 
 echo "###############################################################################"
-echo "Deploy de: '$FLATPAK' e '$MAC_JOB'."
+echo "Deploy de: '$FLATPAK'."
 echo "###############################################################################"
 
 # GitLab (Linux Flatpak app) ###################################################
@@ -65,10 +57,7 @@ fi
 wget https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_JOB/logs/$AZURE_PAGE -O winX64_2_buildlog.txt
 
 # macOS package
-wget $MAC_PACKAGE                                                                                                  -O macOS-X64_1_JtR.7z
 wget https://api.cirrus-ci.com/v1/artifact/github/claudioandre-br/JohnTheRipper/macOS%20M1/binaries/JtR-macArm.7z  -O macOS-ARM_1_JtR.7z
-wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/102/0?file=true  -O macOS-X64_2_buildlog.txt      # Real log
-wget https://circleci.com/api/v1.1/project/github/claudioandre-br/JohnTheRipper/$MAC_JOB/output/103/0?file=true  -O /tmp/macOS-X64_2_buildlog.txt # Checksum
 
 wget https://api.cirrus-ci.com/v1/artifact/github/claudioandre-br/JohnTheRipper/macOS%20M1/id/Build._ID          -O Build._ID
 CIRRUS_JOB_ID=$(cat Build._ID | tr -d '\r')
@@ -82,7 +71,6 @@ GIT_TEXT=$(git ls-remote -q https://github.com/openwall/john.git HEAD | cut -c 1
 WIN_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' winX64_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
 FLATPAK_TEXT=$(grep -m1 '1.9J1+' flatpak_2_buildlog.txt)
 MAC1_TEXT=$(grep -m1 --text 'Version: 1.9.0-jumbo-1+bleeding' macOS-ARM_2_buildlog.txt   | sed -e "s|.*Version: \(.*\).*|\1|")
-MAC2_TEXT=$(grep -m1 --text 'Version: 1.9.0-jumbo-1+bleeding' macOS-X64_2_buildlog.txt   | sed -e "s|.*Version: \(.*\).*|\1|")
 
 # Create the contents of the log file
 echo "The release date is $(date). I'm Azure on behalf of Claudio." >  $LOG_FILE
@@ -90,7 +78,6 @@ echo "==========================================================================
 echo "Git bleeding repository is at: $GIT_TEXT" >> $LOG_FILE
 echo "Windows is at: $WIN_TEXT" >> $LOG_FILE
 echo "Mac ARM is at: $MAC1_TEXT" >> $LOG_FILE
-echo "Mac X86 is at: $MAC2_TEXT" >> $LOG_FILE
 echo "Flatpak is at: $FLATPAK_TEXT" >> $LOG_FILE
 
 echo -e "\n=================================================================================" >> $LOG_FILE
@@ -106,7 +93,6 @@ echo -e "== Values obtained from the logs, for confirmation" >> $LOG_FILE
 grep -woE  '*.{64}       C:\\win_x64.7z' winX64_2_buildlog.txt                >> $LOG_FILE
 grep -woE  '*.{64}       D:\\a\\1\\JtR\\run\\john.exe' winX64_2_buildlog.txt  >> $LOG_FILE
 grep -woE  '*.{64}  john.flatpak' flatpak_2_buildlog.txt                      >> $LOG_FILE
-grep -woE  '*.{64}  JtR-macX86.7z' /tmp/macOS-X64_2_buildlog.txt              >> $LOG_FILE
 grep -woE  --text '*.{64}  JtR-macArm.7z' /tmp/macOS-ARM_2_buildlog.txt       >> $LOG_FILE
 
 # Keep only the files that are going to be used by the release

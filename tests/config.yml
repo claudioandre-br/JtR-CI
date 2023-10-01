@@ -142,46 +142,6 @@ jobs:
             wget https://raw.githubusercontent.com/openwall/john-packages/release/tests/run_tests.sh
             source run_tests.sh
 
-  Mac-OS:
-    macos:
-      xcode: 14.2.0
-    environment:
-      TARGET_ARCH : "macOS X86"
-      EXTRA: "full;extra"
-      BUILD_OPTS: "--disable-native-tests"
-      CC : "clang"
-      TEST : "macOS;"
-      BASE : "Apple macOS"
-      DEPLOY_PAK : "Yes"
-
-    steps:
-      - run:
-          name: Checkout code
-          command: |
-            git clone --depth 10 https://github.com/openwall/john.git ~/tmp
-            cp -r ~/tmp/. .
-
-            wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/tests-ci.sh -O .ci/tests-ci.sh
-            chmod +x .ci/tests-ci.sh
-            .ci/tests-ci.sh "$TARGET_ARCH" INFO
-      - run:
-          name: Building JtR
-          command: |
-            .ci/tests-ci.sh "$TARGET_ARCH" BUILD
-            .ci/tests-ci.sh "$TARGET_ARCH" TEST
-      - run:
-          name: Saving package
-          command: |
-            wget https://raw.githubusercontent.com/openwall/john-packages/main/tests/clean_package.sh -O .ci/clean_package.sh
-            source .ci/clean_package.sh
-
-            7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=128m -ms=on JtR-macX86.7z ./
-            sha256sum -- JtR-macX86.7z || true
-
-      - store_artifacts:
-          path: JtR-macX86.7z
-          destination: JtR-macX86.7z
-
 workflows:
   version: 2
   build:
@@ -199,12 +159,6 @@ workflows:
       - omp-fast-formats:
           requires:
             - linux-Fedora
-
-      - mac-package:
-          type: approval
-      - Mac-OS:
-          requires:
-            - mac-package
 
       - extras:
           type: approval
