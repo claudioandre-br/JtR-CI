@@ -27,7 +27,7 @@
 
 # Azure build ID
 # Get the build id from the building environment
-AZURE_JOB=`cat Build._ID | tr -d '\r'`
+AZURE_JOB=$(cat Build._ID | tr -d '\r')
 AZURE_PAGE="128"
 AZURE_UID="40224313-b91e-465d-852b-fc4ea516f33e"
 
@@ -45,13 +45,13 @@ GITLAB_JOB=$(curl -s https://gitlab.com/api/v4/projects/12573246/pipelines/ | \
 FLATPAK=$(curl -s https://gitlab.com/api/v4/projects/12573246/pipelines/$GITLAB_JOB/jobs | \
    grep -o -m1 '{"id":[0-9]*,"status":"success"' | grep -o '[0-9]*' | sed -n '1p')
 
+echo "###############################################################################"
 echo "Deploy de: '$FLATPAK' e '$MAC_JOB'."
+echo "###############################################################################"
 
 # GitLab (Linux Flatpak app) ###################################################
-# The FLATPAK_TEST is used to retrieve package version information
 wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/artifacts/download     -O flatpak_1_JtR.zip
 wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK/raw                    -O flatpak_2_buildlog.txt
-# wget https://gitlab.com/claudioandre-br/JtR-CI/-/jobs/$FLATPAK_TEST/raw               -O /tmp/flatpak_3_testlog.txt
 
 # Azure Windows package log
 TLOG1=$(curl -s https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_JOB/logs/ \ |
@@ -80,7 +80,7 @@ LOG_FILE="Created-on_$(date +%Y-%m-%d).txt"
 
 GIT_TEXT=$(git ls-remote -q https://github.com/openwall/john.git HEAD | cut -c 1-40)
 WIN_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' winX64_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
-FLATPAK_TEXT=$(grep -m1 'roll+' flatpak_2_buildlog.txt)
+FLATPAK_TEXT=$(grep -m1 '1.9J1+' flatpak_2_buildlog.txt)
 MAC1_TEXT=$(grep -m1 --text 'Version: 1.9.0-jumbo-1+bleeding' macOS-ARM_2_buildlog.txt   | sed -e "s|.*Version: \(.*\).*|\1|")
 MAC2_TEXT=$(grep -m1 --text 'Version: 1.9.0-jumbo-1+bleeding' macOS-X64_2_buildlog.txt   | sed -e "s|.*Version: \(.*\).*|\1|")
 
