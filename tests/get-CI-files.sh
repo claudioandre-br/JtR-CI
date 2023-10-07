@@ -35,7 +35,7 @@ AZURE_UID="40224313-b91e-465d-852b-fc4ea516f33e"
 GITLAB_JOB=$(curl -s https://gitlab.com/api/v4/projects/12573246/pipelines/ | \
    grep -o -m1 '{"id":[0-9]*' | grep -o '[0-9]*'| head -1)
 FLATPAK=$(curl -s https://gitlab.com/api/v4/projects/12573246/pipelines/$GITLAB_JOB/jobs | \
-   grep -o -m1 '{"id":[0-9]*,"status":"success"' | grep -o '[0-9]*' | sed -n '1p')
+   jq '.[] | select(.name == "cpu-job" and .status == "success") .id')
 
 echo "###############################################################################"
 echo "Deploy de: '$FLATPAK'."
