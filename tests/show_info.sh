@@ -10,7 +10,7 @@
 #                                                       | |   | |
 #                                                       |_|   |_|
 #
-# Copyright (c) 2019 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2023 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -40,12 +40,14 @@ if [[ -z "$MUTE_SYS_INFO" ]]; then
     if [[ "$HOST_OS" == "Linux" ]]; then
         free || true
         echo '--------------------------------'
+        sed -n '/^$/q;p' /proc/cpuinfo || true
+        echo '--------------------------------'
     fi
 
     if [[ "$HOST_OS" == "Darwin" ]]; then
         sw_vers || true
         echo '--------------------------------'
-        sysctl -n machdep.cpu.brand_string
+        sysctl -n machdep.cpu.brand_string || true
         echo '--------------------------------'
     fi
 
@@ -58,12 +60,6 @@ if [[ -z "$MUTE_SYS_INFO" ]]; then
             echo '--------------------------------'
         fi
     fi
-
-    if [[ "$HOST_OS" == "Linux" ]]; then
-        cat /proc/cpuinfo || true
-        echo '--------------------------------'
-    fi
-
     env || true
     echo '--------------------------------'
 
