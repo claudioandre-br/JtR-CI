@@ -45,11 +45,18 @@ if [[ -z "$MUTE_SYS_INFO" ]]; then
     if [[ "$HOST_OS" == "Darwin" ]]; then
         sw_vers || true
         echo '--------------------------------'
+        sysctl -n machdep.cpu.brand_string
+        echo '--------------------------------'
     fi
 
     if [[ "$HOST_OS" == "Linux" || "$HOST_OS" == "SunOS" ]]; then
         cat /etc/*-release || true
         echo '--------------------------------'
+
+        if [[ "$HOST_OS" == "SunOS" ]]; then
+            psrinfo -vp
+            echo '--------------------------------'
+        fi
     fi
 
     if [[ "$HOST_OS" == "Linux" ]]; then
