@@ -165,7 +165,7 @@ elif [[ $2 == "TEST" ]]; then
     JTR_CL=""
 
     if [[ $TARGET_ARCH == "DOCKER" ]]; then
-        JTR_BIN="/john/run/john-sse2"
+        JTR_BIN="/john/run/john-avx"
     fi
 
     wget https://raw.githubusercontent.com/openwall/john-packages/release/tests/run_tests.sh -O run_tests.sh
