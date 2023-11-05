@@ -43,7 +43,7 @@ if [[ $TARGET_ARCH == *"SOLARIS"* && $2 == "BUILD" ]]; then
 fi
 
 TASK_RUNNING="$2"
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/show_info.sh
+wget https://raw.githubusercontent.com/openwall/john-packages/release/tests/show_info.sh -O show_info.sh
 source show_info.sh
 
 function do_build () {

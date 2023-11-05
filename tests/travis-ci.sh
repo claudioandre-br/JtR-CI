@@ -59,7 +59,7 @@ function do_Build(){
         BASE="Ubuntu"
     fi
     TASK_RUNNING="$TEST"
-    wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/show_info.sh
+    wget https://raw.githubusercontent.com/openwall/john-packages/release/tests/show_info.sh -O show_info.sh
     source show_info.sh
 
     echo
