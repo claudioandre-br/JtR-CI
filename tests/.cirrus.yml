@@ -36,6 +36,7 @@ freebsd_task:
 
   env:
     CIRRUS_CLONE_DEPTH: "10"
+    CC: "clang"
     BUILD_OPS: ""
     MAKE_FLAGS: "-sj4"
     TARGET_ARCH : "FreeBSD"
@@ -60,7 +61,7 @@ freebsd_task:
     - bash .ci/tests-ci.sh $TARGET_ARCH TEST
 
 macOS_task:
-  name: macOS M1
+  name: macOS M2
   trigger_type: manual
   macos_instance:
     image: ghcr.io/cirruslabs/macos-ventura-xcode:latest
@@ -73,7 +74,7 @@ macOS_task:
     TARGET_ARCH : "macOS ARM"
     EXTRA: "full;extra"
     TEST : "macOS;"
-    BASE : "Apple macOS M1"
+    BASE : "Apple macOS M2"
     DEPLOY_PAK : "Yes"
 
   info_script:
@@ -88,7 +89,7 @@ macOS_task:
   build_script:
     - .ci/ci_controler.sh "$TARGET_ARCH" BUILD
 
-    # Format crash on M1
+    # Format crash on M2
     - echo '[Local:Disabled:Formats]' >> run/john-local.conf
     - echo 'SunMD5 = Y' >> run/john-local.conf
     - .ci/ci_controler.sh "$TARGET_ARCH" TEST
