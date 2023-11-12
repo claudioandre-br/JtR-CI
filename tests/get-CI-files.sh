@@ -67,9 +67,12 @@ wget https://api.cirrus-ci.com/v1/task/$CIRRUS_JOB_ID/logs/package.log          
 # The release log file information
 LOG_FILE="Created-on_$(date +%Y-%m-%d).txt"
 
+# Get the version string
+ID=$(curl -s https://raw.githubusercontent.com/openwall/john-packages/release/deploy/Release.ID 2>/dev/null | tr -d '\n')
+
 GIT_TEXT=$(git ls-remote -q https://github.com/openwall/john.git HEAD | cut -c 1-40)
 WIN_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' winX64_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
-FLATPAK_TEXT=$(grep -m1 '1.9J1+' flatpak_2_buildlog.txt)
+FLATPAK_TEXT=$(grep -m1 "^$ID" flatpak_2_buildlog.txt)
 MAC1_TEXT=$(grep -m1 --text 'Version: 1.9.0-jumbo-1+bleeding' macOS-ARM_2_buildlog.txt   | sed -e "s|.*Version: \(.*\).*|\1|")
 
 # Create the contents of the log file
