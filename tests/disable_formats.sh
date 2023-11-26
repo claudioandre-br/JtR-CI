@@ -44,17 +44,6 @@ echo 'raw-BLAKE2 = Y' >> ../run/john-local.conf  #BLAKE2
 echo 'argon2 = Y' >> ../run/john-local.conf      #BLAKE2
 echo 'tezos = Y' >> ../run/john-local.conf       #BLAKE2
 
-#    ## Already disabled elsewhere ##
-#echo 'diskcryptor = Y' >> ../run/john-local.conf #BE
-#echo 'monero = Y' >> ../run/john-local.conf      #BE
-#echo 'STRIP = Y' >> ../run/john-local.conf       #BE
-#echo 'enpass = Y' >> ../run/john-local.conf      #BE
-
-#    ## Document why it was disabled here ##
-#echo 'agilekeychain = Y' >> ../run/john-local.conf           #Error ID 10
-#echo 'as400-ssha1 = Y' >> ../run/john-local.conf             # "
-#echo 'AxCrypt = Y' >> ../run/john-local.conf                 # "
-
 echo 'RACF-KDFAES = Y' >> ../run/john-local.conf             #SLOW
 echo 'RAR = Y' >> ../run/john-local.conf                     #SLOW
 echo 'wpapsk-opencl = Y' >> ../run/john-local.conf           #SLOW
@@ -62,8 +51,6 @@ echo 'wpapsk-pmk-opencl = Y' >> ../run/john-local.conf       #SLOW
 
 echo 'pbkdf2-hmac-md4-opencl = Y' >> ../run/john-local.conf  # TS
 echo 'pbkdf2-hmac-md5-opencl = Y' >> ../run/john-local.conf  # TS
-
-# Check if it is working now. echo 'ZIP = Y' >> ../run/john-local.conf  # Fails in Circle, AddressSanitizer, issue 5304
 
 echo 'ssh-opencl = Y' >> ../run/john-local.conf  # TS, after 1a06dc4deeca5064e690f89724eb3a05469fd162
 
@@ -79,24 +66,15 @@ echo 'salted_sha-opencl = Y' >> ../run/john-local.conf
 echo 'bitlocker-opencl = Y' >> ../run/john-local.conf # Very slow format
 echo 'keepass-opencl = Y' >> ../run/john-local.conf
 echo 'pgpdisk-opencl = Y' >> ../run/john-local.conf #FAILED (cmp_all(49)) Intel OpenCL CPU
-# echo 'nt-opencl = Y' >> ../run/john-local.conf Check if c5b84c8a fixed the issue
-# echo 'ntlmv2-opencl = Y' >> ../run/john-local.conf Check if c5b84c8a fixed the issue
-# echo 'rawmd5-opencl = Y' >> ../run/john-local.conf Check if c5b84c8a fixed the issue
-# echo 'rawmd4-opencl = Y' >> ../run/john-local.conf Check if c5b84c8a fixed the issue
-# echo 'mysqlsha1-opencl = Y' >> ../run/john-local.conf Check if c5b84c8a fixed the issue
-# echo 'sl3-opencl = Y' >> ../run/john-local.conf  Check if c5b84c8a fixed the issue
-# echo 'rawsha1-opencl = Y' >> ../run/john-local.conf Check if c5b84c8a fixed the issue
+
+# Formats failing Intel OpenCL CPU driver
+# See https://github.com/openwall/john/issues/5379
+echo 'krb5tgs-opencl = Y' >> ../run/john-local.conf
+echo 'pfx-opencl = Y' >> ../run/john-local.conf
 
 # Kernel <lotus5> was successfully vectorized (8)
 # Done.
 # run_tests.sh: line 266:  6155 Segmentation fault      (core dumped) $JTR_BIN -test-full=0 --format=opencl
-
-# #############
-# $JtR --fuzz --format=cpu
-# ID: 10
-# Fuzzing: agilekeychain, 1Password Agile Keychain [PBKDF2-SHA1 AES 256/256 AVX2 8x]... run_tests.sh: line 215:  6305 Killed                  $JTR_BIN --fuzz --format=cpu
-# Fuzzing: as400-ssha1, AS400-SaltedSHA1 [?] in UTF-8 mode... Segmentation fault
-# Fuzzing: AxCrypt [PBKDF2-SHA512/SHA1 AES 32/64]... Segmentation fault
 
 # TS OpenCL
 # OpenCL descrypt builds for all 4096 salts, it is unusable inside CI
