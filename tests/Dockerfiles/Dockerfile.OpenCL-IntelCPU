@@ -1,0 +1,25 @@
+FROM ubuntu:22.04
+LABEL org.opencontainers.image.authors="Claudio André (c) 2017-2023 2.0.OpenCL"
+LABEL description="Automation for John the Ripper OpenCL CI"
+LABEL version="2.0"
+
+RUN apt-get update -qq \
+    && apt-get install -y \
+        build-essential libssl-dev zlib1g-dev yasm libgmp-dev libpcap-dev \
+        pkg-config libbz2-dev wget \
+        ocl-icd-opencl-dev clinfo git \
+    && wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB \
+        | gpg --dearmor | tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null \
+    && echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" \
+        | tee /etc/apt/sources.list.d/oneAPI.list \
+    && apt-get update -qq \
+    && apt-get install -y \
+        intel-oneapi-runtime-opencl intel-basekit \
+    && useradd -U -m JtR \
+    && apt-get -y clean \
+    && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
+
+# Workaround for an issue in Intel libraries installation script
+ENV LD_LIBRARY_PATH=/opt/intel/oneapi/2024.0/lib/:"$LD_LIBRARY_PATH"
+ENV BASE ubuntu
+CMD /bin/bash
