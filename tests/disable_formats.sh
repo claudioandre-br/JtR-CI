@@ -72,6 +72,9 @@ echo 'pgpdisk-opencl = Y' >> ../run/john-local.conf #FAILED (cmp_all(49)) Intel 
 echo 'krb5tgs-opencl = Y' >> ../run/john-local.conf
 echo 'pfx-opencl = Y' >> ../run/john-local.conf
 
+# Intel OpenCL CPU driver
+echo 'argon2-opencl = Y' >> ../run/john-local.conf # Very slow format
+
 # Kernel <lotus5> was successfully vectorized (8)
 # Done.
 # run_tests.sh: line 266:  6155 Segmentation fault      (core dumped) $JTR_BIN -test-full=0 --format=opencl
