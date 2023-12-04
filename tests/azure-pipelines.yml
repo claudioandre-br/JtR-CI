@@ -180,7 +180,7 @@ stages:
 
     variables:
       TARGET_ARCH: "NIX"
-      EXTRA: "MY_FULL"
+      EXTRA: "MY_FULL;full"
       BUILD_OPTS: "--enable-fuzz"
 
     steps:
