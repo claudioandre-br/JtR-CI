@@ -46,8 +46,8 @@ jobs:
             dockerfile: Dockerfile.UbuntuDevel
           - image-tag: ubuntu.rolling
             dockerfile: Dockerfile.UbuntuRolling
-          - image-tag: centos.7
-            dockerfile: Dockerfile.CentOS7
+          - image-tag: redhat.ubi8
+            dockerfile: Dockerfile.RHUbi8
 
     permissions:
       packages: write

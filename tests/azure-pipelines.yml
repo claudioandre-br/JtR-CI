@@ -54,12 +54,12 @@ stages:
     steps:
       - template: .azure/linux-ci.yml
 
-  - job: CentOS_7
-    displayName: CentOS 7
+  - job: UBI_8
+    displayName: Red Hat Ubi 8
     pool:
       vmImage: 'ubuntu-latest'
     container:
-      image: ghcr.io/claudioandre-br/john-ci:centos.7
+      image: ghcr.io/claudioandre-br/john-ci:redhat.ubi8
     variables:
       TARGET_ARCH: "NIX"
       EXTRA: "full;extra;crack;"
