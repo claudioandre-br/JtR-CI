@@ -32,7 +32,7 @@ steps:
         git describe --dirty=+ --always
         echo '--------------------------------'
 
-        # $JUMBO_RELEASE = "15b3b7c25fc8ac34f2504d53f0c94bbf4ec12596"
+        # $JUMBO_RELEASE = "39db7dd63e3fefb343c3dbb72eaa5c7599b6c298"
 
         # Make it a reproducible build
         if ($JUMBO_RELEASE) {
@@ -70,7 +70,7 @@ steps:
         }
 
         # Apply patch(es) ######################################################
-        wget "https://raw.githubusercontent.com/openwall/john-packages/master/patches/0001-Remove-peflags-from-the-default-target.patch" -O 0001.patch
+        wget "https://raw.githubusercontent.com/openwall/john-packages/main/patches/0001-Remove-peflags-from-the-default-target.patch" -O 0001.patch
         git apply 0001.patch
         # 1. Remove peflags from the default target on Windows
 
@@ -139,7 +139,7 @@ steps:
         # - So, I can't run a make strip here
         ########################################################################
 
-        # Required dlls (Tested on Windows 7 32 bits and Windows 10 64 bits)
+        # Required dlls (Windows 10 64 bits)
         xcopy $cygwinFolder\cygwin1.dll         ..\run\
         xcopy $cygwinFolder\cygbz2-1.dll        ..\run\
         xcopy $cygwinFolder\cygcrypto-3.dll     ..\run\
@@ -210,7 +210,6 @@ steps:
         move debug_logs.zip c:\
 
         REM # Remove non distributable files
-        rmdir "%JTR_FOLDER%\lib" /s /Q
         rmdir "%JTR_FOLDER%\.git" /s /Q
         rmdir "%JTR_FOLDER%\src" /s /Q
 
