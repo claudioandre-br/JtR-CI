@@ -24,15 +24,15 @@ freebsd_task:
   name: FreeBSD
 
   matrix:
-    - name: FreeBSD 12
-      freebsd_instance:
-        image_family: freebsd-12-4-snap
     - name: FreeBSD 13
       freebsd_instance:
         image_family: freebsd-13-2-snap
     - name: FreeBSD 14
       freebsd_instance:
         image_family: freebsd-14-0-snap
+    - name: FreeBSD 15
+      freebsd_instance:
+        image_family: freebsd-15-0-snap
 
   env:
     CIRRUS_CLONE_DEPTH: "10"
