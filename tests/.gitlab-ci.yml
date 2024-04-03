@@ -24,7 +24,7 @@ cpu-job:
   stage: build
   tags:
   - saas-linux-medium-amd64
-  image: ghcr.io/claudioandre-br/john-ci:fedora.flatpakJ24
+  image: ghcr.io/claudioandre-br/john-ci:fedora.flatpak
 
   artifacts:
     paths:
