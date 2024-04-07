@@ -8,7 +8,7 @@
 #                                                       | |   | |
 #                                                       |_|   |_|
 #
-# Copyright (c) 2017-2023 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2017-2024 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -19,7 +19,7 @@
 ###############################################################################
 
 FROM fedora:latest
-LABEL maintainer Claudio André (c) 2017-2023 1.1.Flatpak
+LABEL maintainer Claudio André (c) 2017-2024 1.1.Flatpak
 LABEL software Flatpak related CI for John the Ripper
 
 RUN dnf -y -q update && \
@@ -27,7 +27,9 @@ RUN dnf -y -q update && \
         flatpak flatpak-builder elfutils wget git && \
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && \
     flatpak install -y flathub org.freedesktop.Platform//23.08 org.freedesktop.Sdk//23.08 && \
-    useradd -U -m JtR
+    useradd -U -m JtR && \
+    mkdir -p /app && \
+    chown -R JtR /app
 
 USER JtR
 ENV BASE fedora
