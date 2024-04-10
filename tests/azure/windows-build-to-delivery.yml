@@ -8,7 +8,7 @@
 #                                                       | |   | |
 #                                                       |_|   |_|
 #
-# Copyright (c) 2019-2023 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2024 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -32,7 +32,7 @@ steps:
         git describe --dirty=+ --always
         echo '--------------------------------'
 
-        # $JUMBO_RELEASE = "39db7dd63e3fefb343c3dbb72eaa5c7599b6c298"
+        # $JUMBO_RELEASE = "f9fedd238b0b1d69181c1fef033b85c787e96e57"
 
         # Make it a reproducible build
         if ($JUMBO_RELEASE) {
@@ -43,10 +43,10 @@ steps:
             git checkout $JUMBO_RELEASE
         }
 
-        # If needed (CygWin is not installed) or as a workaround (CygWin update is required)
+        # If needed (Cygwin is not installed) or as a workaround (Cygwin update is required)
         if ($env:Cygwin -eq "install") {
             Write-Host "--------------------------------------------------------"
-            Write-Host "             =====  Installing CygWin  =====            " -ForegroundColor White
+            Write-Host "             =====  Installing Cygwin  =====            " -ForegroundColor White
             Write-Host "--------------------------------------------------------"
             choco install -y cygwin cyg-get
             cyg-get libssl-devel libbz2-devel libgmp-devel zlib-devel gcc-core libOpenCL-devel libcrypt-devel make wget rebase perl
@@ -95,10 +95,8 @@ steps:
         $EXE_NO_OMP = "--disable-native-tests --disable-openmp"
 
         # CPU (OMP and extensions fallback)
-        shell "./configure $EXE_NO_OMP --enable-simd=sse2                                                                                                                                                  && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-sse2"
-        shell "./configure $EXE_NORMAL --enable-simd=sse2  CPPFLAGS='-DOMP_FALLBACK_BINARY=\`"\\\`"john-sse2\\\`"\`" '                                                                      && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-sse2-omp"
         shell "./configure $EXE_NO_OMP --enable-simd=avx                                                                                                                                                   && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx"
-        shell "./configure $EXE_NORMAL --enable-simd=avx   CPPFLAGS='-DOMP_FALLBACK_BINARY=\`"\\\`"john-avx\\\`"\`"   -DCPU_FALLBACK_BINARY=\`"\\\`"john-sse2-omp\\\`"\`" '  && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx-omp"
+        shell "./configure $EXE_NORMAL --enable-simd=avx   CPPFLAGS='-DOMP_FALLBACK_BINARY=\`"\\\`"john-avx\\\`"\`"                                                      '   && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx-omp"
         shell "./configure $EXE_NO_OMP --enable-simd=avx2                                                                                                                                                  && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx2"
         shell "./configure $EXE_NORMAL --enable-simd=avx2  CPPFLAGS='-DOMP_FALLBACK_BINARY=\`"\\\`"john-avx2\\\`"\`"  -DCPU_FALLBACK_BINARY=\`"\\\`"john-avx-omp\\\`"\`" '   && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-avx2-omp"
 
@@ -160,7 +158,7 @@ steps:
     - powershell: |
         "$env:BUILD_BUILDID" | Out-File -FilePath C:\Build._ID -NoNewline -Encoding ASCII -Append
 
-      displayName: 'Save the Buid ID value'
+      displayName: 'Save the Build ID value'
 
     - script: |
         powershell -command 'Write-Host "---------------------------------------------------------"'
