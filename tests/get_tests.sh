@@ -10,7 +10,7 @@
 #                                                       | |   | |
 #                                                       |_|   |_|
 #
-# Copyright (c) 2019 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2024 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -47,6 +47,8 @@ wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/confi
 
 # Cirrus CI YAML file
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/.cirrus.yml
+wget https://raw.githubusercontent.com/openwall/john-packages/release/deploy/Mac_ARM-Delivery.yml    -O ->> .cirrus.yml
+sed -i 's/---/#---/' .cirrus.yml
 
 # Azure CI YAML files
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure-pipelines.yml
