@@ -55,13 +55,14 @@ wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/linux-ci.yml                     -P .azure/
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/linux-system-info.yml            -P .azure/
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/windows-build-and-test-steps.yml -P .azure/
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/windows-build-to-delivery.yml    -P .azure/
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/windows-ci.yml                   -P .azure/
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/windows-pull-artifacts.yml       -P .azure/
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/windows-push-artifacts.yml       -P .azure/
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/windows-system-info.yml          -P .azure/
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/windows-testing.yml              -P .azure/
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure/windows-variables.yml            -P .azure/
+wget https://raw.githubusercontent.com/openwall/john-packages/release/deploy/Windows-Delivery.yml    \
+  -O .azure/windows-build-to-delivery.yml
 
 # Travis CI YAML file and scripts
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/.travis.yml
