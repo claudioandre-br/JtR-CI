@@ -8,7 +8,7 @@
 #                                                       | |   | |
 #                                                       |_|   |_|
 #
-# Copyright (c) 2019-2023 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2024 Claudio André <claudioandre.br at gmail.com>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -28,6 +28,11 @@ steps:
       inputs:
         targetPath: "c:\\win_x$(Bits).7z"
         artifactName: "win_x$(Bits).7z"
+
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: "c:\\win_x$(Bits).zip"
+        artifactName: "win_x$(Bits).zip"
 
     - task: PublishPipelineArtifact@1
       inputs:
