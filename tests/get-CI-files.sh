@@ -58,6 +58,7 @@ wget https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_
 
 # macOS package
 wget https://api.cirrus-ci.com/v1/artifact/github/claudioandre-br/JohnTheRipper/macOS%20M2/binaries/JtR-macArm.7z  -O macOS-ARM_1_JtR.7z
+wget https://api.cirrus-ci.com/v1/artifact/github/claudioandre-br/JohnTheRipper/macOS%20M2/binaries/JtR-macArm.zip -O macOS-ARM_1_JtR.zip
 
 wget https://api.cirrus-ci.com/v1/artifact/github/claudioandre-br/JohnTheRipper/macOS%20M2/id/Build._ID          -O Build._ID
 CIRRUS_JOB_ID=$(cat Build._ID | tr -d '\r')
