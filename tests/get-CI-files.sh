@@ -93,11 +93,13 @@ sha256sum *.7z  | tee --append $LOG_FILE
 sha256sum john.flatpak | tee --append $LOG_FILE
 
 echo -e "\n=================================================================================" >> $LOG_FILE
-echo -e "== Values obtained from the logs, for confirmation" >> $LOG_FILE
+echo -e "== Values obtained from the logs, for confirmation"                  >> $LOG_FILE
 grep -woE  '*.{64}       C:\\win_x64.7z' winX64_2_buildlog.txt                >> $LOG_FILE
+grep -woE  '*.{64}       C:\\win_x64.zip' winX64_2_buildlog.txt               >> $LOG_FILE
 grep -woE  '*.{64}       D:\\a\\1\\JtR\\run\\john.exe' winX64_2_buildlog.txt  >> $LOG_FILE
 grep -woE  '*.{64}  john.flatpak' flatpak_2_buildlog.txt                      >> $LOG_FILE
 grep -woE  --text '*.{64}  JtR-macArm.7z' /tmp/macOS-ARM_2_buildlog.txt       >> $LOG_FILE
+grep -woE  --text '*.{64}  JtR-macArm.zip' /tmp/macOS-ARM_2_buildlog.txt      >> $LOG_FILE
 
 # Keep only the files that are going to be used by the release
 rm -f john.flatpak Build._ID
