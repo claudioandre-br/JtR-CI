@@ -73,7 +73,7 @@ ID=$(curl -s https://raw.githubusercontent.com/openwall/john-packages/release/de
 
 GIT_TEXT=$(git ls-remote -q https://github.com/openwall/john.git HEAD | cut -c 1-40)
 WIN_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' winX64_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
-FLATPAK_TEXT=$(grep -m1 "^$ID" flatpak_2_buildlog.txt)
+FLATPAK_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' flatpak_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
 MAC1_TEXT=$(grep -m1 --text 'Version: 1.9.0-jumbo-1+bleeding' macOS-ARM_2_buildlog.txt   | sed -e "s|.*Version: \(.*\).*|\1|")
 
 # Create the contents of the log file
@@ -83,6 +83,7 @@ echo "Git bleeding repository is at: $GIT_TEXT" >> $LOG_FILE
 echo "Windows is at: $WIN_TEXT" >> $LOG_FILE
 echo "Mac ARM is at: $MAC1_TEXT" >> $LOG_FILE
 echo "Flatpak is at: $FLATPAK_TEXT" >> $LOG_FILE
+echo "Release ID is: $ID" >> $LOG_FILE
 
 echo -e "\n=================================================================================" >> $LOG_FILE
 echo -e "== Checksums of the packages" >> $LOG_FILE
