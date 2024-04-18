@@ -43,7 +43,7 @@ if [[ $TARGET_ARCH == *"SOLARIS"* && $2 == "BUILD" ]]; then
 fi
 
 TASK_RUNNING="$2"
-wget https://raw.githubusercontent.com/openwall/john-packages/release/tests/show_info.sh -O show_info.sh
+wget https://raw.githubusercontent.com/openwall/john-packages/release/scripts/show_info.sh -O show_info.sh
 source show_info.sh
 
 function do_build () {
@@ -85,7 +85,7 @@ function do_release () {
     echo "Regex, OpenMPI, Experimental Code, ZTEX=No" >> ../run/Defaults
 
     # The script that computes the package version
-    wget https://raw.githubusercontent.com/openwall/john-packages/main/tests/package_version.sh
+    wget https://raw.githubusercontent.com/openwall/john-packages/release/scripts/package_version.sh
     chmod +x package_version.sh
     echo "Version=$(./package_version.sh)" >> ../run/Defaults
 
@@ -168,6 +168,6 @@ elif [[ $2 == "TEST" ]]; then
         JTR_BIN="/john/run/john-avx"
     fi
 
-    wget https://raw.githubusercontent.com/openwall/john-packages/release/tests/run_tests.sh -O run_tests.sh
+    wget https://raw.githubusercontent.com/openwall/john-packages/release/scripts/run_tests.sh -O run_tests.sh
     source run_tests.sh
 fi

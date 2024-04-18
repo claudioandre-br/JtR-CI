@@ -19,7 +19,7 @@
 ###############################################################################
   steps:
     - script: |
-        wget https://raw.githubusercontent.com/openwall/john-packages/release/tests/show_info.sh -O show_info.sh
+        wget https://raw.githubusercontent.com/openwall/john-packages/release/scripts/show_info.sh -O show_info.sh
         chmod a+x show_info.sh
         ./show_info.sh
       displayName: 'System Information'

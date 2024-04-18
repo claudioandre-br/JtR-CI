@@ -139,7 +139,7 @@ jobs:
       - run:
           name: Testing
           command: |
-            wget https://raw.githubusercontent.com/openwall/john-packages/release/tests/run_tests.sh
+            wget https://raw.githubusercontent.com/openwall/john-packages/release/scripts/run_tests.sh
             source run_tests.sh
 
 workflows:
