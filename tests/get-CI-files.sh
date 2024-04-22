@@ -28,7 +28,7 @@
 # Azure build ID
 # Get the build id from the building environment
 AZURE_JOB=$(cat Build._ID | tr -d '\r')
-AZURE_PAGE="128"
+AZURE_PAGE="123"
 AZURE_UID="40224313-b91e-465d-852b-fc4ea516f33e"
 
 # Flatpak
@@ -50,9 +50,15 @@ TLOG1=$(curl -s https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/bui
   jq '.value[] | select(.id == 123) .lineCount')
 TLOG2=$(curl -s https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_JOB/logs/ \ |
   jq '.value[] | select(.id == 128) .lineCount')
+TLOG3=$(curl -s https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_JOB/logs/ \ |
+  jq '.value[] | select(.id == 129) .lineCount')
 
-if [[ $TLOG1 > $TLOG2 ]]; then
-      AZURE_PAGE="123"
+if [[ $TLOG2 > $TLOG1 || $TLOG2 > $TLOG3 ]]; then
+      AZURE_PAGE="128"
+fi
+
+if [[ $TLOG3> $TLOG1 || $TLOG3 > $TLOG2 ]]; then
+      AZURE_PAGE="129"
 fi
 wget https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_JOB/logs/$AZURE_PAGE -O winX64_2_buildlog.txt
 
@@ -73,7 +79,7 @@ ID=$(curl -s https://raw.githubusercontent.com/openwall/john-packages/release/de
 
 GIT_TEXT=$(git ls-remote -q https://github.com/openwall/john.git HEAD | cut -c 1-40)
 WIN_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' winX64_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
-FLATPAK_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' flatpak_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
+FLATPAK_TEXT=$(grep -m1 '1.9.0-jumbo-1+bleeding' flatpak_2_buildlog.txt | sed -e "s|.*Ripper \(.*\).*|\1|" | cut -f1-4 -d' ')
 MAC1_TEXT=$(grep -m1 --text 'Version: 1.9.0-jumbo-1+bleeding' macOS-ARM_2_buildlog.txt   | sed -e "s|.*Version: \(.*\).*|\1|")
 
 # Create the contents of the log file
