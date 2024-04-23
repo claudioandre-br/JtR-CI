@@ -47,7 +47,7 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     container:
-      image: ghcr.io/claudioandre-br/john-ci:ubuntu.opencl
+      image: ghcr.io/openwall/john-ci:ubuntu.opencl
     variables:
       TARGET_ARCH: "NIX"
       EXTRA: "full;extra;crack;"
@@ -59,7 +59,7 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     container:
-      image: ghcr.io/claudioandre-br/john-ci:redhat.ubi8
+      image: ghcr.io/openwall/john-ci:redhat.ubi8
     variables:
       TARGET_ARCH: "NIX"
       EXTRA: "full;extra;crack;"
@@ -74,7 +74,7 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     container:
-      image: ghcr.io/claudioandre-br/john-ci:fedora.latest
+      image: ghcr.io/openwall/john-ci:fedora.latest
       options: --user=root
     variables:
       TARGET_ARCH: "NIX"
@@ -131,7 +131,7 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     container:
-      image: ghcr.io/claudioandre-br/john-ci:ubuntu.opencl
+      image: ghcr.io/openwall/john-ci:ubuntu.opencl
 
     variables:
       TARGET_ARCH: "NIX"
@@ -145,7 +145,7 @@ stages:
   # - job: afl
   #   timeoutInMinutes: 0
   #   container:
-  #     image: ghcr.io/claudioandre-br/john-ci:ubuntu.opencl
+  #     image: ghcr.io/openwall/john-ci:ubuntu.opencl
 
   #   variables:
   #     TARGET_ARCH: "NIX"
@@ -161,7 +161,7 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     container:
-      image: ghcr.io/claudioandre-br/john-ci:ubuntu.opencl
+      image: ghcr.io/openwall/john-ci:ubuntu.opencl
 
     variables:
       TARGET_ARCH: "NIX"
@@ -176,7 +176,7 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     container:
-      image: ghcr.io/claudioandre-br/john-ci:ubuntu.opencl
+      image: ghcr.io/openwall/john-ci:ubuntu.opencl
 
     variables:
       TARGET_ARCH: "NIX"
