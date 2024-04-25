@@ -72,7 +72,7 @@ wget https://api.cirrus-ci.com/v1/task/$CIRRUS_JOB_ID/logs/build.log            
 wget https://api.cirrus-ci.com/v1/task/$CIRRUS_JOB_ID/logs/package.log                                           -O /tmp/macOS-ARM_2_buildlog.txt # Checksum
 
 # The release log file information
-LOG_FILE="Created-on_$(date +%Y-%m-%d).txt"
+LOG_FILE="Assembled-on_$(date +%Y-%m-%d).txt"
 
 # Get the version string
 ID=$(curl -s https://raw.githubusercontent.com/openwall/john-packages/release/deploy/Release.ID 2>/dev/null | tr -d '\n')
