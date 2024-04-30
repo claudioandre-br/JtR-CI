@@ -43,7 +43,7 @@ stages:
       - template: .azure/windows-ci.yml
 
   - job: Pocl
-    displayName: Ubuntu 23 w/ OpenCL POCL
+    displayName: Ubuntu 24 w/ OpenCL POCL
     pool:
       vmImage: 'ubuntu-latest'
     container:
