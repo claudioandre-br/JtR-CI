@@ -38,6 +38,8 @@ cpu-job:
     - wget https://github.com/openwall/john-packages/archive/refs/heads/release.zip -O main.zip #TODO undo Me
     - unzip main.zip
     - cp -r tests/ john-packages-release/deploy/ #TODO undo Me
+    - export JOHN_PACKAGES_COMMIT="$(git ls-remote -q https://github.com/openwall/john-packages.git HEAD | cut -f1)"
+    - export JOHN_RELEASE_COMMIT="$(git ls-remote -q https://github.com/openwall/john-packages.git release | cut -f1)"
 
     # To build the package, go to the place the recipe lives
     - cd john-packages-release/deploy/flatpak
