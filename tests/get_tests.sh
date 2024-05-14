@@ -74,7 +74,7 @@ wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/travi
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/tests-ci.sh   -P .ci/
 
 # GitHub Actions YAML file and scripts
-wget https://raw.githubusercontent.com/openwall/john-packages/main/deploy/Solaris-Delivery.yml        -O .github/workflows/main.yml
+wget https://raw.githubusercontent.com/openwall/john-packages/release/deploy/Solaris-Delivery.yml   -O .github/workflows/main.yml
 
 chmod +x disable_formats.sh
 chmod +x .travis/CI-tests.sh
