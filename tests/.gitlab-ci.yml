@@ -44,7 +44,7 @@ cpu-job:
     # To build the package, go to the place the recipe lives
     - cd john-packages-release/deploy/flatpak
 
-    - flatpak-builder --repo=repo build com.openwall.John.json
+    - flatpak-builder --add-tag="$JOHN_PACKAGES_COMMIT" --repo=repo build com.openwall.John.json
     - flatpak build-bundle repo john.flatpak com.openwall.John
     - cp john.flatpak "$CI_PROJECT_DIR"
 
