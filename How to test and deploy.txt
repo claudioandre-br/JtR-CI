@@ -14,7 +14,8 @@ Deployment Process:
   - check if the Windows build log uses the code 128
 - create the Azure Release.
 
-rm -f get_tests.sh; wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/get_tests.sh; chmod +x get_tests.sh ; ./get_tests.sh
+rm -f get_tests.sh; wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/main/tests/get_tests.sh; chmod +x get_tests.sh ; ./get_tests.sh
+rm -f make-pin_commit.sh; wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/main/tests/make-pin_commit.sh; chmod +x make-pin_commit.sh
 
 
 # Some testing
