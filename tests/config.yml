@@ -100,10 +100,21 @@ jobs:
           BUILD_OPTS: "--enable-openmp-for-fast-formats --enable-simd=avx2" # disabled temporarily -enable-werror
           OMP_NUM_THREADS: 2
 
-  compare-simd:
+  simd-latest:
     <<: *common_linux
     docker:
       - image: ghcr.io/openwall/john
+        user: root
+        environment:
+          TARGET_ARCH: "DOCKER"
+          EXTRA: "SIMD"
+          OMP_NUM_THREADS: 4
+    resource_class: large
+
+  simd-bleeding:
+    <<: *common_linux
+    docker:
+      - image: ghcr.io/openwall/john:bleeding
         user: root
         environment:
           TARGET_ARCH: "DOCKER"
