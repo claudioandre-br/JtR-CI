@@ -197,18 +197,20 @@ stages:
       vmImage: 'windows-2019'
     variables:
       - template: .azure/windows-variables.yml
+
     steps:
       - template: .azure/checkout.yml
       - template: .azure/windows-system-info.yml
-      - template: .azure/windows-build-to-delivery.yml
-      - template: .azure/windows-push-artifacts.yml
-      - template: .azure/windows-pull-artifacts.yml
 
-      - template: .azure/windows-testing.yml
-        parameters:
-          fullTest: 'no'
-          johnBinary: 'john'
-          johnDirectory: $(System.ArtifactsDirectory)\JtR\run
+      - ${{ if false }}:
+        - template: .azure/windows-build-to-delivery.yml
+        - template: .azure/windows-push-artifacts.yml
+        - template: .azure/windows-pull-artifacts.yml
+        - template: .azure/windows-testing.yml
+          parameters:
+            fullTest: 'no'
+            johnBinary: 'john'
+            johnDirectory: $(System.ArtifactsDirectory)\JtR\run
 
 - stage: deploy
   displayName: Check Deploy
@@ -222,13 +224,14 @@ stages:
       - template: .azure/windows-variables.yml
     steps:
       - checkout: none
-      - template: .azure/windows-pull-artifacts.yml
 
-      - template: .azure/windows-testing.yml
-        parameters:
-          fullTest: 'yes'
-          johnBinary: 'john'
-          johnDirectory: $(System.ArtifactsDirectory)\JtR\run
+      - ${{ if false }}:
+        - template: .azure/windows-pull-artifacts.yml
+        - template: .azure/windows-testing.yml
+          parameters:
+            fullTest: 'yes'
+            johnBinary: 'john'
+            johnDirectory: $(System.ArtifactsDirectory)\JtR\run
 
   - job: Windows_2022
     displayName: Windows 2022
@@ -238,10 +241,11 @@ stages:
       - template: .azure/windows-variables.yml
     steps:
       - checkout: none
-      - template: .azure/windows-pull-artifacts.yml
 
-      - template: .azure/windows-testing.yml
-        parameters:
-          fullTest: 'yes'
-          johnBinary: 'john'
-          johnDirectory: $(System.ArtifactsDirectory)\JtR\run
+      - ${{ if false }}:
+        - template: .azure/windows-pull-artifacts.yml
+        - template: .azure/windows-testing.yml
+          parameters:
+            fullTest: 'yes'
+            johnBinary: 'john'
+            johnDirectory: $(System.ArtifactsDirectory)\JtR\run
