@@ -173,7 +173,10 @@ workflows:
 
       - extras:
           type: approval
-      - compare-simd:
+      - simd-latest:
+          requires:
+            - extras
+      - simd-bleeding:
           requires:
             - extras
       - flatpak:
