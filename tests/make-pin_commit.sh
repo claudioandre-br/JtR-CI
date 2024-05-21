@@ -22,11 +22,22 @@
 # More info at https://github.com/openwall/john-packages
 
 
-FROM=$1
-TO=$2
+if [[ -n $1 ]]; then
+    FROM="$1"
+else
+    FROM="$(grep -o '[0-9a-f]\{40\}' <scripts/helper.sh)"
+fi
+
+if [[ -n $1 ]]; then
+    TO="$2"
+else
+    TO="$(git ls-remote -q https://github.com/openwall/john.git HEAD | cut -f1)"
+fi
+
 echo -e "================================================================================="
-echo -e "== Replacing $FROM"
-echo -e "== To $TO"
+echo -e "== Replacing:"
+echo -e "== - Old value: $FROM"
+echo -e "== - New value: $TO"
 echo -e "================================================================================="
 
 find . -type f -name "*" -not -path "./.git/*" -not -path "./Releases/*" \

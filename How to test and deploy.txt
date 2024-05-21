@@ -7,8 +7,11 @@ Deployment Process:
   - update to point to the latest upstream commit;
   - check if the Windows build log uses the code 128.
 
-rm -f get_tests.sh; wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/main/tests/get_tests.sh; chmod +x get_tests.sh
-rm -f make-pin_commit.sh; wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/main/tests/make-pin_commit.sh; chmod +x make-pin_commit.sh
+In john repository:
+rm -f get_tests.sh; wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/main/tests/get_tests.sh; chmod +x get_tests.sh; ./get_tests.sh
+
+In john-packages repository:
+rm -f make-pin_commit.sh; wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/main/tests/make-pin_commit.sh; chmod +x make-pin_commit.sh; ./make-pin_commit.sh
 
 
 # Some testing
