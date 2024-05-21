@@ -143,6 +143,8 @@ build_script:
       # - So, I can't run a make strip here
       ##########################################################################
 
+      shell "make check"
+
   - ps: |
       # Needed dlls (Tested on Windows 7 32 bits and Windows 10 64 bits)
       xcopy $cygwinFolder\cygwin1.dll         ..\run\
@@ -218,6 +220,8 @@ test_script:
   - john tests.in --format=raw-sha256 --fork=2 --max-run-time=300
   - echo "====> T12:"
   - john tests.in --format=sha512crypt --mask=jo?l[n-q]
+
+  - echo " Ok: successfully"
 
 after_test:
   # Remove the left-over from testing
