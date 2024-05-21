@@ -97,8 +97,27 @@ cd src && ../disable_formats.sh && cd ..
 git add run/john-local.conf -f
 
 # Save the resulting state
-git commit -a -m "CI: test and package for Windows $(date)"
+git commit -a -m "CI: run regular procedures $(date)"
 
 # Clean up
 rm -f get_tests.sh
 rm -f disable_formats.sh
+
+if [[ $1 == '--release' ]]; then
+    echo
+    echo 'We are going to do a release!'
+    sed -i 's/${{ if false }}/${{ if true }}/g' azure-pipelines.yml
+    MESSAGE="CI: package for Windows $(date)"
+fi
+
+if [[ $1 == '--test-all-archs' ]]; then
+    echo
+    echo 'Run extra architectures test!'
+    touch run-CI.patch
+    git add -f run-CI.patch
+    MESSAGE="tests: check on non-X86 $(date)"
+fi
+
+if [[ -n "$MESSAGE" ]]; then
+    git commit -a -m "$MESSAGE"
+fi
