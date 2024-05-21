@@ -2,19 +2,12 @@ Deployment Process:
 - run regular CI;
   - check if CI is Ok;
 
-- run optional CI:  
-  - run the optional CI test;
-  - run the optional Solaris CI test;
-  - run the optional macOS CI test;
-  - run the optional Android CI test;
-- deploy:
-  - run GitLab (build the Flatpak app);
-  - run Launchpad (build the Snap app);
-  - run GitHub Action (build the Docker image).
-  - check if the Windows build log uses the code 128
-- create the Azure Release.
+- before deployment:
+  - enable the Windows delivery;
+  - update to point to the latest upstream commit;
+  - check if the Windows build log uses the code 128.
 
-rm -f get_tests.sh; wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/main/tests/get_tests.sh; chmod +x get_tests.sh ; ./get_tests.sh
+rm -f get_tests.sh; wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/main/tests/get_tests.sh; chmod +x get_tests.sh
 rm -f make-pin_commit.sh; wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/main/tests/make-pin_commit.sh; chmod +x make-pin_commit.sh
 
 
