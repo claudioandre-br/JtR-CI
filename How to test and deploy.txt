@@ -13,6 +13,12 @@ rm -f get_tests.sh; wget https://raw.githubusercontent.com/claudioandre-br/JtR-C
 In john-packages repository:
 rm -f make-pin_commit.sh; wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/main/tests/make-pin_commit.sh; chmod +x make-pin_commit.sh; ./make-pin_commit.sh
 
+To compile the Windows binaries that can be used in a release:
+./get_tests.sh --release
+
+To run tests in Launchpad:
+./get_tests.sh --test-all-archs
+
 
 # Some testing
 john --list=build-info
