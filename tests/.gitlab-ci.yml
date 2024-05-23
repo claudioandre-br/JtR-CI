@@ -44,7 +44,11 @@ cpu-job:
     # To build the package, go to the place the recipe lives
     - cd john-packages-release/deploy/flatpak
 
-    - flatpak-builder --add-tag="$JOHN_PACKAGES_COMMIT" --repo=repo build com.openwall.John.json
+    # Get information about the build
+    - BUILD_MANIFEST=$(flatpak-builder --show-manifest com.openwall.John.json | grep -ws -A2 "https://github.com/openwall/john.git")
+    - export JOHN_COMMIT="$(echo $BUILD_MANIFEST | grep -oe "[0-9a-f]\{40\}")"
+
+    - flatpak-builder --add-tag="$JOHN_COMMIT" --repo=repo build com.openwall.John.json
     - flatpak build-bundle repo john.flatpak com.openwall.John
     - cp john.flatpak "$CI_PROJECT_DIR"
 
