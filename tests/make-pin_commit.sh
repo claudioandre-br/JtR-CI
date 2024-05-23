@@ -28,7 +28,7 @@ else
     FROM="$(grep -o '[0-9a-f]\{40\}' <scripts/helper.sh)"
 fi
 
-if [[ -n $1 ]]; then
+if [[ -n $2 ]]; then
     TO="$2"
 else
     TO="$(git ls-remote -q https://github.com/openwall/john.git HEAD | cut -f1)"
@@ -46,3 +46,6 @@ find . -type f -name "*" -not -path "./.git/*" -not -path "./Releases/*" \
 
 cd scripts && sha256sum ./*.sh > ../requirements.hash  && cd - && \
 cd patches && sha256sum ./* >> ../requirements.hash && cd -
+
+# Save the resulting state
+git commit -a -m "maint: set the new pin value $(date)"
