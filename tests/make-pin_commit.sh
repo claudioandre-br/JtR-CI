@@ -25,7 +25,7 @@
 if [[ -n $1 ]]; then
     FROM="$1"
 else
-    FROM="$(grep -o '[0-9a-f]\{40\}' <scripts/helper.sh)"
+    FROM="$(grep -o '[0-9a-f]\{40\}' <docs/newsletter.md)"
 fi
 
 if [[ -n $2 ]]; then
@@ -48,4 +48,4 @@ cd scripts && sha256sum ./*.sh > ../requirements.hash  && cd - && \
 cd patches && sha256sum ./* >> ../requirements.hash && cd -
 
 # Save the resulting state
-git commit -a -m "maint: set the new pin value $(date)"
+git commit -a --signoff -m "release: set new 'pin commit' value to \`${TO:0:7}\`"
