@@ -32,13 +32,11 @@ echo 'pbkdf2-hmac-md4 = Y' >> ../run/john-local.conf
 echo 'pbkdf2-hmac-md5 = Y' >> ../run/john-local.conf
 echo 'OpenBSD-SoftRAID = Y' >> ../run/john-local.conf
 echo 'dpapimk = Y' >> ../run/john-local.conf
-# echo 'timeroast = Y' >> ../run/john-local.conf # fails on BE
 echo 'iwork = Y' >> ../run/john-local.conf
 echo 'ethereum = Y' >> ../run/john-local.conf
 echo 'dmg = Y' >> ../run/john-local.conf
 echo 'adxcrypt = Y' >> ../run/john-local.conf
 echo 'encfs = Y' >> ../run/john-local.conf
-echo 'gpg = Y' >> ../run/john-local.conf
 
 echo 'raw-BLAKE2 = Y' >> ../run/john-local.conf  #BLAKE2
 echo 'argon2 = Y' >> ../run/john-local.conf      #BLAKE2
@@ -55,7 +53,6 @@ echo 'pbkdf2-hmac-md5-opencl = Y' >> ../run/john-local.conf  # TS
 echo 'ssh-opencl = Y' >> ../run/john-local.conf  # TS, after 1a06dc4deeca5064e690f89724eb3a05469fd162
 
 echo 'bf-opencl = Y' >> ../run/john-local.conf
-echo 'gpg-opencl = Y' >> ../run/john-local.conf
 echo 'krb5pa-md5-opencl = Y' >> ../run/john-local.conf
 echo 'mscash2-opencl = Y' >> ../run/john-local.conf
 echo 'o5logon-opencl = Y' >> ../run/john-local.conf
