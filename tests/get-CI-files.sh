@@ -77,17 +77,21 @@ LOG_FILE="Created-on_$(date +%Y-%m-%d).txt"
 # Get the version string
 ID=$(curl -s https://raw.githubusercontent.com/openwall/john-packages/release/deploy/Release.ID 2>/dev/null | tr -d '\n')
 
+BINARY_ID="1.10.0-ce [a-f0-9]\{10\}"
+
 GIT_TEXT=$(git ls-remote -q https://github.com/openwall/john.git HEAD | cut -c 1-40)
-WIN_TEXT=$(grep -m1 'Version: 1.9.0-jumbo-1+bleeding' winX64_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
-FLATPAK_TEXT=$(grep -m1 '1.9.0-jumbo-1+bleeding' flatpak_2_buildlog.txt | sed -e "s|.*Ripper \(.*\).*|\1|" | cut -f1-4 -d' ')
-MAC1_TEXT=$(grep -m1 --text 'Version: 1.9.0-jumbo-1+bleeding' macOS-ARM_2_buildlog.txt   | sed -e "s|.*Version: \(.*\).*|\1|")
+JOHN_PACKAGES_GIT=$(git ls-remote -q https://github.com/openwall/john-packages.git HEAD | cut -c 1-40)
+WINDOWS_TEXT=$(grep -m1 --text "$BINARY_ID" winX64_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
+FLATPAK_TEXT=$(grep -m1 --text "$BINARY_ID" flatpak_2_buildlog.txt | sed -e "s|.*Ripper \(.*\).*|\1|" | cut -f1-4 -d' ')
+MACOSM1_TEXT=$(grep -m1 --text "$BINARY_ID" macOS-ARM_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
 
 # Create the contents of the log file
 echo "The release date is $(date). I'm Azure on behalf of Claudio." >  $LOG_FILE
 echo "=================================================================================" >> $LOG_FILE
-echo "Git bleeding repository is at: $GIT_TEXT" >> $LOG_FILE
-echo "Windows is at: $WIN_TEXT" >> $LOG_FILE
-echo "Mac ARM is at: $MAC1_TEXT" >> $LOG_FILE
+echo "Upstream git repository is at: $GIT_TEXT" >> $LOG_FILE
+echo "Upstream john-packages is at: $JOHN_PACKAGES_GIT" >> $LOG_FILE
+echo "Windows is at: $WINDOWS_TEXT" >> $LOG_FILE
+echo "Mac ARM is at: $MACOSM1_TEXT" >> $LOG_FILE
 echo "Flatpak is at: $FLATPAK_TEXT" >> $LOG_FILE
 echo "Release ID is: $ID" >> $LOG_FILE
 
