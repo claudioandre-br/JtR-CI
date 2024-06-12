@@ -99,10 +99,6 @@ git add run/john-local.conf -f
 # Save the resulting state
 git commit -a -m "CI: run regular procedures $(date)"
 
-# Clean up
-rm -f get_tests.sh
-rm -f disable_formats.sh
-
 if [[ $1 == '--release' ]]; then
     echo
     echo 'We are going to do a release!'
@@ -121,3 +117,6 @@ fi
 if [[ -n "$MESSAGE" ]]; then
     git commit -a -m "$MESSAGE"
 fi
+# Clean up
+rm -f get_tests.sh
+rm -f disable_formats.sh

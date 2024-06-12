@@ -49,3 +49,6 @@ cd patches && sha256sum ./* >> ../requirements.hash && cd -
 
 # Save the resulting state
 git commit -a --signoff -m "release: set new 'pin commit' value to \`${TO:0:7}\`"
+
+# Clean up
+rm -f make-pin_commit.sh
