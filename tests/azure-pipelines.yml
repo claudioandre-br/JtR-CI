@@ -190,11 +190,11 @@ stages:
   displayName: Delivery
   dependsOn: basic
   jobs:
-  - job: Windows_2019
-    displayName: Windows 2019
+  - job: Build
+    displayName: Build Package
     timeoutInMinutes: "0"
     pool:
-      vmImage: 'windows-2019'
+      vmImage: 'windows-2022'
     variables:
       - template: .azure/windows-variables.yml
 
@@ -216,8 +216,8 @@ stages:
   displayName: Check Deploy
   dependsOn: delivery
   jobs:
-  - job: Windows_2019
-    displayName: Windows 2019
+  - job: Validate
+    displayName: Validate Package
     pool:
       vmImage: 'windows-2019'
     variables:
