@@ -106,6 +106,11 @@ if [[ $1 == '--release' ]]; then
     MESSAGE="CI: package for Windows $(date)"
 fi
 
+if [[ -n "$MESSAGE" ]]; then
+    git commit -a -m "$MESSAGE"
+    shift
+fi
+
 if [[ $1 == '--test-all-archs' ]]; then
     echo
     echo 'Run extra architectures test!'
