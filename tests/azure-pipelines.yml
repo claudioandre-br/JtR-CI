@@ -216,8 +216,8 @@ stages:
   displayName: Check Deploy
   dependsOn: delivery
   jobs:
-  - job: Validate
-    displayName: Validate Package
+  - job: Validate_19
+    displayName: Validate 2019
     pool:
       vmImage: 'windows-2019'
     variables:
@@ -233,8 +233,8 @@ stages:
             johnBinary: 'john'
             johnDirectory: $(System.ArtifactsDirectory)\JtR\run
 
-  - job: Windows_2022
-    displayName: Windows 2022
+  - job: Validate_22
+    displayName: Validate 2022
     pool:
       vmImage: 'windows-2022'
     variables:
