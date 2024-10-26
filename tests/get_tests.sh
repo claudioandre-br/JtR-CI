@@ -100,6 +100,7 @@ git add run/john-local.conf -f
 git commit -a -m "CI: run regular procedures $(date)"
 
 if [[ $1 == '--release' ]]; then
+    shift
     echo
     echo 'We are going to do a release!'
     sed -i 's/${{ if false }}/${{ if true }}/g' azure-pipelines.yml
@@ -108,20 +109,8 @@ fi
 
 if [[ -n "$MESSAGE" ]]; then
     git commit -a -m "$MESSAGE"
-    shift
 fi
 
-if [[ $1 == '--test-all-archs' ]]; then
-    echo
-    echo 'Run extra architectures test!'
-    touch run-CI.patch
-    git add -f run-CI.patch
-    MESSAGE="tests: check on non-X86 $(date)"
-fi
-
-if [[ -n "$MESSAGE" ]]; then
-    git commit -a -m "$MESSAGE"
-fi
 # Clean up
 rm -f get_tests.sh
 rm -f disable_formats.sh
