@@ -76,6 +76,12 @@ echo 'argon2-opencl = Y' >> ../run/john-local.conf # Very slow format
 # Done.
 # run_tests.sh: line 266:  6155 Segmentation fault      (core dumped) $JTR_BIN -test-full=0 --format=opencl
 
+# OpenCL Intel CPU on Azure
+# Testing: streebog256crypt-opencl, Astra Linux $gost12256hash$ (rounds=5000) [GOST R 34.11-2012 OpenCL]... run_tests.sh: line 304:  6476 Killed                  "$JTR_BIN" -test-full=0 --format=opencl
+echo 'streebog256crypt-opencl = Y' >> ../run/john-local.conf
+echo 'streebog512crypt-opencl = Y' >> ../run/john-local.conf
+echo 'gost94crypt-opencl = Y' >> ../run/john-local.conf
+
 # TS OpenCL
 # OpenCL descrypt builds for all 4096 salts, it is unusable inside CI
 rm -rf opencl_rar_fmt_plug.c racf_fmt_plug.c opencl_wpapsk_fmt_plug.c \
