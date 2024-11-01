@@ -40,7 +40,7 @@ if [[ $1 == '--run-test' || $1 == '--test-launchpad' ]]; then
     echo 'Run extra architectures test!'
     touch run-CI.patch
     git add -f run-CI.patch
-    do_Commit "tests: check on non-X86 $(date)"
+    do_Commit "test: check on non-X86 $(date)"
 fi
 
 if [[ $1 == '--release' ]]; then
@@ -71,7 +71,7 @@ if [[ $1 == '--release' ]]; then
 #   "color": "#edca05"
     git add -f ./deploy/docker.json
     git add -f ./deploy/snap.json
-    do_Commit "deploy: add information about the test packages"
+    do_Commit "ci: document the date of the test packages"
 fi
 
 if [[ $1 == '--make-pin_commit' ]]; then
@@ -101,7 +101,7 @@ if [[ $1 == '--make-pin_commit' ]]; then
     cd scripts && sha256sum ./*.sh > ../requirements.hash  && cd - && \
     cd patches && sha256sum ./* >> ../requirements.hash && cd -
 
-    do_Commit "release: set new 'pin commit' value to \`${TO:0:7}\`"
+    do_Commit "ci: set the value of 'pin commit' to \`${TO:0:7}\`"
 fi
 
 # Clean up
