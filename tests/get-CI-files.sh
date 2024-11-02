@@ -77,7 +77,8 @@ LOG_FILE="Created-on_$(date +%Y-%m-%d).txt"
 # Get the version string
 ID=$(curl -s https://raw.githubusercontent.com/openwall/john-packages/release/deploy/Release.ID 2>/dev/null | tr -d '\n')
 
-BINARY_ID="1.10.0-ce [a-f0-9]\{10\}"
+BINARY_ID="1.9.1-ce [a-f0-9]\{10\}"
+BINARY_ID="1.9.0-jumbo-1+bleeding-[a-f0-9]\{10\}"
 
 GIT_TEXT=$(git ls-remote -q https://github.com/openwall/john.git HEAD | cut -c 1-40)
 JOHN_PACKAGES_GIT=$(git ls-remote -q https://github.com/openwall/john-packages.git HEAD | cut -c 1-40)
