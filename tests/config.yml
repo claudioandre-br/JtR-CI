@@ -140,7 +140,7 @@ jobs:
             wget https://github.com/openwall/john-packages/releases/download/bleeding/flatpak_1_JtR.zip
             unzip flatpak_1_JtR.zip
             sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-            sudo flatpak install -y flathub org.freedesktop.Platform//23.08
+            sudo flatpak install -y flathub org.freedesktop.Platform//24.08
             flatpak install --user -y --bundle john.flatpak
       - run:
           name: System Information
