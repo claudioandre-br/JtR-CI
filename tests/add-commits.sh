@@ -38,8 +38,8 @@ if [[ $1 == '--run-test' || $1 == '--test-launchpad' ]]; then
     shift
     echo
     echo 'Run extra architectures test!'
-    touch run-CI.patch
-    git add -f run-CI.patch
+    touch patches/run-CI.patch
+    git add -f patches/run-CI.patch
     do_Commit "test: check on non-X86 $(date)"
 fi
 
