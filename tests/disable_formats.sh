@@ -38,10 +38,6 @@ echo 'dmg = Y' >> ../run/john-local.conf
 echo 'adxcrypt = Y' >> ../run/john-local.conf
 echo 'encfs = Y' >> ../run/john-local.conf
 
-echo 'raw-BLAKE2 = Y' >> ../run/john-local.conf  #BLAKE2
-echo 'argon2 = Y' >> ../run/john-local.conf      #BLAKE2
-echo 'tezos = Y' >> ../run/john-local.conf       #BLAKE2
-
 echo 'RACF-KDFAES = Y' >> ../run/john-local.conf             #SLOW
 echo 'RAR = Y' >> ../run/john-local.conf                     #SLOW
 echo 'wpapsk-opencl = Y' >> ../run/john-local.conf           #SLOW
