@@ -82,20 +82,21 @@ echo 'streebog256crypt-opencl = Y' >> ../run/john-local.conf
 echo 'streebog512crypt-opencl = Y' >> ../run/john-local.conf
 echo 'gost94crypt-opencl = Y' >> ../run/john-local.conf
 
+#########################################################################
 # TS OpenCL
 # OpenCL descrypt builds for all 4096 salts, it is unusable inside CI
-rm -rf opencl_rar_fmt_plug.c racf_fmt_plug.c opencl_wpapsk_fmt_plug.c \
-       opencl_mscash_fmt_plug.c opencl_mscash2_fmt_plug.c \
-       opencl_rawsha512_fmt_plug.c opencl_xsha512_fmt_plug.c \
-       opencl_DES_fmt_plug.c opencl_DES_bs_plug.c \
-       opencl_DES_bs_b_plug.c opencl_DES_bs_f_plug.c opencl_DES_bs_h_plug.c \
-       opencl_krb5pa-md5_fmt_plug.c
-       #opencl_ntlmv2_fmt_plug.c opencl_nt_fmt_plug.c
+# rm -rf opencl_rar_fmt_plug.c racf_fmt_plug.c opencl_wpapsk_fmt_plug.c \
+#        opencl_mscash_fmt_plug.c opencl_mscash2_fmt_plug.c \
+#        opencl_rawsha512_fmt_plug.c opencl_xsha512_fmt_plug.c \
+#        opencl_DES_fmt_plug.c opencl_DES_bs_plug.c \
+#        opencl_DES_bs_b_plug.c opencl_DES_bs_f_plug.c opencl_DES_bs_h_plug.c \
+#        opencl_krb5pa-md5_fmt_plug.c
 
-# TS --internal
-rm -rf adxcrypt_fmt_plug.c pbkdf2-hmac-md4_fmt_plug.c \
-       pbkdf2-hmac-md5_fmt_plug.c phpassMD5_fmt_plug.c opencl_keepass_fmt_plug.c \
-       opencl_pbkdf2_hmac_md4_fmt_plug.c opencl_pbkdf2_hmac_md5_fmt_plug.c \
-       opencl_bitlocker_fmt_plug.c opencl_bf_fmt_plug.c opencl_o5logon_fmt_plug.c \
-       opencl_rawsha1_fmt_plug.c opencl_rawmd4_fmt_plug.c opencl_rawmd5_fmt_plug.c \
-       opencl_mysqlsha1_fmt_plug.c
+# # TS --internal
+# rm -rf adxcrypt_fmt_plug.c pbkdf2-hmac-md4_fmt_plug.c \
+#        pbkdf2-hmac-md5_fmt_plug.c phpassMD5_fmt_plug.c opencl_keepass_fmt_plug.c \
+#        opencl_pbkdf2_hmac_md4_fmt_plug.c opencl_pbkdf2_hmac_md5_fmt_plug.c \
+#        opencl_bitlocker_fmt_plug.c opencl_bf_fmt_plug.c opencl_o5logon_fmt_plug.c \
+#        opencl_rawsha1_fmt_plug.c opencl_rawmd4_fmt_plug.c opencl_rawmd5_fmt_plug.c \
+#        opencl_mysqlsha1_fmt_plug.c
+# #########################################################################
