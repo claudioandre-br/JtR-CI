@@ -68,9 +68,14 @@ echo 'pfx-opencl = Y' >> ../run/john-local.conf
 # Intel OpenCL CPU driver
 echo 'argon2-opencl = Y' >> ../run/john-local.conf # Very slow format
 
-# Kernel <lotus5> was successfully vectorized (8)
-# Done.
-# run_tests.sh: line 266:  6155 Segmentation fault      (core dumped) $JTR_BIN -test-full=0 --format=opencl
+# SunMD5 on aarch64 and M1
+# :: Testing: SunMD5 [MD5 128/128 ASIMD 4x2]... (4xOMP) *** stack smashing detected ***: terminated
+# :: *** stack smashing detected ***: terminated
+# :: *** stack smashing detected ***: terminated
+# :: run_tests.sh: line 97: 24449 Aborted                 (core dumped) "$JTR_BIN" -test-full=0 --format=cpu
+if [[ "$(uname -m)" == "aarch64" ]]; then
+       echo 'SunMD5 = Y' >> ../run/john-local.conf
+fi
 
 # OpenCL Intel CPU on Azure
 # Testing: streebog256crypt-opencl, Astra Linux $gost12256hash$ (rounds=5000) [GOST R 34.11-2012 OpenCL]... run_tests.sh: line 304:  6476 Killed                  "$JTR_BIN" -test-full=0 --format=opencl
