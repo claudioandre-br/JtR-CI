@@ -47,6 +47,10 @@ echo 'pgpdisk-opencl = Y' >> ../run/john-local.conf #FAILED (cmp_all(49)) Intel 
 echo 'krb5tgs-opencl = Y' >> ../run/john-local.conf
 echo 'pfx-opencl = Y' >> ../run/john-local.conf
 
+#Testing: mscash2-opencl, MS Cache Hash 2 (DCC2) [PBKDF2-SHA1 OpenCL]... run_tests.sh: line 304:  6634 Segmentation fault
+#      (core dumped) "$JTR_BIN" -test-full=0 --format=opencl
+echo 'mscash2-opencl = Y' >> ../run/john-local.conf
+
 # Intel OpenCL CPU driver
 echo 'argon2-opencl = Y' >> ../run/john-local.conf # Very slow format
 
