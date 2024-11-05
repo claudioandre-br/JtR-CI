@@ -10,7 +10,7 @@
 #                                                       | |   | |
 #                                                       |_|   |_|
 #
-# Copyright (c) 2019-2024 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2024 Claudio André <dev at claudioandre.slmail.me>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -33,11 +33,7 @@ rm -rf .travis.yml appveyor.yml .travis/ .circleci/ .github/workflows/ci.yml
 mkdir -p .azure/
 mkdir -p .ci/
 mkdir -p .circleci/
-mkdir -p .travis/
 mkdir -p .github/workflows
-
-# Script that disable formats
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/disable_formats.sh
 
 # AppVeyor CI YAML file
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/appveyor.yml
@@ -66,30 +62,28 @@ wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/azure
 wget https://raw.githubusercontent.com/openwall/john-packages/release/deploy/Windows-Delivery.yml    \
   -O .azure/windows-build-to-delivery.yml
 
-# Travis CI YAML file and scripts
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/.travis.yml
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/CI-tests.sh   -P .travis/
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/travis-ci.sh  -P .travis/
+# GitHub Actions YAML file and scripts
+wget https://raw.githubusercontent.com/openwall/john-packages/release/deploy/Solaris-Delivery.yml   -O .github/workflows/solaris.yml
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/ts.yml                   -O .github/workflows/ts.yml
 
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/helper.sh     -P .ci/
 wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/tests-ci.sh   -P .ci/
 
-# GitHub Actions YAML file and scripts
-wget https://raw.githubusercontent.com/openwall/john-packages/release/deploy/Solaris-Delivery.yml   -O .github/workflows/main.yml
+# Script that disable formats
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/master/tests/disable_formats.sh
 
 chmod +x disable_formats.sh
-chmod +x .travis/CI-tests.sh
-chmod +x .travis/travis-ci.sh
 chmod +x .ci/tests-ci.sh
+chmod +x .ci/helper.sh
 
 git add .azure/
 git add .ci/
 git add .circleci/
 git add .cirrus.yml
-git add .travis.yml
-git add .travis/
 git add appveyor.yml
 git add azure-pipelines.yml
-git add .github/workflows/main.yml
+git add .github/workflows/solaris.yml
+git add .github/workflows/ts.yml
 
 # Ban all problematic formats (disable buggy formats)
 # If a formats fails its tests on super, I will burn it.

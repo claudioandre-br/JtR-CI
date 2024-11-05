@@ -10,7 +10,7 @@
 #                                                       | |   | |
 #                                                       |_|   |_|
 #
-# Copyright (c) 2019-2023 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2024 Claudio André <dev at claudioandre.slmail.me>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -45,6 +45,20 @@ fi
 TASK_RUNNING="$2"
 wget https://raw.githubusercontent.com/openwall/john-packages/release/scripts/show_info.sh -O show_info.sh
 source show_info.sh
+
+function do_TS_Setup(){
+    echo
+    echo '-- Test Suite set up --'
+
+    # Prepare environment
+    cd .. || exit 1
+    git clone --depth 1 https://github.com/openwall/john-tests tests
+    cd tests || exit 1
+
+    export PERL_MM_USE_DEFAULT=1
+    (echo y;echo o conf prerequisites_policy follow;echo o conf commit)| sudo cpan
+    sudo cpan install Digest::MD5
+}
 
 function do_build () {
     set -e
@@ -170,4 +184,21 @@ elif [[ $2 == "TEST" ]]; then
 
     wget https://raw.githubusercontent.com/openwall/john-packages/release/scripts/run_tests.sh -O run_tests.sh
     source run_tests.sh
+
+elif [[ "$TEST" == *"TS"* ]]; then
+    # Test Suite set up
+    do_TS_Setup
+
+    if [[ "$TEST" == *"TS --restore;"* ]]; then
+        ./jtrts.pl --restore
+
+    elif [[ "$TEST" == *"TS --internal;"* ]]; then
+        ./jtrts.pl -noprelims -internal enabled
+    else
+        if [[ "$TEST" != *";OPENCL;"* ]]; then
+            ./jtrts.pl -dynamic none
+        else
+            ./jtrts.pl -noprelims -type opencl
+        fi
+    fi
 fi

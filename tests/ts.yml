@@ -1,0 +1,109 @@
+###############################################################################
+#        _       _             _   _            _____  _
+#       | |     | |           | | | |          |  __ \(_)
+#       | | ___ | |__  _ __   | |_| |__   ___  | |__) |_ _ __  _ __   ___ _ __
+#   _   | |/ _ \| '_ \| '_ \  | __| '_ \ / _ \ |  _  /| | '_ \| '_ \ / _ \ '__|
+#  | |__| | (_) | | | | | | | | |_| | | |  __/ | | \ \| | |_) | |_) |  __/ |
+#   \____/ \___/|_| |_|_| |_|  \__|_| |_|\___| |_|  \_\_| .__/| .__/ \___|_|
+#                                                       | |   | |
+#                                                       |_|   |_|
+#
+# Copyright (c) 2019-2024 Claudio André <dev at claudioandre.slmail.me>
+#
+# This program comes with ABSOLUTELY NO WARRANTY; express or implied.
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, as expressed in version 2, seen at
+# http://www.gnu.org/licenses/gpl-2.0.html
+###############################################################################
+
+---
+name: TS Suite Testing
+
+"on":
+  workflow_dispatch:
+
+jobs:
+  TS:
+    runs-on: ubuntu-latest
+    env:
+      CC: gcc
+      TARGET: x86_64
+      TEST: "TS;"
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Dependencies
+      run: |
+        .ci/install-dependencies.sh
+        source .ci/helper.sh
+
+    - name: Build
+      run: |
+        source .ci/helper.sh
+        do_Edit_Configuration
+        .ci/run-build-and-tests.sh
+
+    - name: Test
+      run: |
+        source .ci/helper.sh
+        export MUTE_SYS_INFO=1
+        do_Disable_Formats regular
+        .ci/tests-ci.sh
+
+  TS-opencl:
+    runs-on: ubuntu-latest
+    env:
+      CC: gcc
+      TARGET: x86_64
+      TEST: "TS;OPENCL;"
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Dependencies
+      run: |
+        .ci/install-dependencies.sh
+        source .ci/helper.sh
+        do_Install_OpenCL
+
+    - name: Build
+      run: |
+        source .ci/helper.sh
+        do_Edit_Configuration
+        .ci/run-build-and-tests.sh
+
+    - name: Test
+      run: |
+        source .ci/helper.sh
+        export MUTE_SYS_INFO=1
+        do_Disable_Formats opencl
+        .ci/tests-ci.sh
+
+  TS-internal:
+    runs-on: ubuntu-latest
+    env:
+      CC: gcc
+      TARGET: x86_64
+      TEST: "TS --internal;"
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Dependencies
+      run: |
+        .ci/install-dependencies.sh
+        source .ci/helper.sh
+        do_Install_OpenCL
+
+    - name: Build
+      run: |
+        source .ci/helper.sh
+        do_Edit_Configuration
+        .ci/run-build-and-tests.sh
+
+    - name: Test
+      run: |
+        source .ci/helper.sh
+        export MUTE_SYS_INFO=1
+        do_Disable_Formats internal
+        .ci/tests-ci.sh
