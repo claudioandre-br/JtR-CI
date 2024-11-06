@@ -189,6 +189,12 @@ elif [[ "$TEST" == *"TS"* ]]; then
     # Test Suite set up
     do_TS_Setup
 
+    if [[ "$TEST" == *";OPENCL;"* ]]; then
+        # Show OpenCL info
+        ../run/john --list=opencl-devices
+    fi
+    ../run/john --list=build-info
+
     if [[ "$TEST" == *"TS --restore;"* ]]; then
         ./jtrts.pl --restore
 

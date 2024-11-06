@@ -85,7 +85,7 @@ jobs:
     env:
       CC: gcc
       TARGET: x86_64
-      TEST: "TS --internal;"
+      TEST: "TS --internal;OPENCL;"
 
     steps:
     - uses: actions/checkout@v4
