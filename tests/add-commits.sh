@@ -34,15 +34,6 @@ do_Commit () {
 # Move to the right branch
 git checkout release || exit 1
 
-if [[ $1 == '--run-test' || $1 == '--test-launchpad' ]]; then
-    shift
-    echo
-    echo 'Run extra architectures test!'
-    touch patches/run-CI.patch
-    git add -f patches/run-CI.patch
-    do_Commit "test: check on non-X86 $(date)"
-fi
-
 if [[ $1 == '--release' ]]; then
     shift
     echo
@@ -72,6 +63,15 @@ if [[ $1 == '--release' ]]; then
     git add -f ./deploy/docker.json
     git add -f ./deploy/snap.json
     do_Commit "ci: document the date of the test packages"
+fi
+
+if [[ $1 == '--run-test' || $1 == '--test-launchpad' ]]; then
+    shift
+    echo
+    echo 'Run extra architectures test!'
+    touch patches/run-CI.patch
+    git add -f patches/run-CI.patch
+    do_Commit "test: check on non-X86 $(date)"
 fi
 
 if [[ $1 == '--make-pin_commit' ]]; then
