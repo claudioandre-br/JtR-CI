@@ -127,7 +127,7 @@ jobs:
       image: ubuntu-2204:current
     environment:
       OMP_NUM_THREADS: 2
-      TEST: ";full;extra;"
+      TEST: ";full;extra;OpenCL-info;"
       arch: "x86_64"
       JTR_BIN: "john"
       FLATPAK: "true"
