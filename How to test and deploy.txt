@@ -8,10 +8,12 @@ Deployment Process:
   - check if the Windows build log uses the code 128.
 
 In john repository:
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/main/tests/get_tests.sh; chmod +x get_tests.sh; ./get_tests.sh
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/main/tests/get_tests.sh   -O get_tests.sh; chmod +x get_tests.sh;
+./get_tests.sh # --release
 
 In john-packages repository:
-wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/main/tests/make-pin_commit.sh; chmod +x make-pin_commit.sh; ./make-pin_commit.sh; rm -f make-pin_commit.sh
+wget https://raw.githubusercontent.com/claudioandre-br/JtR-CI/main/tests/add-commits.sh -O add-commits.sh; chmod +x add-commits.sh;
+./add-commits.sh # --release --run-test --make-pin_commit
 
 To compile the Windows binaries that can be used in a release:
 ./get_tests.sh --release
