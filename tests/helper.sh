@@ -61,6 +61,7 @@ function do_Disable_Formats(){
             argon2-opencl
             bcrypt-opencl
             descrypt-opencl
+            keepass-argon2-opencl
             krb5tgs-opencl
             lm-opencl
             o5logon-opencl
