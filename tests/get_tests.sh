@@ -21,9 +21,15 @@
 ###############################################################################
 
 #Check to assure we are in the right place
-if [[ ! -d src || ! -d run ]] && [[ $1 != "-f" ]]; then
+if [[ ! -d src || ! -d run ]]; then
     echo
-    echo 'It seems you are in the wrong directory. To ignore this message, add -f to the command line.'
+    echo 'It seems you are in the wrong directory.'
+    exit 1
+fi
+
+if [[ -f .cirrus.yml ]]; then
+    echo
+    echo 'You do not seem to have a clean working folder.'
     exit 1
 fi
 
