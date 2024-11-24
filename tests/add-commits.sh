@@ -34,7 +34,16 @@ do_Commit () {
 # Move to the right branch
 git checkout release || exit 1
 
-if [[ $1 == '--release' ]]; then
+if [[ "$1" == "--release"* ]]; then
+    if [[ "$1" == "--release="* ]]; then
+        label="$(echo "$1" | cut -d '=' -f 2-)"
+        message="Deploying"
+        color="#edca05"
+    else
+        label="$(date '+%Y%m%d.1')"
+        message="Deployed"
+        color="#17781c"
+    fi
     shift
     echo
     echo 'Update test packages information!'
@@ -42,26 +51,31 @@ if [[ $1 == '--release' ]]; then
 	cat <<-EOF >./deploy/docker.json
 {
   "schemaVersion": 1,
-  "label": "$(date '+%Y%m%d.1')",
-  "message": "Deployed",
-  "color": "#17781c"
+  "label": "$label",
+  "message": "$message",
+  "color": "$color"
 }
 	EOF
 
 	cat <<-EOF >./deploy/snap.json
 {
   "schemaVersion": 1,
-  "label": "$(date '+%Y%m%d.1')",
-  "message": "Deployed",
-  "color": "#17781c"
+  "label": "$label",
+  "message": "$message",
+  "color": "$color"
 }
 	EOF
 
-#   "label": "20241026.1",
-#   "message": "Deploying",
-#   "color": "#edca05"
-    git add -f ./deploy/docker.json
-    git add -f ./deploy/snap.json
+	cat <<-EOF >./deploy/windows.json
+{
+  "schemaVersion": 1,
+  "label": "$label",
+  "message": "$message",
+  "color": "$color"
+}
+	EOF
+
+    git add -f ./deploy/*.json
     do_Commit "ci: document the date of the test packages"
 fi
 
