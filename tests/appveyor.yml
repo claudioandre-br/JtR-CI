@@ -37,7 +37,7 @@ environment:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       arch: x86_64
       bits: 64
-      doing: test
+      doing: deploy
       test: yes
       location: cygwin64
     #  cygwin: install (not needed after Dec 2019)
