@@ -50,6 +50,18 @@ install:
   - echo '--------------------------------'
 
   - cd %BUILD_FOLDER%
+  - ps: |
+      if (git log -1 --oneline | Select-String -Pattern "CI: " -Quiet) {
+        Write-Host "Removing testing commits"
+        git reset --hard HEAD~1
+      }
+
+  - ps: |
+      if (git log -1 --oneline | Select-String -Pattern "CI: " -Quiet) {
+        Write-Host "Removing testing commits"
+        git reset --hard HEAD~1
+      }
+
   - git describe --dirty=+ --always 2>nul > __git.tmp
   - set /p gitDescribe=<__git.tmp
   - appveyor UpdateBuild -Version "1.9J2-%gitDescribe%"
@@ -225,21 +237,21 @@ test_script:
 
 after_test:
   # Remove the left-over from testing
-  - del john.log
-  - del john.pot
-  - del john-local.conf
+  - del /f /q john.log
+  - del /f /q john.pot
+  - del /f /q john-local.conf
 
   # Remove unused/unneeded stuff
   - rmdir "%JTR_FOLDER%\run\ztex" /s /Q
 
   # Remove hidden .name files and folders
-  - if NOT "%test%" == "package" del "%JTR_FOLDER%\azure-pipelines.yml"
-  - if NOT "%test%" == "package" del "%JTR_FOLDER%\.cirrus.yml"
-  - del "%JTR_FOLDER%\.editorconfig"
-  - del "%JTR_FOLDER%\.gitattributes"
-  - del "%JTR_FOLDER%\.gitignore"
-  - del "%JTR_FOLDER%\.mailmap"
-  - del "%JTR_FOLDER%\.pre-commit.sh"
+  - if NOT "%test%" == "package" del /f /q "%JTR_FOLDER%\azure-pipelines.yml"
+  - if NOT "%test%" == "package" del /f /q "%JTR_FOLDER%\.cirrus.yml"
+  - del /f /q "%JTR_FOLDER%\.editorconfig"
+  - del /f /q "%JTR_FOLDER%\.gitattributes"
+  - del /f /q "%JTR_FOLDER%\.gitignore"
+  - del /f /q "%JTR_FOLDER%\.mailmap"
+  - del /f /q "%JTR_FOLDER%\.pre-commit.sh"
 
   - if NOT "%test%" == "package" rmdir "%JTR_FOLDER%\.azure"    /s /Q
   - rmdir "%JTR_FOLDER%\.ci"       /s /Q
