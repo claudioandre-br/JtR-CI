@@ -41,6 +41,7 @@ jobs:
         environment:
           TARGET_ARCH: "NIX"
           EXTRA: "full;extra;crack;"
+          BUILD_OPTS: "--enable-werror"
           OMP_NUM_THREADS: 2
 
   linux-Fedora:
@@ -50,6 +51,7 @@ jobs:
         environment:
           TARGET_ARCH: "NIX"
           EXTRA: "full;extra;crack;"
+          BUILD_OPTS: "--enable-werror"
           OMP_NUM_THREADS: 2
 
   make-check:
@@ -69,7 +71,7 @@ jobs:
         environment:
           TARGET_ARCH: "NIX"
           EXTRA: "full;extra;crack;"
-          BUILD_OPTS: "--disable-openmp" # disabled temporarily -enable-werror
+          BUILD_OPTS: "--enable-werror --disable-openmp"
 
   no-simd:
     <<: *common_linux
@@ -78,7 +80,7 @@ jobs:
         environment:
           TARGET_ARCH: "NIX"
           EXTRA: "full;extra;crack;"
-          BUILD_OPTS: "-enable-werror --disable-simd"
+          BUILD_OPTS: "--enable-werror --disable-simd"
           OMP_NUM_THREADS: 2
 
   no-simd-omp:
@@ -88,7 +90,7 @@ jobs:
         environment:
           EXTRA: "full;extra;crack;"
           TARGET_ARCH: "NIX"
-          BUILD_OPTS: "-enable-werror --disable-simd --disable-openmp"
+          BUILD_OPTS: "--enable-werror --disable-simd --disable-openmp"
 
   omp-fast-formats:
     <<: *common_linux
@@ -97,7 +99,7 @@ jobs:
         environment:
           TARGET_ARCH: "NIX"
           EXTRA: "full;extra;crack;"
-          BUILD_OPTS: "--enable-openmp-for-fast-formats --enable-simd=avx2" # disabled temporarily -enable-werror
+          BUILD_OPTS: "--enable-werror --enable-openmp-for-fast-formats --enable-simd=avx2"
           OMP_NUM_THREADS: 2
 
   simd-latest:

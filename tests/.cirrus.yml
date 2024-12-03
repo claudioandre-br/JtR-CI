@@ -37,7 +37,7 @@ freebsd_task:
   env:
     CIRRUS_CLONE_DEPTH: "10"
     CC: "clang"
-    BUILD_OPS: ""
+    BUILD_OPS: "--enable-werror"
     MAKE_FLAGS: "-sj4"
     TARGET_ARCH : "FreeBSD"
     EXTRA: "full;extra"

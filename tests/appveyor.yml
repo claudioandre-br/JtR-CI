@@ -137,7 +137,7 @@ build_script:
       shell "gcc -dM -E -x c /dev/null"
       echo '--------------------------------'
 
-      shell "./configure && make -s clean && make -sj2 && make -s strip && mv ../run/john ../run/john-best"
+      shell "./configure --enable-werror && make -s clean && make -sj2 && make -s strip && mv ../run/john ../run/john-best"
       $EXE_NAME = "john-best.exe"
 
       # The "windows-package" make target depends on default,

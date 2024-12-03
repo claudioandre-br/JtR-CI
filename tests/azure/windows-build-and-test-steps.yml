@@ -77,7 +77,7 @@ steps:
         #    + CategoryInfo          : NotSpecified: (ar: creating aes.a:String) [], RemoteException
         #    + FullyQualifiedErrorId : NativeCommandError
         # ####
-        shell "./configure --disable-opencl --enable-simd=avx2 && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-best"
+        shell "./configure --enable-werror --disable-opencl --enable-simd=avx2 && make -s clean && make -sj2 2>&1 && make -s strip && mv ../run/john ../run/john-best"
         $EXE_NAME = "john-best.exe"
 
         # The "windows-package" make target depends on default,
