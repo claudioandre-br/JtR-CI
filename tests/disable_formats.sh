@@ -70,3 +70,5 @@ echo 'streebog512crypt-opencl = Y' >> ../run/john-local.conf
 echo 'gost94crypt-opencl = Y' >> ../run/john-local.conf
 # Testing: KeePass-Argon2-opencl [BlaMka OpenCL]... run_tests.sh: line 304:  6619 Segmentation fault      (core dumped) "$JTR_BIN" -test-full=0 --format=opencl
 echo 'keepass-argon2-opencl = Y' >> ../run/john-local.conf
+# Testing: raw-SHA512-free-opencl [SHA512 OpenCL (inefficient, development use mostly)]... FAILED (cmp_all(49))
+echo 'raw-SHA512-free-opencl = Y' >> ../run/john-local.conf
