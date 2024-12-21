@@ -10,7 +10,7 @@
 #                                                       | |   | |
 #                                                       |_|   |_|
 #
-# Copyright (c) 2019-2023 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2024 Claudio André <dev at claudioandre.slmail.me>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -64,10 +64,6 @@ if [[ "$(uname -m)" == "aarch64" ]]; then
 fi
 
 # OpenCL Intel CPU on Azure
-# Testing: streebog256crypt-opencl, Astra Linux $gost12256hash$ (rounds=5000) [GOST R 34.11-2012 OpenCL]... run_tests.sh: line 304:  6476 Killed                  "$JTR_BIN" -test-full=0 --format=opencl
-echo 'streebog256crypt-opencl = Y' >> ../run/john-local.conf
-echo 'streebog512crypt-opencl = Y' >> ../run/john-local.conf
-echo 'gost94crypt-opencl = Y' >> ../run/john-local.conf
 # Testing: KeePass-Argon2-opencl [BlaMka OpenCL]... run_tests.sh: line 304:  6619 Segmentation fault      (core dumped) "$JTR_BIN" -test-full=0 --format=opencl
 echo 'keepass-argon2-opencl = Y' >> ../run/john-local.conf
 # Testing: raw-SHA512-free-opencl [SHA512 OpenCL (inefficient, development use mostly)]... FAILED (cmp_all(49))
