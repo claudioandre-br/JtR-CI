@@ -115,7 +115,7 @@ if [[ $1 == '--make-pin_commit' ]]; then
     cd scripts && sha256sum ./*.sh > ../requirements.hash  && cd - && \
     cd patches && sha256sum ./* >> ../requirements.hash && cd -
 
-    do_Commit "ci: set the value of 'pin commit' to \`${TO:0:7}\`"
+    do_Commit "ci: set value of 'pin commit' to \`${TO:0:7}\` (#9999)"
 fi
 
 # Clean up
