@@ -68,3 +68,5 @@ fi
 echo 'keepass-argon2-opencl = Y' >> ../run/john-local.conf
 # Testing: raw-SHA512-free-opencl [SHA512 OpenCL (inefficient, development use mostly)]... FAILED (cmp_all(49))
 echo 'raw-SHA512-free-opencl = Y' >> ../run/john-local.conf
+# Testing: XSHA512-free-opencl, Mac OS X 10.7+ [SHA512 OpenCL (efficient at "many salts" only)]... FAILED (cmp_all(49))
+echo 'XSHA512-free-opencl = Y' >> ../run/john-local.conf
