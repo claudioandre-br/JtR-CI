@@ -66,6 +66,25 @@ wget https://dev.azure.com/claudioandre-br/$AZURE_UID/_apis/build/builds/$AZURE_
 wget https://api.cirrus-ci.com/v1/artifact/github/claudioandre-br/JohnTheRipper/macOS%20M2/binaries/JtR-macArm.7z  -O macOS-ARM_1_JtR.7z
 wget https://api.cirrus-ci.com/v1/artifact/github/claudioandre-br/JohnTheRipper/macOS%20M2/binaries/JtR-macArm.zip -O macOS-ARM_1_JtR.zip
 
+GH_ID_RUN="13809836813"
+GH_ID_ARTIFACT="2736942789"
+
+curl -L --output /tmp/macOS-Intel_1_JtR.zip \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer $GH_PERSONAL_TOKEN" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  https://api.github.com/repos/claudioandre-br/john-packages/actions/artifacts/$GH_ID_ARTIFACT/zip
+
+curl -L --output /tmp/macOS-Intel_2_buildlog.zip \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer $GH_PERSONAL_TOKEN" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  https://api.github.com/repos/claudioandre-br/john-packages/actions/runs/$GH_ID_RUN/logs
+
+unzip /tmp/macOS-Intel_1_JtR.zip JtR-macX86.7z; mv JtR-macX86.7z macOS-Intel_1_JtR.7z
+unzip /tmp/macOS-Intel_1_JtR.zip JtR-macX86.zip; mv JtR-macX86.zip macOS-Intel_1_JtR.zip
+unzip /tmp/macOS-Intel_2_buildlog.zip 0_build.txt; mv 0_build.txt macOS-Intel_2_buildlog.txt
+
 wget https://api.cirrus-ci.com/v1/artifact/github/claudioandre-br/JohnTheRipper/macOS%20M2/id/Build._ID          -O Build._ID
 CIRRUS_JOB_ID=$(cat Build._ID | tr -d '\r')
 wget https://api.cirrus-ci.com/v1/task/$CIRRUS_JOB_ID/logs/build.log                                             -O macOS-ARM_2_buildlog.txt      # Real log
@@ -77,6 +96,7 @@ LOG_FILE="Created-on_$(date +%Y-%m-%d).txt"
 # Get the version string
 ID=$(curl -s https://raw.githubusercontent.com/openwall/john-packages/release/deploy/Release.ID 2>/dev/null | tr -d '\n')
 
+BINARY_ID="2.0.0 [a-f0-9]\{10\}"
 BINARY_ID="1.9.1-ce [a-f0-9]\{10\}"
 BINARY_ID="1.9.0-jumbo-1+bleeding-[a-f0-9]\{10\}"
 
@@ -85,6 +105,7 @@ JOHN_PACKAGES_GIT=$(git ls-remote -q https://github.com/openwall/john-packages.g
 WINDOWS_TEXT=$(grep -m1 --text "$BINARY_ID" winX64_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
 FLATPAK_TEXT=$(grep -m1 --text "$BINARY_ID" flatpak_2_buildlog.txt | sed -e "s|.*Ripper \(.*\).*|\1|" | cut -f1-4 -d' ')
 MACOSM1_TEXT=$(grep -m1 --text "$BINARY_ID" macOS-ARM_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
+MACOSIntel_TEXT=$(grep -m1 --text "$BINARY_ID" macOS-Intel_2_buildlog.txt | sed -e "s|.*Version: \(.*\).*|\1|")
 
 # Create the contents of the log file
 echo "The release date is $(date). I'm Azure on behalf of Claudio." >  $LOG_FILE
@@ -93,6 +114,7 @@ echo "Upstream git repository is at: $GIT_TEXT" >> $LOG_FILE
 echo "Upstream john-packages is at: $JOHN_PACKAGES_GIT" >> $LOG_FILE
 echo "Windows is at: $WINDOWS_TEXT" >> $LOG_FILE
 echo "Mac ARM is at: $MACOSM1_TEXT" >> $LOG_FILE
+echo "Mac Intel is : $MACOSIntel_TEXT" >> $LOG_FILE
 echo "Flatpak is at: $FLATPAK_TEXT" >> $LOG_FILE
 echo "Release ID is: $ID" >> $LOG_FILE
 
@@ -112,6 +134,8 @@ grep -woE  '*.{64}       D:\\a\\1\\JtR\\run\\john.exe' winX64_2_buildlog.txt  >>
 grep -woE  '*.{64}  john.flatpak' flatpak_2_buildlog.txt                      >> $LOG_FILE
 grep -woE  --text '*.{64}  JtR-macArm.7z' /tmp/macOS-ARM_2_buildlog.txt       >> $LOG_FILE
 grep -woE  --text '*.{64}  JtR-macArm.zip' /tmp/macOS-ARM_2_buildlog.txt      >> $LOG_FILE
+grep -woE  --text '*.{64}  JtR-macX86.7z' macOS-Intel_2_buildlog.txt          >> $LOG_FILE
+grep -woE  --text '*.{64}  JtR-macX86.zip' macOS-Intel_2_buildlog.txt         >> $LOG_FILE
 
 # Keep only the files that are going to be used by the release
 rm -f john.flatpak Build._ID
