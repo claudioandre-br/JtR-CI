@@ -92,16 +92,6 @@ jobs:
           TARGET_ARCH: "NIX"
           BUILD_OPTS: "--enable-werror --disable-simd --disable-openmp"
 
-  omp-fast-formats:
-    <<: *common_linux
-    docker:
-      - image: ghcr.io/openwall/john-ci:fedora.latest
-        environment:
-          TARGET_ARCH: "NIX"
-          EXTRA: "full;extra;crack;"
-          BUILD_OPTS: "--enable-werror --enable-openmp-for-fast-formats --enable-simd=avx2"
-          OMP_NUM_THREADS: 2
-
   simd-latest:
     <<: *common_linux
     docker:
@@ -169,10 +159,6 @@ workflows:
             - no-omp
 
       - linux-Fedora
-      - omp-fast-formats:
-          requires:
-            - linux-Fedora
-
       - extras:
           type: approval
       - simd-latest:
