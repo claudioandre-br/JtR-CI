@@ -59,7 +59,7 @@ echo 'argon2-opencl = Y' >> ../run/john-local.conf # Very slow format
 # :: *** stack smashing detected ***: terminated
 # :: *** stack smashing detected ***: terminated
 # :: run_tests.sh: line 97: 24449 Aborted                 (core dumped) "$JTR_BIN" -test-full=0 --format=cpu
-if [[ "$(uname -m)" == "aarch64" ]]; then
+if [[ "$(uname -m)" == "aarch64" || "$(uname -m)" == "armhf" || "$(uname -m)" == "ppc64el" ]]; then
        echo 'SunMD5 = Y' >> ../run/john-local.conf
 fi
 
