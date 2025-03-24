@@ -34,7 +34,6 @@ echo 'wpapsk-opencl = Y' >> ../run/john-local.conf           #SLOW
 echo 'wpapsk-pmk-opencl = Y' >> ../run/john-local.conf       #SLOW
 
 # Let's say these are fragile
-echo 'krb5pa-md5-opencl = Y' >> ../run/john-local.conf
 echo 'o5logon-opencl = Y' >> ../run/john-local.conf
 echo 'mscash-opencl = Y' >> ../run/john-local.conf
 echo 'salted_sha-opencl = Y' >> ../run/john-local.conf
