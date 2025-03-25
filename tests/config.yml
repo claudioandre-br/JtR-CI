@@ -83,6 +83,16 @@ jobs:
           BUILD_OPTS: "--enable-werror --disable-simd"
           OMP_NUM_THREADS: 2
 
+  cracking:
+    <<: *common_linux
+    docker:
+      - image: ghcr.io/openwall/john-ci:fedora.latest
+        environment:
+          EXTRA: "formats-crack-themselves;"
+          TARGET_ARCH: "NIX"
+          BUILD_OPTS: "--enable-werror"
+          OMP_NUM_THREADS: 2
+
   no-simd-omp:
     <<: *common_linux
     docker:
@@ -152,6 +162,9 @@ workflows:
       - linux-Ubuntu-Dev
       - make-check
       - no-simd
+      - cracking:
+          requires:
+            - no-simd
 
       - no-omp
       - no-simd-omp:
