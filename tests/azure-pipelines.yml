@@ -8,7 +8,7 @@
 #                                                       | |   | |
 #                                                       |_|   |_|
 #
-# Copyright (c) 2019-2022 Claudio André <claudioandre.br at gmail.com>
+# Copyright (c) 2019-2025 Claudio André <dev@claudioandre.slmail.me>
 #
 # This program comes with ABSOLUTELY NO WARRANTY; express or implied.
 #
@@ -54,12 +54,12 @@ stages:
     steps:
       - template: .azure/linux-ci.yml
 
-  - job: UBI_8
-    displayName: Red Hat Ubi 8
+  - job: Enterprise
+    displayName: Enterprise Linux
     pool:
       vmImage: 'ubuntu-latest'
     container:
-      image: ghcr.io/openwall/john-ci:redhat.ubi8
+      image: ghcr.io/openwall/john-ci:enterprise
     variables:
       TARGET_ARCH: "NIX"
       EXTRA: "full;extra;crack;"
